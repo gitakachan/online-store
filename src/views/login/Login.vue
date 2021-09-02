@@ -62,8 +62,11 @@ export default {
       const api = `${process.env.VUE_APP_API}admin/signin`; //https://vue3-course-api.hexschool.io/admin/signin
       this.axios.post(api, this.user).then((response) => {
         // console.log(response.data);
-        const { token, expired } = response.data;
-        document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+        if (response.data.success) {
+          const { token, expired } = response.data;
+          document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+          this.$router.push("/dashboard"); //登入成功就跳轉到dashboard
+        }
       });
     },
   },
