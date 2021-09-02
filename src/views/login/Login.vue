@@ -59,10 +59,11 @@ export default {
   },
   methods: {
     login() {
-      const api = `${process.env.VUE_APP_API}admin/signin`;
-      console.log(api);
+      const api = `${process.env.VUE_APP_API}admin/signin`; //https://vue3-course-api.hexschool.io/admin/signin
       this.axios.post(api, this.user).then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
+        const { token, expired } = response.data;
+        document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
       });
     },
   },
