@@ -1,9 +1,16 @@
 <template>
-  <div>dashboard</div>
+  <div>
+    <nav-bar></nav-bar>
+    <router-view></router-view>
+  </div>
 </template>
 <script>
+import NavBar from "./NavBar.vue";
 export default {
   name: "Dashboard",
+  components: {
+    NavBar,
+  },
   mounted() {
     //得到名为hexToken的cookie
     const token = document.cookie.replace(

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container mt-5">
     <div class="row">
       <div class="col col-md-8 mx-auto">
         <h1>登入：</h1>
@@ -65,7 +65,7 @@ export default {
         if (response.data.success) {
           const { token, expired } = response.data;
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-          this.$router.push("/dashboard"); //登入成功就跳轉到dashboard
+          this.$router.push("/dashboard/products"); //登入成功就跳轉到dashboard
         }
       });
     },

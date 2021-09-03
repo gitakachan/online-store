@@ -2,6 +2,8 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 
+import BootstrapJS from "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 import axios from "axios";
 import VueAxios from "vue-axios";
 
