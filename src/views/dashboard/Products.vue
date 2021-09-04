@@ -2,7 +2,8 @@
   <div>
     <div class="text-end my-2">
       <button
-        @click="$refs.productModal.showModal" 
+        :product="tempProduct"
+        @click="openModal"
         class=" btn btn-primary btn-sm"
         type="button"
       >
@@ -10,7 +11,10 @@
       </button>
     </div>
 
-    <product-modal ref="productModal"></product-modal>
+    <product-modal
+      @updateProduct="updateProduct"
+      ref="productModal"
+    ></product-modal>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -56,14 +60,18 @@ export default {
     return {
       products: [],
       pagination: {},
+      tempProduct: {},
     };
   },
   methods: {
+    openModal() {
+      this.tempProduct = {};
+      this.$refs.productModal.showModal();
+    },
     getProducts() {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products`;
       this.axios.get(api).then((response) => {
         if (response.data.success) {
-          console.log(response.data);
           this.products = response.data.products;
           this.pagination = response.data.pagination;
         }
@@ -79,6 +87,17 @@ export default {
     //     }
     //   });
     // },
+    updateProduct(item) {
+      this.tempProduct = item; //將內部傳來的參數存為tempProduct
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
+      this.axios.post(api, { data: this.tempProduct }).then((response) => {
+        if (response.data.success) {
+          this.$refs.productModal.showModal(); //關閉modal
+          this.getProducts(); //取得最新products資料
+        }
+        console.log(response.data.message); //false message
+      });
+    },
   },
   mounted() {
     this.getProducts();
