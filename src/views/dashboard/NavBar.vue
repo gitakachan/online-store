@@ -34,9 +34,8 @@ export default {
       this.axios
         .post(api)
         .then((response) => {
-          console.log(response);
           if (response.data.success) {
-            this.$router.push("/login");
+            this.$router.push("/login"); //登出成功跳轉至登入頁面
           }
         })
         .catch((e) => {

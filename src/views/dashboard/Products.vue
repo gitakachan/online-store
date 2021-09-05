@@ -2,8 +2,7 @@
   <div>
     <div class="text-end my-2">
       <button
-        :product="tempProduct"
-        @click="openModal"
+        @click="openModal(true)"
         class=" btn btn-primary btn-sm"
         type="button"
       >
@@ -12,6 +11,7 @@
     </div>
 
     <product-modal
+      :product="tempProduct"
       @updateProduct="updateProduct"
       ref="productModal"
     ></product-modal>
@@ -37,7 +37,10 @@
             <span v-else class="text-muted">未啟用</span>
           </td>
           <td>
-            <button class="btn btn-outline-success btn-sm m-1">
+            <button
+              @click="openModal(false, item)"
+              class="btn btn-outline-success btn-sm m-1"
+            >
               編輯
             </button>
 
@@ -61,11 +64,21 @@ export default {
       products: [],
       pagination: {},
       tempProduct: {},
+      isNew: false, //判斷是否為新增產品
     };
   },
   methods: {
-    openModal() {
-      this.tempProduct = {};
+    openModal(isNew, item) {
+      console.log(item);
+      if (isNew) {
+        //若為新增
+        this.tempProduct = {};
+      } else {
+        //若為編輯
+        this.tempProduct = { ...item };
+        console.log(this.tempProduct);
+      }
+      this.isNew = isNew;
       this.$refs.productModal.showModal();
     },
     getProducts() {
@@ -89,14 +102,25 @@ export default {
     // },
     updateProduct(item) {
       this.tempProduct = item; //將內部傳來的參數存為tempProduct
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
-      this.axios.post(api, { data: this.tempProduct }).then((response) => {
-        if (response.data.success) {
-          this.$refs.productModal.showModal(); //關閉modal
-          this.getProducts(); //取得最新products資料
+
+      //新增產品
+      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
+      let httpMethod = "post";
+
+      //編輯產品
+      if (!this.isNew) {
+        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
+        httpMethod = "put";
+      }
+      this.axios[httpMethod](api, { data: this.tempProduct }).then(
+        (response) => {
+          if (response.data.success) {
+            this.$refs.productModal.hideModal(); //關閉modal
+            this.getProducts(); //取得最新products資料
+          }
+          console.log(response.data.message);
         }
-        console.log(response.data.message); //false message
-      });
+      );
     },
   },
   mounted() {
