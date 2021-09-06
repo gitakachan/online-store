@@ -71,11 +71,11 @@ export default {
     openModal(isNew, item) {
       if (isNew) {
         //若為新增
-        this.tempProduct = {};
+        this.tempProduct = { imagesUrl: [] };
       } else {
         //若為編輯
-        this.tempProduct = { ...item };
-        console.log(this.tempProduct.imageUrl);
+        //this.tempProduct = { ...item };
+        this.tempProduct = JSON.parse(JSON.stringify(item)); //深拷貝 （imagesUrl為陣列，使item為多層物件）
       }
       this.isNew = isNew;
       this.$refs.productModal.showModal();

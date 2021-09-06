@@ -24,55 +24,6 @@
           </div>
           <div class="modal-body">
             <div class="row">
-              <div class="col-sm-4">
-                <div class="mb-3">
-                  <label for="image" class="form-label">輸入圖片網址</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="image"
-                    placeholder="請輸入圖片連結"
-                    v-model="tempProduct.imageUrl"
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="customFile" class="form-label"
-                    >或 上傳圖片
-                    <i class="fas fa-spinner fa-spin"></i>
-                  </label>
-                  <input
-                    type="file"
-                    id="customFile"
-                    class="form-control"
-                    @change="uploadFile"
-                    ref="fileInput"
-                    multiple
-                  />
-                </div>
-                <!-- 預覽圖片 -->
-                <img :src="tempProduct.imageUrl" class="img-fluid" alt="" />
-                <!-- 延伸技巧，多圖 -->
-                <!-- <div class="mt-5">
-                  <div class="mb-3 input-group">
-                    <input
-                      type="url"
-                      class="form-control form-control"
-                      placeholder="請輸入連結"
-                    />
-                    <button type="button" class="btn btn-outline-danger">
-                      移除
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      class="btn btn-outline-primary btn-sm d-block w-100"
-                    >
-                      新增圖片
-                    </button>
-                  </div>
-                </div> -->
-              </div>
-
               <div class="col-sm-8">
                 <div class="mb-3">
                   <label for="title" class="form-label fw-bold">標題*</label>
@@ -172,6 +123,106 @@
                   </div>
                 </div>
               </div>
+
+              <div class="col-sm-4">
+                <hr class="d-sm-none" />
+                <!-- 多圖 -->
+                <div>
+                  <h6>最多可選五張圖片</h6>
+                  <label for="image" class="form-label">輸入圖片網址</label>
+                  <div class="mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="image"
+                      placeholder="請輸入圖片連結"
+                      @change="addUrl($event)"
+                      :disabled="tempProduct.imagesUrl.length >= 5"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="customFile" class="form-label"
+                      >或 上傳圖片
+                      <i class="fas fa-spinner fa-spin"></i>
+                    </label>
+                    <input
+                      type="file"
+                      id="customFile"
+                      class="form-control"
+                      @change="uploadFile"
+                      ref="fileInput"
+                      multiple
+                      :disabled="tempProduct.imagesUrl.length >= 5"
+                    />
+                  </div>
+                  <div
+                    v-for="(item, index) in tempProduct.imagesUrl"
+                    :key="item"
+                    class="mb-3 input-group"
+                  >
+                    <input
+                      type="url"
+                      class="form-control form-control"
+                      placeholder="請輸入連結"
+                      @change="addUrl($event)"
+                      v-model="tempProduct.imagesUrl[index]"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-outline-danger"
+                      @click="removeImage(item)"
+                    >
+                      移除
+                    </button>
+                  </div>
+                  <!-- <div>
+                    <button
+                      class="btn btn-outline-primary btn-sm d-block w-100"
+                    >
+                      新增圖片
+                    </button>
+                  </div> -->
+                </div>
+                <!--<div class="mb-3">
+                 <label for="image" class="form-label">輸入圖片網址</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="image"
+                    placeholder="請輸入圖片連結"
+                    v-model="tempProduct.imageUrl"
+                  />
+                </div> -->
+
+                <!-- 預覽圖片 -->
+                <img
+                  v-for="item in tempProduct.imagesUrl"
+                  :key="item"
+                  :src="item"
+                  class="img-fluid mb-3"
+                  alt=""
+                />
+                <!-- 延伸技巧，多圖 -->
+                <!-- <div class="mt-5">
+                  <div class="mb-3 input-group">
+                    <input
+                      type="url"
+                      class="form-control form-control"
+                      placeholder="請輸入連結"
+                    />
+                    <button type="button" class="btn btn-outline-danger">
+                      移除
+                    </button>
+                  </div>
+                  <div>
+                    <button
+                      class="btn btn-outline-primary btn-sm d-block w-100"
+                    >
+                      新增圖片
+                    </button>
+                  </div>
+                </div> -->
+              </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -221,7 +272,7 @@ export default {
         // content: "",
         // is_enabled: 1, //1為是
         // imageUrl: "",
-        // imagesUrl: [],
+        imagesUrl: [], //讓input的:disabled可以有讀取依據
       },
     };
   },
@@ -234,22 +285,54 @@ export default {
     },
     //上傳圖片
     uploadFile() {
-      //console.log(this.$refs.fileInput.files);
-      const uploadedFile = this.$refs.fileInput.files[0]; //取得檔案
-      const formData = new FormData();
-      formData.append("file-to-upload", uploadedFile);
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-      this.axios.post(api, formData).then((response) => {
-        if (response.data.success) {
-          // console.log(response.data);
-          this.tempProduct.imageUrl = response.data.imageUrl;
-        }
-      });
+      // console.log(this.$refs.fileInput.files);
+      if (
+        this.$refs.fileInput.files.length + this.tempProduct.imagesUrl.length >=
+        5
+      ) {
+        alert("最多只能選擇五張圖片");
+      } else {
+        this.$refs.fileInput.files.forEach((element) => {
+          const uploadedFile = element; //取得檔案
+          const formData = new FormData();
+          formData.append("file-to-upload", uploadedFile);
+          const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+          this.axios.post(api, formData).then((response) => {
+            if (response.data.success) {
+              this.tempProduct.imagesUrl.push(response.data.imageUrl);
+            }
+          });
+        });
+      }
+
+      //   const uploadedFile = this.$refs.fileInput.files[0]; //取得檔案
+      //   const formData = new FormData();
+      //   formData.append("file-to-upload", uploadedFile);
+      //   const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+      //   this.axios.post(api, formData).then((response) => {
+      //     if (response.data.success) {
+      //       // console.log(response.data);
+      //       this.tempProduct.imageUrl = response.data.imageUrl;
+      //     }
+      //   });
+    },
+    addUrl(e) {
+      let input = e.target.value;
+      this.tempProduct.imagesUrl.push(input);
+      e.target.value = "";
+    },
+    removeImage(item) {
+      let index = this.tempProduct.imagesUrl.indexOf(item);
+      this.tempProduct.imagesUrl.splice(index, 1);
     },
   },
   watch: {
     product() {
       this.tempProduct = this.product; //每次傳新的prop的product進來後，就將要撰寫資料的tempProduct指向空的prop的product
+      if (!this.tempProduct.imagesUrl) {
+        //新產品先初始化，以免填圖片時imagesUrl為undefined；舊產品則是避免之前沒有填過圖片，imagesUrl會為undefined
+        this.tempProduct.imagesUrl = [];
+      }
     },
   },
   mounted() {
