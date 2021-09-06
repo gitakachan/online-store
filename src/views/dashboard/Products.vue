@@ -75,6 +75,7 @@ export default {
       } else {
         //若為編輯
         this.tempProduct = { ...item };
+        console.log(this.tempProduct.imageUrl);
       }
       this.isNew = isNew;
       this.$refs.productModal.showModal();
