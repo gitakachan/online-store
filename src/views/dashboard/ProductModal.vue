@@ -40,8 +40,16 @@
                     >或 上傳圖片
                     <i class="fas fa-spinner fa-spin"></i>
                   </label>
-                  <input type="file" id="customFile" class="form-control" />
+                  <input
+                    type="file"
+                    id="customFile"
+                    class="form-control"
+                    @change="uploadFile"
+                    ref="fileInput"
+                    multiple
+                  />
                 </div>
+                <!-- 預覽圖片 -->
                 <img class="img-fluid" alt="" />
                 <!-- 延伸技巧，多圖 -->
                 <!-- <div class="mt-5">
@@ -64,9 +72,10 @@
                   </div>
                 </div> -->
               </div>
+
               <div class="col-sm-8">
                 <div class="mb-3">
-                  <label for="title" class="form-label">標題</label>
+                  <label for="title" class="form-label fw-bold">標題*</label>
                   <input
                     type="text"
                     class="form-control"
@@ -78,7 +87,9 @@
 
                 <div class="row gx-2">
                   <div class="mb-3 col-md-6">
-                    <label for="category" class="form-label">分類</label>
+                    <label for="category" class="form-label fw-bold"
+                      >分類*</label
+                    >
                     <input
                       type="text"
                       class="form-control"
@@ -88,7 +99,7 @@
                     />
                   </div>
                   <div class="mb-3 col-md-6">
-                    <label for="price" class="form-label">單位</label>
+                    <label for="price" class="form-label fw-bold">單位*</label>
                     <input
                       type="text"
                       class="form-control"
@@ -101,7 +112,9 @@
 
                 <div class="row gx-2">
                   <div class="mb-3 col-md-6">
-                    <label for="origin_price" class="form-label">原價</label>
+                    <label for="origin_price" class="form-label fw-bold"
+                      >原價*</label
+                    >
                     <input
                       type="number"
                       class="form-control"
@@ -111,7 +124,7 @@
                     />
                   </div>
                   <div class="mb-3 col-md-6">
-                    <label for="price" class="form-label">售價</label>
+                    <label for="price" class="form-label fw-bold">售價*</label>
                     <input
                       type="number"
                       class="form-control"
@@ -218,6 +231,20 @@ export default {
     },
     hideModal() {
       this.modal.hide();
+    },
+    //上傳圖片
+    uploadFile() {
+      //console.log(this.$refs.fileInput.files);
+      const uploadedFile = this.$refs.fileInput.files[0]; //取得檔案
+      const formData = new FormData();
+      formData.append("file-to-upload", uploadedFile);
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
+      this.axios.post(api, formData).then((response) => {
+        if (response.data.success) {
+          // console.log(response.data);
+          this.tempProduct.imageUrl = response.data.imageUrl;
+        }
+      });
     },
   },
   watch: {

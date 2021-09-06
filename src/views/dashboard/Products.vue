@@ -69,14 +69,12 @@ export default {
   },
   methods: {
     openModal(isNew, item) {
-      console.log(item);
       if (isNew) {
         //若為新增
         this.tempProduct = {};
       } else {
         //若為編輯
         this.tempProduct = { ...item };
-        console.log(this.tempProduct);
       }
       this.isNew = isNew;
       this.$refs.productModal.showModal();
