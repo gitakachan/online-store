@@ -138,7 +138,7 @@ export default {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${id}`;
       this.axios.delete(api).then((response) => {
         if (response.data.success) {
-          this.$refs.productModal.hideModal();
+          this.$refs.delModal.hideModal();
           this.getProducts();
         }
       });
@@ -147,6 +147,7 @@ export default {
   mounted() {
     this.getProducts();
   },
+
 };
 </script>
 <style lang="scss" scoped>

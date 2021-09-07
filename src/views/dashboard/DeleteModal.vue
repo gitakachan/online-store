@@ -34,7 +34,7 @@
               取消
             </button>
             <button
-              @click="deleteProduct()"
+              @click="$emit('deleteProduct', product.id)"
               type="button"
               class="btn btn-danger"
             >
@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import Modal from "bootstrap/js/dist/modal";
+import ModalMixin from "@/mixins/ModalMixin";
 export default {
   name: "DeleteModal",
   props: {
@@ -61,21 +61,7 @@ export default {
       modal: {},
     };
   },
-  methods: {
-    showModal() {
-      this.modal.show();
-    },
-    hideModal() {
-      this.modal.hide();
-    },
-    deleteProduct() {
-      // console.log(this.product.id);
-      this.$emit("deleteProduct", this.product.id);
-    },
-  },
-  mounted() {
-    this.modal = new Modal(this.$refs.modal);
-  },
+  mixins: [ModalMixin],
 };
 </script>
 <style lang="scss" scoped></style>

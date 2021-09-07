@@ -247,7 +247,7 @@
   </div>
 </template>
 <script>
-import Modal from "bootstrap/js/dist/modal";
+import ModalMixin from "@/mixins/ModalMixin";
 export default {
   name: "ProductModal",
   props: {
@@ -277,12 +277,6 @@ export default {
     };
   },
   methods: {
-    showModal() {
-      this.modal.show();
-    },
-    hideModal() {
-      this.modal.hide();
-    },
     //上傳圖片
     uploadFile() {
       // console.log(this.$refs.fileInput.files);
@@ -335,9 +329,7 @@ export default {
       }
     },
   },
-  mounted() {
-    this.modal = new Modal(this.$refs.modal);
-  },
+  mixins: [ModalMixin],
 };
 </script>
 <style lang="scss" scoped></style>
