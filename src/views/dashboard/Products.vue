@@ -1,64 +1,67 @@
 <template>
   <div>
-    <div class="text-end my-2">
-      <button
-        @click="openModal(true)"
-        class=" btn btn-primary btn-sm"
-        type="button"
-      >
-        新增產品
-      </button>
+    <loading :active="isLoading"></loading>
+    <div>
+      <div class="text-end my-2">
+        <button
+          @click="openModal(true)"
+          class=" btn btn-primary btn-sm"
+          type="button"
+        >
+          新增產品
+        </button>
+      </div>
+
+      <product-modal
+        :product="tempProduct"
+        @updateProduct="updateProduct"
+        ref="productModal"
+      ></product-modal>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>類別</th>
+            <th class="name">產品名稱</th>
+            <th>原價</th>
+            <th>售價</th>
+            <th>上架</th>
+            <th>編輯</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in products" :key="item.id">
+            <td>{{ item.category }}</td>
+            <td class="name">{{ item.title }}</td>
+            <td>{{ item.origin_price }}</td>
+            <td>{{ item.price }}</td>
+            <td>
+              <span v-if="item.is_enabled" class="text-success">啟用</span>
+              <span v-else class="text-muted">未啟用</span>
+            </td>
+            <td>
+              <button
+                @click="openModal(false, item)"
+                class="btn btn-outline-success btn-sm m-1"
+              >
+                編輯
+              </button>
+
+              <button
+                @click="openDelModal(item)"
+                class="btn btn-outline-danger btn-sm m-1"
+              >
+                刪除
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <delete-modal
+        @deleteProduct="deleteProduct"
+        :product="tempProduct"
+        ref="delModal"
+      ></delete-modal>
     </div>
-
-    <product-modal
-      :product="tempProduct"
-      @updateProduct="updateProduct"
-      ref="productModal"
-    ></product-modal>
-    <table class="table table-hover">
-      <thead>
-        <tr>
-          <th>類別</th>
-          <th class="name">產品名稱</th>
-          <th>原價</th>
-          <th>售價</th>
-          <th>上架</th>
-          <th>編輯</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="item in products" :key="item.id">
-          <td>{{ item.category }}</td>
-          <td class="name">{{ item.title }}</td>
-          <td>{{ item.origin_price }}</td>
-          <td>{{ item.price }}</td>
-          <td>
-            <span v-if="item.is_enabled" class="text-success">啟用</span>
-            <span v-else class="text-muted">未啟用</span>
-          </td>
-          <td>
-            <button
-              @click="openModal(false, item)"
-              class="btn btn-outline-success btn-sm m-1"
-            >
-              編輯
-            </button>
-
-            <button
-              @click="openDelModal(item)"
-              class="btn btn-outline-danger btn-sm m-1"
-            >
-              刪除
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <delete-modal
-      @deleteProduct="deleteProduct"
-      :product="tempProduct"
-      ref="delModal"
-    ></delete-modal>
   </div>
 </template>
 <script>
@@ -74,6 +77,7 @@ export default {
       pagination: {},
       tempProduct: {},
       isNew: false, //判斷是否為新增產品
+      isLoading: false,
     };
   },
   methods: {
@@ -95,7 +99,9 @@ export default {
     },
     getProducts() {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products`;
+      this.isLoading = true;
       this.axios.get(api).then((response) => {
+        this.isLoading = false;
         if (response.data.success) {
           this.products = response.data.products;
           this.pagination = response.data.pagination;
@@ -114,6 +120,7 @@ export default {
     // },
     updateProduct(item) {
       this.tempProduct = item; //將內部傳來的參數存為tempProduct
+      this.isLoading = true;
 
       //新增產品
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
@@ -124,9 +131,11 @@ export default {
         api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
         httpMethod = "put";
       }
+
       this.axios[httpMethod](api, { data: this.tempProduct }).then(
         (response) => {
           if (response.data.success) {
+            this.isLoading = false;
             this.$refs.productModal.hideModal(); //關閉modal
             this.getProducts(); //取得最新products資料
           }
@@ -136,9 +145,11 @@ export default {
     },
     deleteProduct(id) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${id}`;
+      this.isLoading = true;
       this.axios.delete(api).then((response) => {
         if (response.data.success) {
           this.$refs.delModal.hideModal();
+          this.isLoading = false;
           this.getProducts();
         }
       });
@@ -147,7 +158,6 @@ export default {
   mounted() {
     this.getProducts();
   },
-
 };
 </script>
 <style lang="scss" scoped>

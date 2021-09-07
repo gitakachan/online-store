@@ -1,5 +1,6 @@
 <template>
   <div class="container mt-5">
+    <loading :active="isLoading"></loading>
     <div class="row">
       <div class="col col-md-8 mx-auto">
         <h1>登入：</h1>
@@ -48,24 +49,28 @@
 </template>
 <script>
 export default {
-  name: "",
+  name: "Login",
   data() {
     return {
       user: {
         username: "",
         password: "",
       },
+      isLoading: false,
     };
   },
   methods: {
     login() {
       const api = `${process.env.VUE_APP_API}admin/signin`; //https://vue3-course-api.hexschool.io/admin/signin
+      this.isLoading = true;
       this.axios.post(api, this.user).then((response) => {
-        // console.log(response.data);
+        this.isLoading = false;
         if (response.data.success) {
           const { token, expired } = response.data;
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
           this.$router.push("/dashboard/products"); //登入成功就跳轉到dashboard
+        } else {
+          alert(response.data.message + "，請再試一次");
         }
       });
     },
