@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- title(String)、category(String)、unit(String)、origin_price(Number)、price(Number) 為必填欄位 -->
     <div
       class="modal fade"
       id="exampleModal"
@@ -175,25 +174,7 @@
                       移除
                     </button>
                   </div>
-                  <!-- <div>
-                    <button
-                      class="btn btn-outline-primary btn-sm d-block w-100"
-                    >
-                      新增圖片
-                    </button>
-                  </div> -->
                 </div>
-                <!--<div class="mb-3">
-                 <label for="image" class="form-label">輸入圖片網址</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="image"
-                    placeholder="請輸入圖片連結"
-                    v-model="tempProduct.imageUrl"
-                  />
-                </div> -->
-
                 <!-- 預覽圖片 -->
                 <img
                   v-for="item in tempProduct.imagesUrl"
@@ -202,26 +183,6 @@
                   class="img-fluid mb-3"
                   alt=""
                 />
-                <!-- 延伸技巧，多圖 -->
-                <!-- <div class="mt-5">
-                  <div class="mb-3 input-group">
-                    <input
-                      type="url"
-                      class="form-control form-control"
-                      placeholder="請輸入連結"
-                    />
-                    <button type="button" class="btn btn-outline-danger">
-                      移除
-                    </button>
-                  </div>
-                  <div>
-                    <button
-                      class="btn btn-outline-primary btn-sm d-block w-100"
-                    >
-                      新增圖片
-                    </button>
-                  </div>
-                </div> -->
               </div>
             </div>
           </div>
@@ -279,7 +240,6 @@ export default {
   methods: {
     //上傳圖片
     uploadFile() {
-      // console.log(this.$refs.fileInput.files);
       if (
         this.$refs.fileInput.files.length + this.tempProduct.imagesUrl.length >=
         5
@@ -298,17 +258,6 @@ export default {
           });
         });
       }
-
-      //   const uploadedFile = this.$refs.fileInput.files[0]; //取得檔案
-      //   const formData = new FormData();
-      //   formData.append("file-to-upload", uploadedFile);
-      //   const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
-      //   this.axios.post(api, formData).then((response) => {
-      //     if (response.data.success) {
-      //       // console.log(response.data);
-      //       this.tempProduct.imageUrl = response.data.imageUrl;
-      //     }
-      //   });
     },
     addUrl(e) {
       let input = e.target.value;
