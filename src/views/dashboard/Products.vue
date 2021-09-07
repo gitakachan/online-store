@@ -44,20 +44,29 @@
               編輯
             </button>
 
-            <button class="btn btn-outline-danger btn-sm m-1">
+            <button
+              @click="openDelModal(item)"
+              class="btn btn-outline-danger btn-sm m-1"
+            >
               刪除
             </button>
           </td>
         </tr>
       </tbody>
     </table>
+    <delete-modal
+      @deleteProduct="deleteProduct"
+      :product="tempProduct"
+      ref="delModal"
+    ></delete-modal>
   </div>
 </template>
 <script>
 import ProductModal from "./ProductModal.vue";
+import DeleteModal from "./DeleteModal.vue";
 
 export default {
-  components: { ProductModal },
+  components: { ProductModal, DeleteModal },
   name: "Products",
   data() {
     return {
@@ -79,6 +88,10 @@ export default {
       }
       this.isNew = isNew;
       this.$refs.productModal.showModal();
+    },
+    openDelModal(item) {
+      this.$refs.delModal.showModal();
+      this.tempProduct = JSON.parse(JSON.stringify(item));
     },
     getProducts() {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products`;
@@ -120,6 +133,15 @@ export default {
           console.log(response.data.message);
         }
       );
+    },
+    deleteProduct(id) {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${id}`;
+      this.axios.delete(api).then((response) => {
+        if (response.data.success) {
+          this.$refs.productModal.hideModal();
+          this.getProducts();
+        }
+      });
     },
   },
   mounted() {
