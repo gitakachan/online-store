@@ -13,7 +13,15 @@ const routes = [
     children: [
       {
         path: "products",
-        component: () => import("../views/dashboard/Products.vue"),
+        component: () => import("../views/dashboard/products/Products.vue"),
+      },
+      {
+        path: "orders",
+        component: () => import("../views/dashboard/orders/Orders.vue"),
+      },
+      {
+        path: "coupons",
+        component: () => import("../views/dashboard/coupons/Coupons.vue"),
       },
     ],
   },
