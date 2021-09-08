@@ -7,11 +7,22 @@
   </div>
 </template>
 <script>
+import mitt from "mitt";
+const emitter = mitt();
+
 import NavBar from "./NavBar.vue";
+import ToastList from "@/components/responseMessages/ToastList.vue";
+
 export default {
   name: "Dashboard",
   components: {
     NavBar,
+    ToastList,
+  },
+  provide() { //讓內部子組件都可使用emitter，避免重複引入
+    return {
+      emitter,
+    };
   },
   mounted() {
     //得到名为hexToken的cookie

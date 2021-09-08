@@ -61,15 +61,17 @@
         :product="tempProduct"
         ref="delModal"
       ></delete-modal>
+      <toast-list></toast-list>
     </div>
   </div>
 </template>
 <script>
 import ProductModal from "./ProductModal.vue";
 import DeleteModal from "./DeleteModal.vue";
+import ToastList from "@/components/responseMessages/ToastList.vue";
 
 export default {
-  components: { ProductModal, DeleteModal },
+  components: { ProductModal, DeleteModal, ToastList },
   name: "Products",
   data() {
     return {
@@ -80,6 +82,7 @@ export default {
       isLoading: false,
     };
   },
+  inject: ["emitter"],
   methods: {
     openModal(isNew, item) {
       if (isNew) {
@@ -108,6 +111,19 @@ export default {
         }
       });
     },
+    successMsg() {
+      this.emitter.emit("pushMessage", {
+        style: "success",
+        title: "更新成功",
+      });
+    },
+    failMsg(responseMsg) {
+      this.emitter.emit("pushMessage", {
+        style: "danger",
+        title: "更新失敗",
+        content: responseMsg.join("、"),
+      });
+    },
     // getPage() {
     //   const api = `${process.env.VUE_APP_API}api/:api_path/admin/products?page=:page`;
     //   this.axios.post(api, this.user).then((response) => {
@@ -134,12 +150,14 @@ export default {
 
       this.axios[httpMethod](api, { data: this.tempProduct }).then(
         (response) => {
+          this.isLoading = false;
           if (response.data.success) {
-            this.isLoading = false;
-            this.$refs.productModal.hideModal(); //關閉modal
             this.getProducts(); //取得最新products資料
+            this.successMsg();
+          } else {
+            this.failMsg(response.data.message);
           }
-          console.log(response.data.message);
+          this.$refs.productModal.hideModal(); //關閉modal
         }
       );
     },
@@ -151,6 +169,9 @@ export default {
           this.$refs.delModal.hideModal();
           this.isLoading = false;
           this.getProducts();
+          this.successMsg();
+        } else {
+          this.failMsg(response.data.message);
         }
       });
     },
