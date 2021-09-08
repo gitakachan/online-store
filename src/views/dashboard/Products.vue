@@ -62,6 +62,7 @@
         ref="delModal"
       ></delete-modal>
       <toast-list></toast-list>
+      <pagination @updatePage="getProducts" :page="pagination"></pagination>
     </div>
   </div>
 </template>
@@ -69,9 +70,10 @@
 import ProductModal from "./ProductModal.vue";
 import DeleteModal from "./DeleteModal.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
+import Pagination from "./Pagination.vue";
 
 export default {
-  components: { ProductModal, DeleteModal, ToastList },
+  components: { ProductModal, DeleteModal, ToastList, Pagination },
   name: "Products",
   data() {
     return {
@@ -100,14 +102,16 @@ export default {
       this.$refs.delModal.showModal();
       this.tempProduct = JSON.parse(JSON.stringify(item));
     },
-    getProducts() {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products`;
+    getProducts(page = 1) {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`;
       this.isLoading = true;
       this.axios.get(api).then((response) => {
         this.isLoading = false;
         if (response.data.success) {
           this.products = response.data.products;
           this.pagination = response.data.pagination;
+        } else {
+          this.$router.push("/login");
         }
       });
     },
@@ -124,16 +128,6 @@ export default {
         content: responseMsg.join("、"),
       });
     },
-    // getPage() {
-    //   const api = `${process.env.VUE_APP_API}api/:api_path/admin/products?page=:page`;
-    //   this.axios.post(api, this.user).then((response) => {
-    //     if (response.data.success) {
-    //       const { token, expired } = response.data;
-    //       document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-    //       this.$router.push("/dashboard/products");
-    //     }
-    //   });
-    // },
     updateProduct(item) {
       this.tempProduct = item; //將內部傳來的參數存為tempProduct
       this.isLoading = true;
