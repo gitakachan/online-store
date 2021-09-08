@@ -12,11 +12,6 @@
         </button>
       </div>
 
-      <product-modal
-        :product="tempProduct"
-        @updateProduct="updateProduct"
-        ref="productModal"
-      ></product-modal>
       <table class="table table-hover">
         <thead>
           <tr>
@@ -56,6 +51,11 @@
           </tr>
         </tbody>
       </table>
+      <product-modal
+        :product="tempProduct"
+        @updateProduct="updateProduct"
+        ref="productModal"
+      ></product-modal>
       <delete-modal
         @deleteProduct="deleteProduct"
         :product="tempProduct"
@@ -72,8 +72,6 @@ import DeleteModal from "./DeleteModal.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
 import Pagination from "./Pagination.vue";
 
-import { date } from "@/methods/date";
-
 export default {
   components: { ProductModal, DeleteModal, ToastList, Pagination },
   name: "Products",
@@ -88,14 +86,12 @@ export default {
   },
   inject: ["emitter"],
   methods: {
-    date,
     openModal(isNew, item) {
       if (isNew) {
         //若為新增
         this.tempProduct = { imagesUrl: [] };
       } else {
         //若為編輯
-        //this.tempProduct = { ...item };
         this.tempProduct = JSON.parse(JSON.stringify(item)); //深拷貝 （imagesUrl為陣列，使item為多層物件）
       }
       this.isNew = isNew;
