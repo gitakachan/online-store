@@ -32,8 +32,8 @@
           <tr v-for="item in products" :key="item.id">
             <td>{{ item.category }}</td>
             <td class="name">{{ item.title }}</td>
-            <td>{{ item.origin_price }}</td>
-            <td>{{ item.price }}</td>
+            <td>{{ item.origin_price.toLocaleString() }}</td>
+            <td>{{ item.price.toLocaleString() }}</td>
             <td>
               <span v-if="item.is_enabled" class="text-success">啟用</span>
               <span v-else class="text-muted">未啟用</span>
@@ -72,6 +72,8 @@ import DeleteModal from "./DeleteModal.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
 import Pagination from "./Pagination.vue";
 
+import { date } from "@/methods/date";
+
 export default {
   components: { ProductModal, DeleteModal, ToastList, Pagination },
   name: "Products",
@@ -86,6 +88,7 @@ export default {
   },
   inject: ["emitter"],
   methods: {
+    date,
     openModal(isNew, item) {
       if (isNew) {
         //若為新增

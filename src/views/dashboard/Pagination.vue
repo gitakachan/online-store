@@ -62,7 +62,6 @@ export default {
     page() {
       //每次傳入新的props時，更新this.currentP
       this.currentP = this.page.current_page;
-      console.log(this.page);
     },
   },
   methods: {
