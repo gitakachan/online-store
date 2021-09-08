@@ -19,12 +19,13 @@ export default {
     NavBar,
     ToastList,
   },
-  provide() { //讓內部子組件都可使用emitter，避免重複引入
+  provide() {
+    //讓內部子組件都可使用emitter，避免重複引入
     return {
       emitter,
     };
   },
-  mounted() {
+  created() {
     //得到名为hexToken的cookie
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/,
