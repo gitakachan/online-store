@@ -15,7 +15,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
+          <div class="navbar-nav d-flex w-100">
             <router-link to="/dashboard/products" class="nav-link" href="#"
               >產品</router-link
             >
@@ -25,7 +25,9 @@
             <router-link to="/dashboard/coupons" class="nav-link" href="#"
               >優惠卷</router-link
             >
-            <a class="nav-link" href="#" @click.prevent="logOut">登出</a>
+            <a class="nav-link ms-auto" href="#" @click.prevent="logOut"
+              >登出</a
+            >
           </div>
         </div>
       </div>
@@ -52,4 +54,8 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+a.nav-link.router-link-active {
+  color: #000;
+}
+</style>
