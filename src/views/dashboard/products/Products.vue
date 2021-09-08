@@ -2,15 +2,9 @@
   <div>
     <loading :active="isLoading"></loading>
     <div>
-      <div class="text-end my-2">
-        <button
-          @click="openModal(true)"
-          class=" btn btn-primary btn-sm"
-          type="button"
-        >
-          新增產品
-        </button>
-      </div>
+      <add-new @openModal="openModal">
+        <template v-slot:title>新增產品</template>
+      </add-new>
 
       <table class="table table-hover">
         <thead>
@@ -70,10 +64,11 @@
 import ProductModal from "./ProductModal.vue";
 import DeleteModal from "./DeleteModal.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
-import Pagination from "./Pagination.vue";
+import Pagination from "../Pagination.vue";
+import AddNew from "../AddNew.vue";
 
 export default {
-  components: { ProductModal, DeleteModal, ToastList, Pagination },
+  components: { ProductModal, DeleteModal, ToastList, Pagination, AddNew },
   name: "Products",
   data() {
     return {

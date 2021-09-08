@@ -23,7 +23,7 @@
               >訂單</router-link
             >
             <router-link to="/dashboard/coupons" class="nav-link" href="#"
-              >優惠卷</router-link
+              >優惠券</router-link
             >
             <a class="nav-link ms-auto" href="#" @click.prevent="logOut"
               >登出</a
