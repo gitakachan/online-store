@@ -51,8 +51,8 @@
         ref="productModal"
       ></product-modal>
       <delete-modal
-        @deleteProduct="deleteProduct"
-        :product="tempProduct"
+        @delete="deleteProduct"
+        :item="tempProduct"
         ref="delModal"
       ></delete-modal>
       <toast-list></toast-list>
@@ -62,7 +62,7 @@
 </template>
 <script>
 import ProductModal from "./ProductModal.vue";
-import DeleteModal from "./DeleteModal.vue";
+import DeleteModal from "../DeleteModal.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
 import Pagination from "../Pagination.vue";
 import AddNew from "../AddNew.vue";

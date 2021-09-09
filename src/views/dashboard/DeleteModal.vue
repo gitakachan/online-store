@@ -22,7 +22,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            確定永久刪除商品 <span class="fw-bold">{{ product.title }}</span> ?
+            確定永久刪除商品 <span class="fw-bold">{{ item.title }}</span> ?
             (刪除後即無法復原)
           </div>
           <div class="modal-footer">
@@ -34,7 +34,7 @@
               取消
             </button>
             <button
-              @click="$emit('deleteProduct', product.id)"
+              @click="$emit('delete', item.id)"
               type="button"
               class="btn btn-danger"
             >
@@ -51,7 +51,7 @@ import ModalMixin from "@/mixins/ModalMixin";
 export default {
   name: "DeleteModal",
   props: {
-    product: {
+    item: {
       type: Object,
       required: true,
     },

@@ -18,7 +18,6 @@ export default {
     this.emitter.on("pushMessage", (message) => {
       this.messages.push(message);
       console.log(message);
-      console.log("ss");
     });
   },
 };
