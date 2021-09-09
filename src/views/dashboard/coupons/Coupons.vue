@@ -21,7 +21,7 @@
           <td>{{ item.title }}</td>
           <td>{{ item.code }}</td>
           <td>{{ item.percent }}%</td>
-          <td>{{ item.due_date }}</td>
+          <td>{{ getFormDate(item.due_date) }}</td>
           <td>
             <span v-if="item.is_enabled" class="text-success">啟用</span>
             <span v-else class="text-muted">未啟用</span>
@@ -66,6 +66,8 @@ import AddNew from "../AddNew.vue";
 import DeleteModal from "../DeleteModal.vue";
 import CouponModal from "./CouponModal.vue";
 
+import { getUnixDate, getFormDate } from "@/methods/date";
+
 export default {
   name: "Coupons",
   components: { Pagination, ToastList, AddNew, DeleteModal, CouponModal },
@@ -80,12 +82,16 @@ export default {
     };
   },
   methods: {
+    getUnixDate,
+    getFormDate,
     openModal(isNew, item) {
       if (isNew) {
         // 若為新增;
         this.tempCoupon = {
           percent: 100,
           is_enabled: 0,
+          due_date: getFormDate(), //將當前日期轉為unix time stamp格式
+          // due_date: Math.floor(new Date() / 1000),
         };
       } else {
         //若為編輯
@@ -98,7 +104,7 @@ export default {
       this.$refs.delModal.showModal();
       this.tempCoupon = JSON.parse(JSON.stringify(item));
     },
-    getCoupons(page) {
+    getCoupons(page = 1) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`;
       this.isLoading = true;
       this.axios.get(api).then((response) => {
@@ -113,6 +119,10 @@ export default {
     updateCoupon(item) {
       this.tempCoupon = item;
       this.isLoading = true;
+
+      //把回傳的日期轉換回unix time stamp
+      this.tempCoupon.due_date = this.getUnixDate(this.tempCoupon.due_date);
+
       //新增產品
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`;
       let httpMethod = "post";

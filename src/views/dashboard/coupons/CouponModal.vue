@@ -65,6 +65,7 @@
                     <input
                       class="form-control"
                       id="date"
+                      type="date"
                       v-model="tempCoupon.due_date"
                     />
                   </div>
@@ -110,7 +111,7 @@
 </template>
 <script>
 import ModalMixin from "@/mixins/ModalMixin";
-import { date } from "@/methods/date";
+import { getUnixDate, getFormDate } from "@/methods/date";
 export default {
   name: "CouponModal",
   props: {
@@ -127,11 +128,15 @@ export default {
     };
   },
   methods: {
-    date,
+    getUnixDate,
+    getFormDate,
   },
   watch: {
     coupon() {
       this.tempCoupon = this.coupon;
+      
+      //unix time stamp -> formDate
+      this.tempCoupon.due_date = this.getFormDate(this.tempCoupon.due_date);
     },
   },
   mixins: [ModalMixin],
