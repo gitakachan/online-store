@@ -98,8 +98,8 @@ export default {
       this.$refs.delModal.showModal();
       this.tempCoupon = JSON.parse(JSON.stringify(item));
     },
-    getCoupons() {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons`;
+    getCoupons(page) {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`;
       this.isLoading = true;
       this.axios.get(api).then((response) => {
         if (response.data.success) {
