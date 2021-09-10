@@ -2,7 +2,9 @@
   <div>
     <nav class="navbar navbar-expand-md navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <router-link to="/dashboard/products" class="navbar-brand" href="#"
+          >後台管理</router-link
+        >
         <button
           class="navbar-toggler"
           type="button"
@@ -25,7 +27,7 @@
             <router-link to="/dashboard/coupons" class="nav-link" href="#"
               >優惠券</router-link
             >
-            <a class="nav-link ms-auto" href="#" @click.prevent="logOut"
+            <a class="nav-link ms-md-auto" href="#" @click.prevent="logOut"
               >登出</a
             >
           </div>
