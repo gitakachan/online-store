@@ -59,10 +59,10 @@
   </div>
 </template>
 <script>
-import Pagination from "../Pagination.vue";
+import Pagination from "@/components/seller/Pagination.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
-import AddNew from "../AddNew.vue";
-import DeleteModal from "../DeleteModal.vue";
+import AddNew from "@/components/seller/AddNew.vue";
+import DeleteModal from "@/components/seller/DeleteModal.vue";
 import CouponModal from "./CouponModal.vue";
 
 import { getUnixDate, getFormDate } from "@/methods/date";

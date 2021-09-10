@@ -4,24 +4,24 @@ const routes = [
   {
     path: "/login",
     name: "Login",
-    component: () => import("../views/login/Login.vue"),
+    component: () => import("../views/seller/login/Login.vue"),
   },
   {
     path: "/dashboard",
     name: "dashboard",
-    component: () => import("../views/dashboard/Dashboard.vue"),
+    component: () => import("../views/seller/dashboard/Dashboard.vue"),
     children: [
       {
         path: "products",
-        component: () => import("../views/dashboard/products/Products.vue"),
+        component: () => import("../views/seller/dashboard/products/Products.vue"),
       },
       {
         path: "orders",
-        component: () => import("../views/dashboard/orders/Orders.vue"),
+        component: () => import("../views/seller/dashboard/orders/Orders.vue"),
       },
       {
         path: "coupons",
-        component: () => import("../views/dashboard/coupons/Coupons.vue"),
+        component: () => import("../views/seller/dashboard/coupons/Coupons.vue"),
       },
     ],
   },

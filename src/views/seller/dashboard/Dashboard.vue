@@ -10,7 +10,7 @@
 import mitt from "mitt";
 const emitter = mitt();
 
-import NavBar from "./NavBar.vue";
+import NavBar from "@/components/seller/NavBar.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
 
 export default {

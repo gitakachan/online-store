@@ -62,10 +62,10 @@
 </template>
 <script>
 import ProductModal from "./ProductModal.vue";
-import DeleteModal from "../DeleteModal.vue";
+import DeleteModal from "@/components/seller/DeleteModal.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
-import Pagination from "../Pagination.vue";
-import AddNew from "../AddNew.vue";
+import Pagination from "@/components/seller/Pagination.vue";
+import AddNew from "@/components/seller/AddNew.vue";
 
 export default {
   components: { ProductModal, DeleteModal, ToastList, Pagination, AddNew },
