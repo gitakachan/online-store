@@ -64,7 +64,7 @@
 import ProductModal from "./ProductModal.vue";
 import DeleteModal from "@/components/seller/DeleteModal.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
-import Pagination from "@/components/seller/Pagination.vue";
+import Pagination from "@/components/pagination/Pagination.vue";
 import AddNew from "@/components/seller/AddNew.vue";
 
 export default {
