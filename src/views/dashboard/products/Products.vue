@@ -79,7 +79,7 @@ export default {
       isLoading: false,
     };
   },
-  inject: ["emitter"],
+  inject: ["resMsg"],
   methods: {
     openModal(isNew, item) {
       if (isNew) {
@@ -109,19 +109,6 @@ export default {
         }
       });
     },
-    successMsg() {
-      this.emitter.emit("pushMessage", {
-        style: "success",
-        title: "更新成功",
-      });
-    },
-    failMsg(responseMsg) {
-      this.emitter.emit("pushMessage", {
-        style: "danger",
-        title: "更新失敗",
-        content: responseMsg.join("、"),
-      });
-    },
     updateProduct(item) {
       this.tempProduct = item; //將內部傳來的參數存為tempProduct
       this.isLoading = true;
@@ -141,10 +128,8 @@ export default {
           this.isLoading = false;
           if (response.data.success) {
             this.getProducts(); //取得最新products資料
-            this.successMsg();
-          } else {
-            this.failMsg(response.data.message);
           }
+          this.resMsg(response);
           this.$refs.productModal.hideModal(); //關閉modal
         }
       );
@@ -157,10 +142,8 @@ export default {
           this.$refs.delModal.hideModal();
           this.isLoading = false;
           this.getProducts();
-          this.successMsg();
-        } else {
-          this.failMsg(response.data.message);
         }
+        this.resMsg(response, "刪除");
       });
     },
   },

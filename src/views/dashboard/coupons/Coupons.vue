@@ -16,7 +16,6 @@
         </tr>
       </thead>
       <tbody>
-        <!-- title(String)、is_enabled(Number)、percent(Number)、due_date(Number)、code(String) 為必填欄位 -->
         <tr v-for="item in coupons" :key="item.id">
           <td>{{ item.title }}</td>
           <td>{{ item.code }}</td>
@@ -71,7 +70,7 @@ import { getUnixDate, getFormDate } from "@/methods/date";
 export default {
   name: "Coupons",
   components: { Pagination, ToastList, AddNew, DeleteModal, CouponModal },
-
+  inject: ["resMsg"],
   data() {
     return {
       coupons: [],
@@ -86,15 +85,12 @@ export default {
     getFormDate,
     openModal(isNew, item) {
       if (isNew) {
-        // 若為新增;
         this.tempCoupon = {
           percent: 100,
           is_enabled: 0,
           due_date: getFormDate(), //將當前日期轉為unix time stamp格式
-          // due_date: Math.floor(new Date() / 1000),
         };
       } else {
-        //若為編輯
         this.tempCoupon = { ...item };
       }
       this.isNew = isNew;
@@ -113,7 +109,6 @@ export default {
           this.coupons = response.data.coupons;
           this.pagination = response.data.pagination;
         }
-        this.$resMsgMethods(response);
       });
     },
     updateCoupon(item) {
@@ -123,11 +118,9 @@ export default {
       //把回傳的日期轉換回unix time stamp
       this.tempCoupon.due_date = this.getUnixDate(this.tempCoupon.due_date);
 
-      //新增產品
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`;
       let httpMethod = "post";
 
-      //編輯產品
       if (!this.isNew) {
         api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${item.id}`;
         httpMethod = "put";
@@ -136,12 +129,12 @@ export default {
       this.axios[httpMethod](api, { data: this.tempCoupon }).then(
         (response) => {
           this.isLoading = false;
-          console.log(response.data.message);
           if (response.data.success) {
             this.getCoupons();
             this.tempCoupon = {};
           }
-          this.$refs.couponModal.hideModal(); //關閉modal
+          this.$refs.couponModal.hideModal();
+          this.resMsg(response);
         }
       );
     },
@@ -154,7 +147,7 @@ export default {
           this.isLoading = false;
           this.getCoupons();
         }
-        this.$resMsgMethods(response);
+        this.resMsg(response, "刪除");
       });
     },
   },

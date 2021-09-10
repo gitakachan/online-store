@@ -10,11 +10,8 @@ import "vue3-loading-overlay/dist/vue3-loading-overlay.css";
 import axios from "axios";
 import VueAxios from "vue-axios";
 
-import responseMessageMethods from "@/methods/responseMessages";
-
 const app = createApp(App);
 app.use(VueAxios, axios);
 app.use(router);
-app.config.globalProperties.$resMsgMethods = responseMessageMethods; //全域property
 app.component("Loading", Loading); //全域註冊
 app.mount("#app");
