@@ -112,6 +112,7 @@ export default {
     updateProduct(item) {
       this.tempProduct = item; //將內部傳來的參數存為tempProduct
       this.isLoading = true;
+      console.log(item.imagesUrl);
 
       //新增產品
       let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
