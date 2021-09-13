@@ -1,8 +1,14 @@
 export default {
+  watch: {
+    imgRefs() {
+      this.resetImgSize();
+    },
+  },
   methods: {
     setImgRef(el) {
-      this.imgRefs.push(el);
-      this.resetImgSize();
+      if (el !== null) {
+        this.imgRefs.push(el);
+      }
     },
     resetImgSize() {
       for (let i = 0; i < this.imgRefs.length; i++) {
@@ -16,14 +22,12 @@ export default {
     },
   },
   mounted() {
-    this.$nextTick(() => {
-      //全部頁面渲染完成後執行
-      window.addEventListener("resize", this.resetImgSize);
-    });
+    window.addEventListener("resize", this.resetImgSize);
   },
   beforeUpdate() {
     this.imgRefs = [];
   },
+
   destroyed() {
     window.removeEventListener("resize", this.resetImgSize);
   },
