@@ -8,19 +8,25 @@
           :key="item.id"
         >
           <div>
-            <div class="card">
-              <img
-                :src="item.imagesUrl[0]"
-                class="align-bottom card-img-top"
-                alt="產品圖片"
-                :ref="setImgRef"
-              />
-              <div class="card-body">
-                <p class="card-text">
-                  {{ item.title }}
-                </p>
+            <router-link
+              :to="{
+                path: '/store/products/' + `${item.id}`,
+              }"
+            >
+              <div class="card">
+                <img
+                  :src="item.imagesUrl[0]"
+                  class="align-bottom card-img-top"
+                  alt="產品圖片"
+                  :ref="setImgRef"
+                />
+                <div class="card-body">
+                  <p class="card-text">
+                    {{ item.title }}
+                  </p>
+                </div>
               </div>
-            </div>
+            </router-link>
           </div>
         </div>
       </div>

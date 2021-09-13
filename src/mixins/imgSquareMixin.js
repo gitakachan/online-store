@@ -26,6 +26,5 @@ export default {
   },
   destroyed() {
     window.removeEventListener("resize", this.resetImgSize);
-    this.imgRefs = [];
   },
 };

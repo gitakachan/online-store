@@ -85,6 +85,18 @@
                   </div>
                 </div>
                 <hr />
+                <div class="row">
+                  <div class="mb-3 col-md-6">
+                    <label for="quantity" class="form-label">數量</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="quantity"
+                      placeholder="請輸入品牌"
+                      v-model.number="tempProduct.quantity"
+                    />
+                  </div>
+                </div>
 
                 <div class="mb-3">
                   <label for="description" class="form-label">產品描述</label>
