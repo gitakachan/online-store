@@ -53,8 +53,7 @@ const routes = [
       {
         path: "products/:productId",
         name: "productDetail",
-        component: () =>
-          import("../views/buyer/userboard/products/Product.vue"),
+        component: () => import("../views/buyer/userboard/product/Product.vue"),
         props: (route) => {
           return {
             id: route.params.productId,

@@ -92,7 +92,7 @@
                       type="number"
                       class="form-control"
                       id="quantity"
-                      placeholder="請輸入品牌"
+                      placeholder="請輸入數量"
                       v-model.number="tempProduct.quantity"
                     />
                   </div>

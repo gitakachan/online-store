@@ -8,25 +8,38 @@
           :key="item.id"
         >
           <div>
-            <router-link
-              :to="{
-                path: '/store/products/' + `${item.id}`,
-              }"
-            >
-              <div class="card">
+            <div class="card">
+              <router-link
+                class="img-container position-relative"
+                :to="{
+                  path: '/store/products/' + `${item.id}`,
+                }"
+              >
                 <img
                   :src="item.imagesUrl[0]"
                   class="align-bottom card-img-top"
                   alt="產品圖片"
                   :ref="setImgRef"
                 />
-                <div class="card-body">
-                  <p class="card-text">
-                    {{ item.title }}
-                  </p>
-                </div>
+                <button
+                  type="button"
+                  class="add-cart btn btn-sm btn-outline-warning ms-auto position-absolute bottom-0 end-0"
+                >
+                  cart
+                </button>
+              </router-link>
+              <div class="card-body">
+                <p class="card-text">
+                  <span> {{ item.title }}</span>
+                  <br />
+                  <span>{{ "NT$" + " " + item.price.toLocaleString() }}</span>
+                  &nbsp;
+                  <span class="text-decoration-line-through">{{
+                    "NT$" + " " + item.origin_price.toLocaleString()
+                  }}</span>
+                </p>
               </div>
-            </router-link>
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +90,26 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-img {
-  object-fit: cover;
+.img-container {
+  &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  img {
+    object-fit: cover;
+  }
+  button.add-cart {
+    margin: 0 10px 10px 0;
+  }
+  &:hover {
+    &::before {
+      background-color: rgba(0, 0, 0, 0.3);
+      transition: background-color, 0.2s ease-in;
+    }
+  }
 }
 </style>
