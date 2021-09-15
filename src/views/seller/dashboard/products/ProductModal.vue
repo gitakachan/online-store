@@ -34,19 +34,53 @@
                     v-model="tempProduct.title"
                   />
                 </div>
-
                 <div class="row gx-2">
-                  <div class="mb-3 col-md-6">
+                  <div class="mb-3 col">
                     <label for="category" class="form-label fw-bold"
                       >分類*</label
                     >
+
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                      v-model="tempProduct.category"
+                    >
+                      <option value="" disabled>選擇分類</option>
+                      <option
+                        v-for="item in categoryOptionList"
+                        :key="item"
+                        :value="item"
+                        >{{ item }}</option
+                      >
+                    </select>
+                  </div>
+                </div>
+                <div class="row gx-2">
+                  <div class="mb-3 col">
+                    <label for="location" class="form-label">地點</label>
                     <input
                       type="text"
                       class="form-control"
-                      id="category"
-                      placeholder="請輸入分類"
-                      v-model="tempProduct.category"
+                      id="location"
+                      placeholder="請輸入地點"
+                      v-model="tempProduct.location"
                     />
+                  </div>
+                </div>
+                <div class="row gx-2">
+                  <div class="mb-3 col-md-6">
+                    <label for="area" class="form-label">區域</label>
+                    <select
+                      class="form-select"
+                      aria-label="Default select example"
+                      v-model="tempProduct.area"
+                    >
+                      <option value="" disabled>選擇地點</option>
+                      <option value="北越">北越</option>
+                      <option value="中越">中越</option>
+                      <option value="南越">南越</option>
+                      <option value="離島">離島</option>
+                    </select>
                   </div>
                   <div class="mb-3 col-md-6">
                     <label for="price" class="form-label fw-bold">單位*</label>
@@ -84,32 +118,33 @@
                     />
                   </div>
                 </div>
-                <hr />
-                <div class="row">
-                  <div class="mb-3 col-md-6">
-                    <label for="quantity" class="form-label">數量</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="quantity"
-                      placeholder="請輸入數量"
-                      v-model.number="tempProduct.quantity"
-                    />
-                  </div>
-                </div>
 
                 <div class="mb-3">
-                  <label for="description" class="form-label">產品描述</label>
+                  <label for="description" class="form-label"
+                    >簡短行程描述(呈現在商品列表)</label
+                  >
                   <textarea
                     type="text"
                     class="form-control"
                     id="description"
-                    placeholder="請輸入產品描述"
+                    placeholder="請輸入簡短行程描述"
+                    v-model="tempProduct.short_description"
+                  ></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="description" class="form-label"
+                    >詳細行程描述</label
+                  >
+                  <textarea
+                    type="text"
+                    class="form-control"
+                    id="description"
+                    placeholder="請輸入行程描述"
                     v-model="tempProduct.description"
                   ></textarea>
                 </div>
                 <div class="mb-3">
-                  <label for="content" class="form-label">說明內容</label>
+                  <label for="content" class="form-label">行程內容</label>
                   <textarea
                     type="text"
                     class="form-control"
@@ -247,6 +282,14 @@ export default {
         // imageUrl: "",
         imagesUrl: [], //讓input的:disabled可以有讀取依據
       },
+      categoryOptionList: [
+        "交通",
+        "餐飲",
+        "一日遊、多日遊",
+        "門票",
+        "戶外活動",
+        "特殊體驗",
+      ],
     };
   },
   methods: {
@@ -293,4 +336,8 @@ export default {
   mixins: [ModalMixin],
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+textarea {
+  min-height: 100px;
+}
+</style>

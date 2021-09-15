@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="container-fluid p-5">
+      <bread-crumb :area="product.area" :category="product.category"></bread-crumb>
       <div class="row">
         <div class="col-12 col-md-6">
           <images :imagesUrl="product.imagesUrl"></images>
@@ -66,13 +67,13 @@
           </div>
           <!-- 商品內容 -->
           <div class="content ">
-            <h4>商品內容物</h4>
+            <h4>商品/行程內容</h4>
             <hr />
             <p class="m-3">{{ product.content }}</p>
           </div>
           <!-- 商品描述 -->
           <div class="description">
-            <h4>商品介紹</h4>
+            <h4>商品/行程介紹</h4>
             <hr />
             <p class="m-3">{{ product.description }}</p>
           </div>
@@ -84,8 +85,9 @@
 </template>
 <script>
 import Images from "./Images.vue";
+import BreadCrumb from "./BreadCrumb.vue";
 export default {
-  components: { Images },
+  components: { Images, BreadCrumb },
   name: "Product",
   props: {
     id: {
@@ -94,10 +96,12 @@ export default {
   },
   computed: {
     price() {
-      return "NT$" + " " + this.product.price.toLocaleString();
+      return "NT$" + " " + this.product.price.toLocaleString() + " " + "/人";
     },
     origin_price() {
-      return "NT$" + " " + this.product.origin_price.toLocaleString();
+      return (
+        "NT$" + " " + this.product.origin_price.toLocaleString() + " " + "/人"
+      );
     },
   },
   data() {
