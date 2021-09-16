@@ -1,7 +1,6 @@
 <template>
   <div>
     <carousel></carousel>
-    {{ test }}
     <div class="container my-4">
       <products-bread-crumb
         :area="selectArea"
@@ -153,7 +152,6 @@ export default {
       imgRefs: [],
       selectArea: "所有區域",
       selectCategory: "所有分類",
-      test: "ooo",
     };
   },
   methods: {

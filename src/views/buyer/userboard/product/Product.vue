@@ -1,63 +1,54 @@
 <template>
   <div>
-    <div class="container-fluid p-5">
-      <bread-crumb :area="product.area" :category="product.category"></bread-crumb>
+    <div class="container p-5">
+      <bread-crumb
+        :area="product.area"
+        :category="product.category"
+      ></bread-crumb>
       <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 mb-4">
           <images :imagesUrl="product.imagesUrl"></images>
         </div>
-
         <div class="col-12 col-md-6">
           <!-- 標題 -->
-          <h1>{{ product.title }}</h1>
+          <h1 class="mb-3">{{ product.title }}</h1>
           <!-- 價格 -->
-          <div class="price d-flex align-items-end my-3">
-            <h4>{{ price }}</h4>
-            <h6 class="text-decoration-line-through ms-3">
+          <div class="price d-flex align-items-end mb-3">
+            <h6 class="text-decoration-line-through text-secondary">
               {{ origin_price }}
             </h6>
+            <h4 class="ms-3">{{ price }}</h4>
           </div>
           <!-- 數量 -->
-          <div class="quantity">
-            <div class="row">
-              <div
-                class="col-3 d-flex justify-content-center align-items-center"
-              >
-                <span>數量</span>
-              </div>
-              <div class="col-3">
-                <div class="input-group input-group-sm">
-                  <button
-                    class="btn btn-sm btn-outline-secondary"
-                    type="button"
-                    @click="deductQunatity"
-                  >
-                    -
-                  </button>
-                  <input
-                    v-model.number="order.quantity"
-                    type="text"
-                    class="form-control text-center"
-                  />
-
-                  <button
-                    class="btn btn-sm btn-outline-secondary"
-                    type="button"
-                    @click="addQuantity"
-                  >
-                    +
-                  </button>
-                </div>
-              </div>
-              <div class="col  d-flex align-items-center">
-                <span v-show="tooLess" class="hint">不得小於1</span>
-                <span v-show="tooMany" class="hint">不得超過庫存</span>
-              </div>
+          <div class="quantity d-flex align-items-center">
+            <div>
+              <span class="d-block">數量：</span>
             </div>
-            <div class="row">
-              <div class="col">
-                <span>目前剩餘 {{ product.quantity + product.unit }}</span>
-              </div>
+            <div class="input-group input-group-sm w-25">
+              <button
+                class="btn btn-sm btn-outline-secondary"
+                type="button"
+                @click="deductQunatity"
+              >
+                -
+              </button>
+              <input
+                v-model.number="order.quantity"
+                type="text"
+                class="form-control text-center"
+              />
+
+              <button
+                class="btn btn-sm btn-outline-secondary"
+                type="button"
+                @click="addQuantity"
+              >
+                +
+              </button>
+            </div>
+            <div class="ms-2">{{ product.unit }}</div>
+            <div class="text-danger ms-2" v-show="tooLess">
+              不得小於1
             </div>
           </div>
           <!-- 按鈕 -->
@@ -65,18 +56,19 @@
             <button class="btn btn-primary" type="button">收藏商品</button>
             <button class="btn btn-primary" type="button">放入購物車</button>
           </div>
-          <!-- 商品內容 -->
-          <div class="content ">
-            <h4>商品/行程內容</h4>
-            <hr />
-            <p class="m-3">{{ product.content }}</p>
-          </div>
-          <!-- 商品描述 -->
-          <div class="description">
-            <h4>商品/行程介紹</h4>
-            <hr />
-            <p class="m-3">{{ product.description }}</p>
-          </div>
+        </div>
+
+        <!-- 商品內容 -->
+        <div class="content">
+          <h4>商品/行程內容</h4>
+          <hr />
+          <p class="m-3">{{ product.content }}</p>
+        </div>
+        <!-- 商品描述 -->
+        <div class="description">
+          <h4>商品/行程介紹</h4>
+          <hr />
+          <p class="m-3">{{ product.description }}</p>
         </div>
       </div>
     </div>
@@ -115,7 +107,6 @@ export default {
       order: {
         quantity: 1,
       },
-      tooMany: false,
       tooLess: false,
     };
   },
@@ -131,24 +122,27 @@ export default {
       });
     },
     addQuantity() {
-      if (this.order.quantity < this.product.quantity) {
-        this.order.quantity++;
-        this.tooMany = false;
-        this.tooLess = false;
-      } else {
-        this.tooMany = true;
-      }
+      this.order.quantity++;
     },
     deductQunatity() {
       if (this.order.quantity > 1) {
         this.order.quantity--;
-        this.tooLess = false;
-        this.tooMany = false;
-      } else if (this.order.quantity === 1) {
+      } else if (this.order.quantity <= 1) {
         this.tooLess = true;
       }
     },
   },
+  watch: {
+    "order.quantity"() {
+      if (this.order.quantity < 1) {
+        this.order.quantity = 1;
+        this.tooLess = true;
+      } else {
+        this.tooLess = false;
+      }
+    },
+  },
+
   mounted() {
     this.getProduct();
   },
