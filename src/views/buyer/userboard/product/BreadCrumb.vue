@@ -2,13 +2,28 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item">
-        <a @click.prevent="" href="#">所有產品</a>
+        <a
+          class="text-decoration-none text-secondary"
+          @click.prevent="goTo('所有區域', '所有分類')"
+          href="#"
+          >所有產品</a
+        >
       </li>
       <li class="breadcrumb-item">
-        <a @click.prevent="" href="#">{{ area }}</a>
+        <a
+          class="text-decoration-none text-secondary"
+          @click.prevent="goTo(area, '所有分類')"
+          href="#"
+          >{{ area }}</a
+        >
       </li>
       <li class="breadcrumb-item">
-        <a @click.prevent="" href="#">{{ category }}</a>
+        <a
+          class="text-decoration-none text-secondary"
+          @click.prevent="goTo(area, category)"
+          href="#"
+          >{{ category }}</a
+        >
       </li>
     </ol>
   </nav>
@@ -19,17 +34,24 @@ export default {
   props: {
     area: {
       required: true,
-      type: String,
     },
     category: {
       required: true,
-      type: String,
     },
   },
+  inject: ["emitter"],
   data() {
     return {};
   },
-  methods: {},
+  methods: {
+    goTo(area, category) {
+      this.emitter.emit("setOption", {
+        area: this.area,
+        category: this.category,
+      });
+      this.$router.push("/store/products");
+    },
+  },
 };
 </script>
 <style lang="scss" scoped></style>

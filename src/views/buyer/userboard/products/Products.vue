@@ -1,6 +1,7 @@
 <template>
   <div>
     <carousel></carousel>
+    {{ test }}
     <div class="container my-4">
       <products-bread-crumb
         :area="selectArea"
@@ -8,88 +9,24 @@
       ></products-bread-crumb>
       <div class="row gx-0">
         <!-- 手機dropdown -->
-        <div class="col-12 d-md-none mb-4">
-          <div class="d-flex">
-            <!-- 區域 -->
-            <div class="dropdown me-3">
-              <button
-                class="btn btn-outline-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {{ selectArea }}
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li v-for="item in areas" :key="item.id">
-                  <button
-                    type="button"
-                    @click="setArea(item)"
-                    class="dropdown-item"
-                  >
-                    {{ item.title }}
-                  </button>
-                </li>
-              </ul>
-            </div>
-            <!-- 分類 -->
-            <div class="dropdown">
-              <button
-                class="btn btn-outline-secondary dropdown-toggle"
-                type="button"
-                id="dropdownMenuButton2"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {{ selectCategory }}
-              </button>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                <li v-for="item in categories" :key="item.id">
-                  <button
-                    type="button"
-                    @click="setCategory(item)"
-                    class="dropdown-item"
-                  >
-                    {{ item.title }}
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
+        <div class="col-12 d-md-none mb-2">
+          <dropdown
+            :selectArea="selectArea"
+            :selectCategory="selectCategory"
+            @setArea="setArea"
+            @setCategory="setCategory"
+          ></dropdown>
         </div>
-        <div class="col-12 d-md-none mb-4"></div>
         <!-- 桌機side-bar -->
         <div class="d-none d-md-block col-sm-3">
-          <!-- 區域 -->
-          <div class="card me-5 mb-4">
-            <ul class="area-side-bar list-group list-group-flush">
-              <li
-                v-for="item in areas"
-                :key="item.id"
-                class="list-group-item"
-                @click="setArea(item)"
-                :class="{ selected: selectArea === item.title }"
-              >
-                {{ item.title }}
-              </li>
-            </ul>
-          </div>
-          <!-- 分類 -->
-          <div class="card me-5">
-            <ul class="category-side-bar list-group list-group-flush">
-              <li
-                v-for="item in categories"
-                :key="item.id"
-                class="list-group-item"
-                @click="setCategory(item)"
-                :class="{ selected: selectCategory === item.title }"
-              >
-                {{ item.title }}
-              </li>
-            </ul>
-          </div>
+          <side-bar
+            :selectArea="selectArea"
+            :selectCategory="selectCategory"
+            @setArea="setArea"
+            @setCategory="setCategory"
+          ></side-bar>
         </div>
+
         <!-- 商品列 -->
         <div class="col-12 col-md-9">
           <div class="container">
@@ -193,11 +130,21 @@ import Carousel from "../products/Carousel.vue";
 import ProductsBreadCrumb from "../products/ProductsBreadCrumb.vue";
 
 import imgSquareMixin from "@/mixins/imgSquareMixin.js";
+import Dropdown from "../products/Dropdown.vue";
+import SideBar from "../products/SideBar.vue";
 
 export default {
   name: "Products",
-  components: { Pagination, ToastList, Carousel, ProductsBreadCrumb },
+  components: {
+    Pagination,
+    ToastList,
+    Carousel,
+    ProductsBreadCrumb,
+    Dropdown,
+    SideBar,
+  },
   mixins: [imgSquareMixin],
+  inject: ["emitter"],
   data() {
     return {
       products: [],
@@ -206,58 +153,7 @@ export default {
       imgRefs: [],
       selectArea: "所有區域",
       selectCategory: "所有分類",
-      areas: [
-        {
-          id: "all",
-          title: "所有區域",
-        },
-        {
-          id: "north",
-          title: "北越",
-        },
-        {
-          id: "central",
-          title: "南越",
-        },
-        {
-          id: "south",
-          title: "中越",
-        },
-        {
-          id: "island",
-          title: "離島",
-        },
-      ],
-      categories: [
-        {
-          id: "all",
-          title: "所有分類",
-        },
-        {
-          id: "food",
-          title: "餐飲",
-        },
-        {
-          id: "transport",
-          title: "交通",
-        },
-        {
-          id: "tour",
-          title: "一日遊、多日遊",
-        },
-        {
-          id: "ticket",
-          title: "門票",
-        },
-        {
-          id: "outdoor",
-          title: "戶外活動",
-        },
-        {
-          id: "experience",
-          title: "特殊體驗",
-        },
-      ],
+      test: "ooo",
     };
   },
   methods: {
@@ -280,13 +176,18 @@ export default {
       });
     },
     setArea(item) {
-      this.selectArea = item.title;
+      this.selectArea = item;
     },
     setCategory(item) {
-      this.selectCategory = item.title;
+      this.selectCategory = item;
     },
   },
   mounted() {
+    this.emitter.on("setOption", (data) => {
+      this.selectArea = data.area;
+      this.selectCategory = data.category;
+      console.log(data);
+    });
     this.getProducts();
   },
 };
@@ -310,10 +211,5 @@ export default {
       transition: background-color, 0.2s ease-in;
     }
   }
-}
-
-.selected {
-  background-color: rgb(233, 136, 136);
-  transition: 0.4s ease;
 }
 </style>

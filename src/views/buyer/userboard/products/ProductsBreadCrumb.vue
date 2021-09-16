@@ -1,11 +1,11 @@
 <template>
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">所有行程</a></li>
+      <li class="breadcrumb-item">所有行程</li>
       <li class="breadcrumb-item">
-        <a href="#">{{ area }}</a>
+        {{ area }}
       </li>
-      <li class="breadcrumb-item active" aria-current="page">{{ category }}</li>
+      <li class="breadcrumb-item">{{ category }}</li>
     </ol>
   </nav>
 </template>
