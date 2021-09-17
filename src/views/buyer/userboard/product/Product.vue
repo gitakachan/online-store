@@ -62,13 +62,13 @@
         <div class="content">
           <h4>商品/行程內容</h4>
           <hr />
-          <p class="m-3">{{ product.content }}</p>
+          <p class="m-3" v-html="content"></p>
         </div>
         <!-- 商品描述 -->
         <div class="description">
           <h4>商品/行程介紹</h4>
           <hr />
-          <p class="m-3">{{ product.description }}</p>
+          <p class="m-3" v-html="description"></p>
         </div>
       </div>
     </div>
@@ -108,6 +108,8 @@ export default {
         quantity: 1,
       },
       tooLess: false,
+      content: "",
+      description: "",
     };
   },
   methods: {
@@ -118,6 +120,8 @@ export default {
         this.isLoading = false;
         if (response.data.success) {
           this.product = response.data.product;
+          this.content = this.fixTextArea(this.product.content);
+          this.description = this.fixTextArea(this.product.description);
         }
       });
     },
@@ -130,6 +134,10 @@ export default {
       } else if (this.order.quantity <= 1) {
         this.tooLess = true;
       }
+    },
+    fixTextArea(str) {
+      str = str.replace(/\n/g, "<br />");
+      return str;
     },
   },
   watch: {
