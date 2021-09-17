@@ -35,72 +35,72 @@
                 v-for="item in products"
                 :key="item.id"
               >
-                <div>
-                  <div class="card">
-                    <router-link
-                      class="img-container position-relative"
-                      :to="{
-                        path: '/store/products/' + `${item.id}`,
-                      }"
-                    >
-                      <img
-                        :src="item.imagesUrl[0]"
-                        class="align-bottom card-img-top"
-                        alt="產品圖片"
-                        :ref="setImgRef"
-                      />
-                    </router-link>
-                    <div class="card-body">
-                      <h3>{{ item.title }}</h3>
-                      <div class="card-text">
-                        <div class="description">
-                          {{ item.short_description }}
+                <div class="card h-100">
+                  <router-link
+                    class="img-container position-relative"
+                    :to="{
+                      path: '/store/products/' + `${item.id}`,
+                    }"
+                  >
+                    <img
+                      :src="item.imagesUrl[0]"
+                      class="align-bottom card-img-top"
+                      alt="產品圖片"
+                      :ref="setImgRef"
+                    />
+                  </router-link>
+                  <div class="card-body">
+                    <h3>{{ item.title }}</h3>
+                    <div class="card-text">
+                      <div class="description">
+                        {{ item.short_description }}
+                      </div>
+                      <div
+                        class="price d-flex align-items-end flex-md-column-reverse align-items-md-start"
+                      >
+                        <div class="me-3 fs-4">
+                          {{
+                            "NT$" +
+                              " " +
+                              item.price.toLocaleString() +
+                              " " +
+                              "/人"
+                          }}
                         </div>
-                        <div
-                          class="price d-flex align-items-end flex-md-column-reverse align-items-md-start"
-                        >
-                          <div class="me-3 fs-4">
-                            {{
-                              "NT$" +
-                                " " +
-                                item.price.toLocaleString() +
-                                " " +
-                                "/人"
-                            }}
-                          </div>
-                          <div class="text-decoration-line-through">
-                            {{
-                              "NT$" +
-                                " " +
-                                item.origin_price.toLocaleString() +
-                                " " +
-                                "/人"
-                            }}
-                          </div>
-                        </div>
-                        <div class="label mt-2 d-flex align-items-center">
-                          <span class="badge bg-secondary me-2">{{
-                            item.area
-                          }}</span>
-                          <span class="badge bg-secondary me-2">{{
-                            item.category
-                          }}</span>
-                          <span class="badge bg-info">{{ item.tag }}</span>
-                          <button
-                            type="button"
-                            class="add-cart btn btn-sm btn-outline-danger me-2 mb-2 ms-auto"
-                          >
-                            like
-                          </button>
+                        <div class="text-decoration-line-through">
+                          {{
+                            "NT$" +
+                              " " +
+                              item.origin_price.toLocaleString() +
+                              " " +
+                              "/人"
+                          }}
                         </div>
                       </div>
-                    </div>
-                    <div class="card-footer p-0">
-                      <div class="fw-bold w-100">
-                        <button class="btn btn-warning w-100 rounded-0">
-                          看詳細行程
+                      <div class="tag">
+                        <span class="badge bg-info">{{ item.tag }}</span>
+                      </div>
+                      <div class="label mt-2 d-flex align-items-center">
+                        <span class="badge bg-secondary me-2">{{
+                          item.area
+                        }}</span>
+                        <span class="badge bg-secondary me-2">{{
+                          item.category
+                        }}</span>
+                        <button
+                          type="button"
+                          class="add-cart btn btn-sm btn-outline-danger me-2 mb-2 ms-auto"
+                        >
+                          like
                         </button>
                       </div>
+                    </div>
+                  </div>
+                  <div class="card-footer p-0">
+                    <div class="fw-bold w-100">
+                      <button class="btn btn-warning w-100 rounded-0">
+                        看詳細行程
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -202,5 +202,9 @@ export default {
       transition: background-color, 0.2s ease-in;
     }
   }
+}
+.tag {
+  width: 100%;
+  height: 1rem;
 }
 </style>
