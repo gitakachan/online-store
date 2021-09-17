@@ -12,19 +12,17 @@
         <div class="col-12 col-md-6">
           <!-- 標題 -->
           <h1 class="mb-3">{{ product.title }}</h1>
-          <!-- 地點 -->
-          <div class="mb-2">{{ product.location }}</div>
-          <!-- 標籤 -->
           <div class="tag mb-3">
             <span class="badge bg-warning">{{ product.area }}</span> &nbsp;
             <span class="badge bg-info">{{ product.tag }}</span>
           </div>
-          <!-- 價格 -->
-          <div class="price d-flex align-items-end mb-3">
-            <h6 class="text-decoration-line-through text-secondary">
-              {{ origin_price }}
-            </h6>
-            <h4 class="ms-3">{{ price }}</h4>
+          <!-- 地點 -->
+          <div class="mb-2">{{ product.location }}</div>
+          <!-- 標籤 -->
+
+          <!-- 每週出團日 -->
+          <div class="mb-3">
+            {{ weekdays }}
           </div>
           <!-- 數量 -->
           <div class="quantity d-flex align-items-center mb-2">
@@ -59,7 +57,18 @@
             </div>
           </div>
           <!-- 日期選擇 -->
-          <calender @selectDate="selectDate" class="mb-2"></calender>
+          <calender
+            @selectDate="selectDate"
+            :notAvalible="product.notAvalibleWeekday"
+            class="mb-4"
+          ></calender>
+          <!-- 價格 -->
+          <div class="price d-flex justify-content-end align-items-end mb-3">
+            <h6 class="text-decoration-line-through text-secondary">
+              {{ origin_price }}
+            </h6>
+            <h3 class="ms-3">{{ price }}</h3>
+          </div>
           <!-- 按鈕 -->
           <div class="d-grid gap-2 my-3">
             <button class="btn btn-primary shadow-none" type="button">
@@ -135,6 +144,7 @@ export default {
       tooLess: false,
       content: "",
       description: "",
+      weekdays: "",
     };
   },
 
@@ -148,6 +158,7 @@ export default {
           this.product = response.data.product;
           this.content = this.fixTextArea(this.product.content);
           this.description = this.fixTextArea(this.product.description);
+          this.weekdays = this.getWeekdays(this.product.weekdays);
         }
       });
     },
@@ -167,6 +178,22 @@ export default {
     },
     selectDate(date) {
       this.order.date = date;
+    },
+    getWeekdays(arr) {
+      let str = "";
+      if (arr.length === 7) {
+        str = "每天";
+      } else {
+        str = `每週${arr.join("、")}`;
+      }
+      if (
+        this.product.category === "門票" ||
+        this.product.category === "餐飲"
+      ) {
+        return (str += "可使用");
+      } else {
+        return (str += "出發");
+      }
     },
   },
   watch: {

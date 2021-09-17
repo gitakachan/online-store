@@ -105,7 +105,7 @@
                     />
                   </div>
                 </div>
-
+                <!-- 價格 -->
                 <div class="row gx-2">
                   <div class="mb-3 col-md-6">
                     <label for="origin_price" class="form-label fw-bold"
@@ -130,7 +130,34 @@
                     />
                   </div>
                 </div>
+                <!-- 日期 -->
+                <hr />
+                <div class="row gx-2">
+                  <div class="mb-3 col-12">
+                    <div>可使用星期</div>
+                    <section class="group">
+                      <div
+                        v-for="item in weekdays"
+                        :key="item.id"
+                        class="form-check form-check-inline"
+                      >
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          :id="item.id"
+                          :value="item.id"
+                          v-model="tempProduct.weekdays"
+                        />
+                        <label class="form-check-label" :for="item.id">{{
+                          item.title
+                        }}</label>
+                      </div>
+                      <p>selected:{{ tempProduct.weekdays }}</p>
+                    </section>
+                  </div>
+                </div>
 
+                <hr />
                 <div class="mb-3">
                   <label for="description" class="form-label"
                     >簡短行程描述(呈現在商品列表)</label
@@ -268,6 +295,7 @@
 </template>
 <script>
 import ModalMixin from "@/mixins/ModalMixin";
+import { reverseWeekdayNumber } from "@/methods/weekday.js";
 export default {
   name: "ProductModal",
   props: {
@@ -283,16 +311,8 @@ export default {
     return {
       modal: {},
       tempProduct: {
-        // title: "",
-        // category: "",
-        // origin_price: 0,
-        // price: 0,
-        // unit: "", //ex. 個
-        // description: "",
-        // content: "",
-        // is_enabled: 1, //1為是
-        // imageUrl: "",
         imagesUrl: [], //讓input的:disabled可以有讀取依據
+        notAvalibleWeekday: [],
       },
       categoryOptionList: [
         "交通",
@@ -301,6 +321,15 @@ export default {
         "門票",
         "戶外活動",
         "特殊體驗",
+      ],
+      weekdays: [
+        { id: 1, title: "一" },
+        { id: 2, title: "二" },
+        { id: 3, title: "三" },
+        { id: 4, title: "四" },
+        { id: 5, title: "五" },
+        { id: 6, title: "六" },
+        { id: 7, title: "日" },
       ],
     };
   },
@@ -335,6 +364,7 @@ export default {
       let index = this.tempProduct.imagesUrl.indexOf(item);
       this.tempProduct.imagesUrl.splice(index, 1);
     },
+    reverseWeekdayNumber,
   },
   watch: {
     product() {
@@ -343,6 +373,17 @@ export default {
         //新產品先初始化，以免填圖片時imagesUrl為undefined；舊產品則是避免之前沒有填過圖片，imagesUrl會為undefined
         this.tempProduct.imagesUrl = [];
       }
+      if (!this.tempProduct.weekdays) {
+        this.tempProduct.weekdays = [1, 2, 3, 4, 5, 6, 7]; //預設全選
+      }
+      if (!this.tempProduct.notAvalibleWeekday) {
+        this.tempProduct.notAvalibleWeekday = [];
+      }
+    },
+    "tempProduct.weekdays"() {
+      this.tempProduct.notAvalibleWeekday = this.reverseWeekdayNumber(
+        this.tempProduct.weekdays
+      );
     },
   },
   mixins: [ModalMixin],

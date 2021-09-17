@@ -7,7 +7,12 @@
       </div>
     </div>
     <div class="input-group input-group-sm">
-      <v-date-picker v-model="tempDate" :masks="masks" :min-date="new Date()">
+      <v-date-picker
+        v-model="tempDate"
+        :masks="masks"
+        :min-date="new Date()"
+        :disabled-dates="{ weekdays: notAvalibleWeekday }"
+      >
         <template v-slot="{ inputValue, inputEvents }">
           <input
             id="date"
@@ -45,6 +50,11 @@
 <script>
 export default {
   name: "Calender",
+  props: {
+    notAvalible: {
+      type: Array,
+    },
+  },
   inject: ["date"],
   data() {
     return {
@@ -52,6 +62,7 @@ export default {
       masks: {
         input: "YYYY-MM-DD",
       },
+      notAvalibleWeekday: [],
     };
   },
   computed: {
@@ -63,6 +74,16 @@ export default {
   watch: {
     tempDate() {
       this.$emit("selectDate", this.tempDate);
+    },
+    notAvalible() {
+      this.notAvalible.forEach((el) => {
+        if (el === 7) {
+          el = 1;
+        } else {
+          el++;
+        }
+        this.notAvalibleWeekday.push(el);
+      });
     },
   },
   mounted() {
