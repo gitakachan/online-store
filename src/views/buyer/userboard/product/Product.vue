@@ -20,13 +20,13 @@
             <h4 class="ms-3">{{ price }}</h4>
           </div>
           <!-- 數量 -->
-          <div class="quantity d-flex align-items-center">
+          <div class="quantity d-flex align-items-center mb-2">
             <div>
-              <span class="d-block">數量：</span>
+              <span>數量：</span>
             </div>
             <div class="input-group input-group-sm w-25">
               <button
-                class="btn btn-sm btn-outline-secondary"
+                class="btn btn-sm btn-outline-secondary shadow-none"
                 type="button"
                 @click="deductQunatity"
               >
@@ -39,7 +39,7 @@
               />
 
               <button
-                class="btn btn-sm btn-outline-secondary"
+                class="btn btn-sm btn-outline-secondary shadow-none"
                 type="button"
                 @click="addQuantity"
               >
@@ -51,10 +51,20 @@
               不得小於1
             </div>
           </div>
+          <!-- 日期選擇 -->
+          <calender @selectDate="selectDate" class="mb-2"></calender>
           <!-- 按鈕 -->
           <div class="d-grid gap-2 my-3">
-            <button class="btn btn-primary" type="button">收藏商品</button>
-            <button class="btn btn-primary" type="button">放入購物車</button>
+            <button class="btn btn-primary shadow-none" type="button">
+              收藏商品
+            </button>
+            <button
+              :disabled="!order.date"
+              class="btn btn-primary shadow-none"
+              type="button"
+            >
+              放入購物車
+            </button>
           </div>
         </div>
 
@@ -78,13 +88,20 @@
 <script>
 import Images from "./Images.vue";
 import BreadCrumb from "./BreadCrumb.vue";
+import Calender from "./Calender.vue";
 export default {
-  components: { Images, BreadCrumb },
+  components: { Images, BreadCrumb, Calender },
   name: "Product",
   props: {
     id: {
       required: true,
     },
+  },
+  provide() {
+    //函數式可以接收到子層修改後的數據
+    return {
+      date: this.order.date, //可以直接用this指向data裡的數據
+    };
   },
   computed: {
     price() {
@@ -106,12 +123,14 @@ export default {
       isLoading: false,
       order: {
         quantity: 1,
+        date: new Date(),
       },
       tooLess: false,
       content: "",
       description: "",
     };
   },
+
   methods: {
     getProduct() {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`;
@@ -139,6 +158,9 @@ export default {
       str = str.replace(/\n/g, "<br />");
       return str;
     },
+    selectDate(date) {
+      this.order.date = date;
+    },
   },
   watch: {
     "order.quantity"() {
@@ -156,11 +178,4 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-.quantity {
-  button:focus,
-  input:focus {
-    box-shadow: none;
-  }
-}
-</style>
+<style lang="scss" scoped></style>

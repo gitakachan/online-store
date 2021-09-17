@@ -7,10 +7,12 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@popperjs/core": "^2.10.1",
     "axios": "^0.21.1",
     "bootstrap": "^5.1.0",
     "core-js": "^3.6.5",
     "mitt": "^3.0.0",
+    "v-calendar": "^3.0.0-alpha.5",
     "vue": "^3.0.0",
     "vue-axios": "^3.2.5",
     "vue-router": "^4.0.0-0",
