@@ -49,20 +49,6 @@
                         alt="產品圖片"
                         :ref="setImgRef"
                       />
-                      <div class="position-absolute bottom-0 end-0 d-flex">
-                        <button
-                          type="button"
-                          class="add-cart btn btn-sm btn-outline-danger me-2 mb-2 flex-grow-1"
-                        >
-                          like
-                        </button>
-                        <button
-                          type="button"
-                          class="add-cart btn btn-sm btn-outline-warning me-2 mb-2 flex-grow-1"
-                        >
-                          cart
-                        </button>
-                      </div>
                     </router-link>
                     <div class="card-body">
                       <h3>{{ item.title }}</h3>
@@ -92,13 +78,19 @@
                             }}
                           </div>
                         </div>
-                        <div class="label mt-2">
+                        <div class="label mt-2 d-flex align-items-center">
                           <span class="badge bg-secondary me-2">{{
                             item.area
                           }}</span>
                           <span class="badge bg-secondary">{{
                             item.category
                           }}</span>
+                          <button
+                            type="button"
+                            class="add-cart btn btn-sm btn-outline-danger me-2 mb-2 ms-auto"
+                          >
+                            like
+                          </button>
                         </div>
                       </div>
                     </div>
