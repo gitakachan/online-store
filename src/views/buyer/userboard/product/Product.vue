@@ -12,6 +12,13 @@
         <div class="col-12 col-md-6">
           <!-- 標題 -->
           <h1 class="mb-3">{{ product.title }}</h1>
+          <!-- 地點 -->
+          <div class="mb-2">{{ product.location }}</div>
+          <!-- 標籤 -->
+          <div class="tag mb-3">
+            <span class="badge bg-warning">{{ product.area }}</span> &nbsp;
+            <span class="badge bg-info">{{ product.tag }}</span>
+          </div>
           <!-- 價格 -->
           <div class="price d-flex align-items-end mb-3">
             <h6 class="text-decoration-line-through text-secondary">

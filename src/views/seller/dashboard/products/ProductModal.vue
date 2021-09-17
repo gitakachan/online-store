@@ -68,6 +68,18 @@
                   </div>
                 </div>
                 <div class="row gx-2">
+                  <div class="mb-3 col">
+                    <label for="tag" class="form-label">標籤</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="tag"
+                      placeholder="請輸入標籤"
+                      v-model="tempProduct.tag"
+                    />
+                  </div>
+                </div>
+                <div class="row gx-2">
                   <div class="mb-3 col-md-6">
                     <label for="area" class="form-label">區域</label>
                     <select

@@ -19,6 +19,18 @@
           />
         </template>
       </v-date-picker>
+      <!-- <v-date-picker v-model="tempDate" :masks="masks" :min-date="new Date()">
+        <template v-slot="{ inputValue, inputEvents }">
+          <input
+            id="date"
+            class="bg-white py-2 px-3 border rounded-start"
+            :class="{ 'border-danger': errorMessage }"
+            :value="inputValue"
+            v-on="inputEvents"
+            placeholder="請選擇出發日期"
+          />
+        </template>
+      </v-date-picker> -->
       <button
         type="button"
         class="btn btn-secondary rounded-end  shadow-none"

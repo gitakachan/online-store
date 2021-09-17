@@ -82,9 +82,10 @@
                           <span class="badge bg-secondary me-2">{{
                             item.area
                           }}</span>
-                          <span class="badge bg-secondary">{{
+                          <span class="badge bg-secondary me-2">{{
                             item.category
                           }}</span>
+                          <span class="badge bg-info">{{ item.tag }}</span>
                           <button
                             type="button"
                             class="add-cart btn btn-sm btn-outline-danger me-2 mb-2 ms-auto"
