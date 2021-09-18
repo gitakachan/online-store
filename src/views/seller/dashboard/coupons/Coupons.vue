@@ -88,7 +88,6 @@ export default {
         this.tempCoupon = {
           percent: 100,
           is_enabled: 0,
-          due_date: getFormDate(), //將當前日期轉為unix time stamp格式
         };
       } else {
         this.tempCoupon = { ...item };

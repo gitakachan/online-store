@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>xx{{ min_date }}{{ max_date }}</h1>
     <div class="container p-5">
       <bread-crumb
         :area="product.area"

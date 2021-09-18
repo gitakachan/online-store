@@ -181,6 +181,7 @@
                       name="start"
                       v-model="startDate"
                       value="true"
+                      @click="setDefaultStart"
                     />
                     <label class="form-check-label" for="startDate">
                       自定
@@ -188,13 +189,20 @@
                   </div>
                 </div>
                 <div class="mb-3 col-md-6">
-                  <input
-                    class="form-control"
-                    id="min_date"
-                    type="date"
+                  <v-date-picker
                     v-model="tempProduct.min_date"
-                    :disabled="startDate === 'default'"
-                  />
+                    :min-date="new Date()"
+                  >
+                    <template v-slot="{ inputValue, inputEvents }">
+                      <input
+                        class="form-control"
+                        :value="inputValue"
+                        v-on="inputEvents"
+                        :disabled="startDate === 'default'"
+                        id="min_date"
+                      />
+                    </template>
+                  </v-date-picker>
                 </div>
                 <div class="mb-3 col-12">
                   <div>最晚可預定日</div>
@@ -219,19 +227,27 @@
                       name="end"
                       v-model="endDate"
                       value="true"
+                      @click="setDefaultEnd"
                     />
                     <label class="form-check-label" for="endDate">
                       自定
                     </label>
                   </div>
                   <div class="mb-3 col-md-6">
-                    <input
-                      class="form-control"
-                      id="min_date"
-                      type="date"
+                    <v-date-picker
                       v-model="tempProduct.max_date"
-                      :disabled="endDate === 'default'"
-                    />
+                      :min-date="new Date()"
+                    >
+                      <template v-slot="{ inputValue, inputEvents }">
+                        <input
+                          class="form-control"
+                          :value="inputValue"
+                          v-on="inputEvents"
+                          :disabled="endDate === 'default'"
+                          id="max_date"
+                        />
+                      </template>
+                    </v-date-picker>
                   </div>
                 </div>
                 <hr />
@@ -393,7 +409,6 @@ export default {
       modal: {},
       tempProduct: {
         imagesUrl: [], //讓input的:disabled可以有讀取依據
-        notAvalibleWeekday: [],
       },
       categoryOptionList: [
         "交通",
@@ -448,6 +463,13 @@ export default {
       this.tempProduct.imagesUrl.splice(index, 1);
     },
     reverseWeekdayNumber,
+    setDefaultStart() {
+      this.tempProduct.min_date = new Date();
+      console.log("set");
+    },
+    setDefaultEnd() {
+      this.tempProduct.max_date = new Date();
+    },
   },
   watch: {
     product() {
@@ -459,18 +481,16 @@ export default {
       if (!this.tempProduct.weekdays) {
         this.tempProduct.weekdays = [1, 2, 3, 4, 5, 6, 7]; //預設全選
       }
-      if (!this.tempProduct.notAvalibleWeekday) {
-        this.tempProduct.notAvalibleWeekday = [];
-      }
-      if (!this.tempProduct.min_date) {
-        this.tempProduct.min_date = null;
-      } else {
+
+      if (this.tempProduct.min_date) {
         this.startDate = true;
-      }
-      if (!this.tempProduct.max_date) {
-        this.tempProduct.max_date = null;
       } else {
-        this.startDate = true;
+        this.startDate = "default";
+      }
+      if (this.tempProduct.max_date) {
+        this.endDate = true;
+      } else {
+        this.endDate = "default";
       }
     },
     "tempProduct.weekdays"() {

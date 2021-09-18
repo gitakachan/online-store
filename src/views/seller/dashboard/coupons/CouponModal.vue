@@ -62,12 +62,19 @@
                 <div class="row">
                   <div class="mb-3 col-md-6">
                     <label for="date" class="form-label fw-bold">到期日*</label>
-                    <input
-                      class="form-control"
-                      id="date"
-                      type="date"
+                    <v-date-picker
                       v-model="tempCoupon.due_date"
-                    />
+                      :min-date="new Date()"
+                    >
+                      <template v-slot="{ inputValue, inputEvents }">
+                        <input
+                          class="form-control"
+                          :value="inputValue"
+                          v-on="inputEvents"
+                          id="date"
+                        />
+                      </template>
+                    </v-date-picker>
                   </div>
                   <div class="mb-3 col-md-6">
                     <div class="form-check">
@@ -134,9 +141,12 @@ export default {
   watch: {
     coupon() {
       this.tempCoupon = this.coupon;
-      
-      //unix time stamp -> formDate
-      this.tempCoupon.due_date = this.getFormDate(this.tempCoupon.due_date);
+      if (!this.tempCoupon.due_date) {
+        this.tempCoupon.due_date = new Date();
+      } else {
+        //unix time stamp -> formDate
+        this.tempCoupon.due_date = this.getFormDate(this.tempCoupon.due_date);
+      }
     },
   },
   mixins: [ModalMixin],
