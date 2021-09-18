@@ -127,7 +127,7 @@ export default {
         (response) => {
           this.isLoading = false;
           if (response.data.success) {
-            this.getProducts(); //取得最新products資料
+            this.getProducts(this.pagination.current_page); //取得最新products資料
           }
           this.resMsg(response);
           this.$refs.productModal.hideModal(); //關閉modal
@@ -141,7 +141,7 @@ export default {
         if (response.data.success) {
           this.$refs.delModal.hideModal();
           this.isLoading = false;
-          this.getProducts();
+          this.getProducts(this.pagination.current_page);
         }
         this.resMsg(response, "刪除");
       });

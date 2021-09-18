@@ -129,7 +129,7 @@ export default {
         (response) => {
           this.isLoading = false;
           if (response.data.success) {
-            this.getCoupons();
+            this.getCoupons(this.pagination.current_page);
             this.tempCoupon = {};
           }
           this.$refs.couponModal.hideModal();
@@ -144,7 +144,7 @@ export default {
         if (response.data.success) {
           this.$refs.delModal.hideModal();
           this.isLoading = false;
-          this.getCoupons();
+          this.getCoupons(this.pagination.current_page);
         }
         this.resMsg(response, "刪除");
       });
