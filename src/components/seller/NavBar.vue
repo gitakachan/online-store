@@ -39,6 +39,7 @@
 <script>
 export default {
   name: "NavBar",
+
   methods: {
     logOut() {
       const api = `${process.env.VUE_APP_API}logout`;

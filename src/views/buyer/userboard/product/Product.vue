@@ -17,12 +17,14 @@
             <span class="badge bg-info">{{ product.tag }}</span>
           </div>
           <!-- 地點 -->
-          <div class="mb-2">{{ product.location }}</div>
+          <div class="mb-2">
+            <i class="bi bi-geo-alt"></i> {{ product.location }}
+          </div>
           <!-- 標籤 -->
 
           <!-- 每週出團日 -->
           <div class="mb-3">
-            {{ weekdays }}
+            <i class="bi bi-calendar-check"></i> {{ weekdays }}
           </div>
           <!-- 數量 -->
           <div class="quantity d-flex align-items-center mb-2">
@@ -73,14 +75,14 @@
           <!-- 按鈕 -->
           <div class="d-grid gap-2 my-3">
             <button class="btn btn-primary shadow-none" type="button">
-              收藏商品
+              <i class="bi bi-heart-fill"></i> 收藏商品
             </button>
             <button
               :disabled="!order.date"
               class="btn btn-primary shadow-none"
               type="button"
             >
-              放入購物車
+              <i class="bi bi-cart-fill"></i> 放入購物車
             </button>
           </div>
         </div>

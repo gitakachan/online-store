@@ -50,9 +50,9 @@
                     />
                   </router-link>
                   <div class="card-body">
-                    <h3>{{ item.title }}</h3>
+                    <h3 class="mb-2">{{ item.title }}</h3>
                     <div class="card-text">
-                      <div class="description">
+                      <div class="description mb-2">
                         {{ item.short_description }}
                       </div>
                       <div
@@ -67,7 +67,9 @@
                               "/人"
                           }}
                         </div>
-                        <div class="text-decoration-line-through">
+                        <div
+                          class="text-decoration-line-through text-secondary"
+                        >
                           {{
                             "NT$" +
                               " " +
@@ -77,7 +79,7 @@
                           }}
                         </div>
                       </div>
-                      <div class="tag">
+                      <div class="tag mb-3">
                         <span class="badge bg-info">{{ item.tag }}</span>
                       </div>
                       <div class="label mt-2 d-flex align-items-center">
@@ -87,20 +89,23 @@
                         <span class="badge bg-secondary me-2">{{
                           item.category
                         }}</span>
-                        <button
-                          type="button"
-                          class="add-cart btn btn-sm btn-outline-danger me-2 mb-2 ms-auto"
-                        >
-                          like
-                        </button>
+                        <a class="add-cart ms-auto me-2"
+                          ><i class="bi bi-heart-fill"></i
+                        ></a>
                       </div>
                     </div>
                   </div>
                   <div class="card-footer p-0">
                     <div class="fw-bold w-100">
-                      <button class="btn btn-warning w-100 rounded-0">
-                        看詳細行程
-                      </button>
+                      <router-link
+                        :to="{
+                          path: `/store/products/${item.id}`,
+                        }"
+                        tag="button"
+                        class="btn btn-warning w-100 rounded-0"
+                      >
+                        <i class="bi bi-eye"></i> 看詳細行程
+                      </router-link>
                     </div>
                   </div>
                 </div>
@@ -206,5 +211,16 @@ export default {
 .tag {
   width: 100%;
   height: 1rem;
+}
+
+.add-cart {
+  cursor: pointer;
+  i {
+    color: rgb(232, 100, 52);
+    transition: color 0.3s ease;
+    &:hover {
+      color: rgb(240, 12, 8);
+    }
+  }
 }
 </style>

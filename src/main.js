@@ -12,6 +12,7 @@ import VueAxios from "vue-axios";
 
 import VCalendar from "v-calendar";
 
+import "bootstrap-icons/font/bootstrap-icons.css";
 const app = createApp(App);
 app.use(VueAxios, axios);
 app.use(router);
