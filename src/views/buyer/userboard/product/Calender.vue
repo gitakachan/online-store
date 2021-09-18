@@ -10,7 +10,8 @@
       <v-date-picker
         v-model="tempDate"
         :masks="masks"
-        :min-date="new Date()"
+        :min-date="min_date"
+        :max-date="max_date"
         :disabled-dates="{ weekdays: notAvalibleWeekday }"
       >
         <template v-slot="{ inputValue, inputEvents }">
@@ -39,7 +40,7 @@
       <button
         type="button"
         class="btn btn-secondary rounded-end  shadow-none"
-        :disabled="!date"
+        :disabled="!tempDate"
         @click="tempDate = null"
       >
         清除
@@ -54,8 +55,11 @@ export default {
     notAvalible: {
       type: Array,
     },
+    startDate: {
+      default: new Date(),
+    },
   },
-  inject: ["date"],
+  inject: ["getReaciveMinDate", "getReaciveMaxDate"],
   data() {
     return {
       tempDate: null,
@@ -69,6 +73,12 @@ export default {
     errorMessage() {
       if (!this.tempDate) return "日期為必填";
       return "";
+    },
+    min_date() {
+      return this.getReaciveMinDate();
+    },
+    max_date() {
+      return this.getReaciveMaxDate();
     },
   },
   watch: {
@@ -85,9 +95,9 @@ export default {
         this.notAvalibleWeekday.push(el);
       });
     },
-  },
-  mounted() {
-    this.tempDate = this.date;
+    startDate() {
+      this.tempDate = this.startDate;
+    },
   },
 };
 </script>

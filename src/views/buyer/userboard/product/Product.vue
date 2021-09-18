@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>xx{{ min_date }}{{ max_date }}</h1>
     <div class="container p-5">
       <bread-crumb
         :area="product.area"
@@ -60,6 +61,7 @@
           <calender
             @selectDate="selectDate"
             :notAvalible="product.notAvalibleWeekday"
+            :startDate="order.date"
             class="mb-4"
           ></calender>
           <!-- 價格 -->
@@ -115,9 +117,9 @@ export default {
     },
   },
   provide() {
-    //函數式可以接收到子層修改後的數據
     return {
-      date: this.order.date, //可以直接用this指向data裡的數據
+      getReaciveMinDate: () => this.min_date,
+      getReaciveMaxDate: () => this.max_date,
     };
   },
   computed: {
@@ -146,6 +148,8 @@ export default {
       content: "",
       description: "",
       weekdays: "",
+      min_date: "",
+      max_date: "",
     };
   },
 
@@ -160,6 +164,22 @@ export default {
           this.content = this.fixTextArea(this.product.content);
           this.description = this.fixTextArea(this.product.description);
           this.weekdays = this.getWeekdays(this.product.weekdays);
+          if (!this.product.min_date) {
+            //若無指定起始日，則為今天開始
+            this.min_date = new Date();
+          } else {
+            this.min_date = this.product.min_date;
+          }
+          this.order.date = this.min_date;
+
+          if (!this.product.max_date) {
+            //若無指定截止日，則為一年後（不寫死，可一直延後）
+            this.max_date = new Date().setFullYear(
+              new Date().getFullYear() + 1
+            );
+          } else {
+            this.max_date = this.product.max_date;
+          }
         }
       });
     },
@@ -186,7 +206,6 @@ export default {
         str = "每天 ";
       } else {
         arr = this.getWeekdayText(arr);
-        console.log(arr);
         str = `每週 ${arr.join("、")}`;
       }
       if (

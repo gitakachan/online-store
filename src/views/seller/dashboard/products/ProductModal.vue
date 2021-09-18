@@ -67,6 +67,7 @@
                     />
                   </div>
                 </div>
+                <!-- tag -->
                 <div class="row gx-2">
                   <div class="mb-3 col">
                     <label for="tag" class="form-label">標籤</label>
@@ -79,6 +80,7 @@
                     />
                   </div>
                 </div>
+                <!-- area -->
                 <div class="row gx-2">
                   <div class="mb-3 col-md-6">
                     <label for="area" class="form-label">區域</label>
@@ -133,6 +135,7 @@
                 <!-- 日期 -->
                 <hr />
                 <div class="row gx-2">
+                  <!-- 星期幾 -->
                   <div class="mb-3 col-12">
                     <div>可使用星期</div>
                     <section class="group">
@@ -152,24 +155,100 @@
                           item.title
                         }}</label>
                       </div>
-                      <p>selected:{{ tempProduct.weekdays }}</p>
                     </section>
                   </div>
                 </div>
-
+                <div class="mb-3 col-12">
+                  <div>最早可預定日</div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      name="start"
+                      type="radio"
+                      id="today"
+                      v-model="startDate"
+                      value="default"
+                    />
+                    <label class="form-check-label" for="today">
+                      今天
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      id="StartDate"
+                      name="start"
+                      v-model="startDate"
+                      value="true"
+                    />
+                    <label class="form-check-label" for="startDate">
+                      自定
+                    </label>
+                  </div>
+                </div>
+                <div class="mb-3 col-md-6">
+                  <input
+                    class="form-control"
+                    id="min_date"
+                    type="date"
+                    v-model="tempProduct.min_date"
+                    :disabled="startDate === 'default'"
+                  />
+                </div>
+                <div class="mb-3 col-12">
+                  <div>最晚可預定日</div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      name="end"
+                      type="radio"
+                      id="inAYear"
+                      v-model="endDate"
+                      value="default"
+                    />
+                    <label class="form-check-label" for="inAYear">
+                      一年以內
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      id="endDate"
+                      name="end"
+                      v-model="endDate"
+                      value="true"
+                    />
+                    <label class="form-check-label" for="endDate">
+                      自定
+                    </label>
+                  </div>
+                  <div class="mb-3 col-md-6">
+                    <input
+                      class="form-control"
+                      id="min_date"
+                      type="date"
+                      v-model="tempProduct.max_date"
+                      :disabled="endDate === 'default'"
+                    />
+                  </div>
+                </div>
                 <hr />
+                <!-- 簡短描述 -->
                 <div class="mb-3">
-                  <label for="description" class="form-label"
+                  <label for="short_description" class="form-label"
                     >簡短行程描述(呈現在商品列表)</label
                   >
                   <textarea
                     type="text"
                     class="form-control"
-                    id="description"
+                    id="short_description"
                     placeholder="請輸入簡短行程描述"
                     v-model="tempProduct.short_description"
                   ></textarea>
                 </div>
+                <!-- 詳細描述 -->
                 <div class="mb-3">
                   <label for="description" class="form-label"
                     >詳細行程描述</label
@@ -182,6 +261,7 @@
                     v-model="tempProduct.description"
                   ></textarea>
                 </div>
+                <!-- 內容 -->
                 <div class="mb-3">
                   <label for="content" class="form-label">行程內容</label>
                   <textarea
@@ -192,6 +272,7 @@
                     v-model="tempProduct.content"
                   ></textarea>
                 </div>
+                <!-- 是否啟用 -->
                 <div class="mb-3">
                   <div class="form-check">
                     <input
@@ -331,6 +412,8 @@ export default {
         { id: 6, title: "六" },
         { id: 7, title: "日" },
       ],
+      startDate: "default",
+      endDate: "default",
     };
   },
   methods: {
@@ -379,11 +462,32 @@ export default {
       if (!this.tempProduct.notAvalibleWeekday) {
         this.tempProduct.notAvalibleWeekday = [];
       }
+      if (!this.tempProduct.min_date) {
+        this.tempProduct.min_date = null;
+      } else {
+        this.startDate = true;
+      }
+      if (!this.tempProduct.max_date) {
+        this.tempProduct.max_date = null;
+      } else {
+        this.startDate = true;
+      }
     },
     "tempProduct.weekdays"() {
+      //找出not avilable 的日子
       this.tempProduct.notAvalibleWeekday = this.reverseWeekdayNumber(
         this.tempProduct.weekdays
       );
+    },
+    startDate() {
+      if (this.startDate === "default") {
+        this.tempProduct.min_date = null;
+      }
+    },
+    endDate() {
+      if (this.endDate === "default") {
+        this.tempProduct.max_date = null;
+      }
     },
   },
   mixins: [ModalMixin],

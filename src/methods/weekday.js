@@ -62,21 +62,21 @@ export function sortWeekdayNumber(arr) {
 
 //sort text
 export function sortWeekdayText(arr) {
-  arr.forEach((num) => {
+  arr.forEach((num, index) => {
     if (num === "一") {
-      num = 1;
+      arr[index] = 1;
     } else if (num === "二") {
-      num = 2;
+      arr[index] = 2;
     } else if (num === "三") {
-      num = 3;
+      arr[index] = 3;
     } else if (num === "四") {
-      num = 4;
+      arr[index] = 4;
     } else if (num === "五") {
-      num = 5;
+      arr[index] = 5;
     } else if (num === "六") {
-      num = 6;
+      arr[index] = 6;
     } else if (num === "日") {
-      num = 7;
+      arr[index] = 7;
     }
   });
 
@@ -85,21 +85,21 @@ export function sortWeekdayText(arr) {
     return value1 - value2;
   });
 
-  sortedArr.forEach((num) => {
+  sortedArr.forEach((num, index) => {
     if (num === 1) {
-      num = "一";
+      sortedArr[index] = "一";
     } else if (num === 2) {
-      num = "二";
+      sortedArr[index] = "二";
     } else if (num === 3) {
-      num = "三";
+      sortedArr[index] = "三";
     } else if (num === 4) {
-      num = "四";
+      sortedArr[index] = "四";
     } else if (num === 5) {
-      num = "五";
+      sortedArr[index] = "五";
     } else if (num === 6) {
-      num = "六";
+      sortedArr[index] = "六";
     } else if (num === 7) {
-      num = "日";
+      sortedArr[index] = "日";
     }
   });
   return sortedArr;
