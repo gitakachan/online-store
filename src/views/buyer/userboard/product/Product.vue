@@ -105,6 +105,7 @@
 import Images from "./Images.vue";
 import BreadCrumb from "./BreadCrumb.vue";
 import Calender from "./Calender.vue";
+import { getWeekdayText } from "@/methods/weekday.js";
 export default {
   components: { Images, BreadCrumb, Calender },
   name: "Product",
@@ -182,19 +183,22 @@ export default {
     getWeekdays(arr) {
       let str = "";
       if (arr.length === 7) {
-        str = "每天";
+        str = "每天 ";
       } else {
-        str = `每週${arr.join("、")}`;
+        arr = this.getWeekdayText(arr);
+        console.log(arr);
+        str = `每週 ${arr.join("、")}`;
       }
       if (
         this.product.category === "門票" ||
         this.product.category === "餐飲"
       ) {
-        return (str += "可使用");
+        return (str += " 可使用");
       } else {
-        return (str += "出發");
+        return (str += " 出發");
       }
     },
+    getWeekdayText,
   },
   watch: {
     "order.quantity"() {
