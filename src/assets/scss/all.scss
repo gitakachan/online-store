@@ -3,3 +3,16 @@
 @import "~bootstrap/scss/mixins";
 
 @import "~bootstrap/scss/bootstrap";
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&family=Noto+Sans+TC:wght@100;400&display=swap");
+
+body {
+  font-family: "Noto Sans TC", sans-serif; //中文
+  a:hover {
+    cursor: pointer;
+  }
+}
+.eng,
+.num {
+  font-family: "Montserrat", sans-serif; //英文、數字
+}
