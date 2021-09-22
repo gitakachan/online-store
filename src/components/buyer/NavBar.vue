@@ -6,6 +6,7 @@
           >Store</router-link
         >
         <button
+          ref="collapseBtn"
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
@@ -18,16 +19,32 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav d-flex w-100">
-            <router-link to="/store/home" class="nav-link" href="#"
+            <router-link
+              to="/store/home"
+              @click="collapse"
+              class="nav-link"
+              href="#"
               >首頁</router-link
             >
-            <router-link to="/store/about" class="nav-link" href="#"
+            <router-link
+              to="/store/about"
+              @click="collapse"
+              class="nav-link"
+              href="#"
               >關於</router-link
             >
-            <router-link to="/store/products" class="nav-link" href="#"
-              >產品</router-link
+            <router-link
+              to="/store/products"
+              @click="collapse"
+              class="nav-link"
+              href="#"
+              >行程＆票券</router-link
             >
-            <router-link to="/store/cart" class="nav-link" href="#"
+            <router-link
+              to="/store/cart"
+              @click="collapse"
+              class="nav-link"
+              href="#"
               >購物車</router-link
             >
           </div>
@@ -37,23 +54,10 @@
   </div>
 </template>
 <script>
+import navBarCollapse from "@/mixins/navBarCollapse.js";
 export default {
   name: "NavBar",
-  methods: {
-    logOut() {
-      const api = `${process.env.VUE_APP_API}logout`;
-      this.axios
-        .post(api)
-        .then((response) => {
-          if (response.data.success) {
-            this.$router.push("/login"); //登出成功跳轉至登入頁面
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-  },
+  mixins: [navBarCollapse],
 };
 </script>
 <style lang="scss" scoped>

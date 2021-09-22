@@ -435,7 +435,7 @@ export default {
     //上傳圖片
     uploadFile() {
       if (
-        this.$refs.fileInput.files.length + this.tempProduct.imagesUrl.length >=
+        this.$refs.fileInput.files.length + this.tempProduct.imagesUrl.length >
         5
       ) {
         alert("最多只能選擇五張圖片");
@@ -465,7 +465,6 @@ export default {
     reverseWeekdayNumber,
     setDefaultStart() {
       this.tempProduct.min_date = new Date();
-      console.log("set");
     },
     setDefaultEnd() {
       this.tempProduct.max_date = new Date();
