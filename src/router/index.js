@@ -46,6 +46,10 @@ const routes = [
         component: () => import("../views/buyer/userboard/about/About.vue"),
       },
       {
+        path: "vnIntro",
+        component: () => import("../views/buyer/userboard/vnIntro/VnIntro.vue"),
+      },
+      {
         path: "products",
         component: () =>
           import("../views/buyer/userboard/products/Products.vue"),
@@ -71,6 +75,15 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition;
+    }
+    if (to.hash) {
+      return { el: to.hash, behavior: "smooth" };
+    }
+    return { x: 0, y: 0 };
+  },
 });
 
 export default router;

@@ -31,7 +31,14 @@
               @click="collapse"
               class="nav-link"
               href="#"
-              >關於</router-link
+              >關於我們</router-link
+            >
+            <router-link
+              to="/store/vnIntro"
+              @click="collapse"
+              class="nav-link"
+              href="#"
+              >越南簡介</router-link
             >
             <router-link
               to="/store/products"

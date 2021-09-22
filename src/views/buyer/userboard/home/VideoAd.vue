@@ -7,12 +7,12 @@
       <router-link
         to="/store/about"
         class="d-block text-white fw-lighter text-center text-decoration-none mt-4"
-        >越南簡介</router-link
+        >關於我們</router-link
       >
       <router-link
-        to="/store/about"
+        to="/store/vnIntro"
         class="d-block text-white fw-lighter text-center text-decoration-none mt-2"
-        >關於我們</router-link
+        >越南簡介</router-link
       >
       <router-link
         to="/store/products"
