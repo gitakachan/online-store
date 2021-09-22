@@ -54,6 +54,7 @@ export default {
 
 video {
   object-fit: cover;
+  vertical-align: bottom;
 }
 
 @keyframes text {
