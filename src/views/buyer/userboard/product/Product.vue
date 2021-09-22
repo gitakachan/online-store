@@ -78,10 +78,18 @@
               <i class="bi bi-heart-fill"></i> 收藏商品
             </button>
             <button
-              :disabled="!order.date"
+              @click="addCart(product.id, order.quantity)"
+              :disabled="!order.date || addCartLoading"
               class="btn btn-primary shadow-none"
               type="button"
             >
+              <div
+                v-show="this.addCartLoading"
+                class="spinner-border spinner-border-sm me-3"
+                role="status"
+              >
+                <span class="visually-hidden">Loading...</span>
+              </div>
               <i class="bi bi-cart-fill"></i> 放入購物車
             </button>
           </div>
@@ -110,8 +118,8 @@ import BreadCrumb from "./BreadCrumb.vue";
 import Calender from "./Calender.vue";
 import { getWeekdayText } from "@/methods/weekday.js";
 export default {
-  components: { Images, BreadCrumb, Calender },
   name: "Product",
+  components: { Images, BreadCrumb, Calender },
   props: {
     id: {
       required: true,
@@ -151,6 +159,7 @@ export default {
       weekdays: "",
       min_date: "",
       max_date: "",
+      addCartLoading: false,
     };
   },
 
@@ -219,6 +228,17 @@ export default {
       }
     },
     getWeekdayText,
+    addCart(id, qty) {
+      this.addCartLoading = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+      this.axios
+        .post(api, { data: { product_id: id, qty: qty } })
+        .then((response) => {
+          if (response.data.success) {
+            this.addCartLoading = false;
+          }
+        });
+    },
   },
   watch: {
     "order.quantity"() {
