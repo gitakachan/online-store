@@ -4,7 +4,6 @@
     <div class="container-fluid">
       <router-view></router-view>
     </div>
-    <user-footer></user-footer>
   </div>
 </template>
 <script>
@@ -13,14 +12,12 @@ const emitter = mitt();
 
 import NavBar from "@/components/seller/NavBar.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
-import UserFooter from "../../../components/buyer/UserFooter.vue";
 
 export default {
   name: "Dashboard",
   components: {
     NavBar,
     ToastList,
-    UserFooter,
   },
   provide() {
     //讓內部子組件都可使用emitter，避免重複引入
