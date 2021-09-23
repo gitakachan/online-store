@@ -118,13 +118,12 @@
 
               <div class="mb-3">
                 <label for="tel" class="form-label">電話</label>
-                <!-- regex包含手機和市話 -->
                 <Field
                   id="tel"
                   name="電話"
                   type="text"
                   class="form-control"
-                  placeholder="請輸入台灣電話或越南當地聯絡電話"
+                  placeholder="請輸入電話"
                   v-model="user.tel"
                   :rules="{
                     regex: /(\d{2,3}-?|\(\d{2,3}\))\d{3,4}-?\d{4}|09\d{2}(\d{6}|-\d{3}-\d{3})/,
@@ -157,18 +156,17 @@
               </div>
               <div class="mb-3">
                 <label for="payment" class="form-label">付款方式</label>
-                <!-- 用as指定成特定標籤 -->
                 <Field
                   id="payment"
                   name="付款方式"
                   class="form-control"
-                  v-model="payment"
+                  v-model="user.payment_method"
                   as="select"
                   :class="{ 'is-invalid': errors['付款方式'] }"
                   rules="required"
                 >
                   <option disabled value="">請選擇付款方式</option>
-                  <option value="ATM">ATM轉帳</option>
+                  <option value="ATM轉帳">ATM轉帳</option>
                   <option value="信用卡">信用卡</option>
                 </Field>
                 <error-message
@@ -226,9 +224,9 @@ export default {
         name: "",
         tel: "",
         address: "",
+        payment_method: "",
       },
       message: "",
-      payment: "",
     };
   },
   methods: {
@@ -289,7 +287,8 @@ export default {
         })
         .then((response) => {
           if (response.data.success) {
-            this.$router.push("/store/payment");
+            console.log(response.data.orderId);
+            this.$router.push(`/store/payment/${response.data.orderId}`);
           }
           this.isLoading = false;
         });
