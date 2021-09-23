@@ -4,7 +4,19 @@
     <div class="container mt-4">
       <h1 class="text-center">購物車</h1>
       <div class="d-flex justify-content-center mt-4">
-        <table class="table align-middle table-fit">
+        <div v-show="cartItems.length === 0">
+          <h2 class="mb-3">購物車內尚無任何商品</h2>
+          <router-link
+            class="text-decoration-none d-block text-center"
+            to="/store/products"
+            ><i class="bi bi-arrow-up-right"></i>回去逛逛</router-link
+          >
+        </div>
+
+        <table
+          v-show="cartItems.length !== 0"
+          class="table align-middle table-fit"
+        >
           <thead>
             <tr>
               <th scope="col">商品</th>
