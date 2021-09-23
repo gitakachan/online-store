@@ -2,9 +2,9 @@
   <div>
     <loading :active="isLoading"></loading>
     <div class="container">
-      <h1 class="text-center my-4">結帳</h1>
+      <h1 class="text-center my-4">填寫訂單資料</h1>
       <div class="row">
-        <div class="col-xl-6">
+        <div class="col-lg-6">
           <h2 class="text-center">訂單內容</h2>
           <div class="d-flex justify-content-center mt-1">
             <table class="table align-middle table-fit">
@@ -76,18 +76,136 @@
             </table>
           </div>
         </div>
-        <div class="col-xl-6"></div>
-      </div>
+        <div class="col-lg-6">
+          <h2 class="text-center">訂購人資料</h2>
+          <div class="form-container mx-auto">
+            <Form v-slot="{ errors, validate }">
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <Field
+                  id="email"
+                  name="email"
+                  type="email"
+                  class="form-control"
+                  placeholder="請輸入 Email"
+                  :class="{ 'is-invalid': errors['email'] }"
+                  rules="email|required"
+                  v-model="user.email"
+                ></Field>
+                <error-message
+                  name="email"
+                  class="invalid-feedback"
+                ></error-message>
+              </div>
 
-      <div class="text-end">
-        <router-link
-          to="/store/checkout"
-          tag="button"
-          type="button"
-          class="btn btn-info"
-        >
-          <i class="bi bi-check"></i> 送出訂單
-        </router-link>
+              <div class="mb-3">
+                <label for="name" class="form-label">姓名</label>
+                <Field
+                  id="name"
+                  name="姓名"
+                  type="text"
+                  class="form-control"
+                  placeholder="請輸入姓名"
+                  rules="required"
+                  v-model="user.name"
+                  :class="{ 'is-invalid': errors['姓名'] }"
+                ></Field>
+                <error-message
+                  name="姓名"
+                  class="invalid-feedback"
+                ></error-message>
+              </div>
+
+              <div class="mb-3">
+                <label for="tel" class="form-label">電話</label>
+                <!-- regex包含手機和市話 -->
+                <Field
+                  id="tel"
+                  name="電話"
+                  type="text"
+                  class="form-control"
+                  placeholder="請輸入台灣電話或越南當地聯絡電話"
+                  v-model="user.tel"
+                  :rules="{
+                    regex: /(\d{2,3}-?|\(\d{2,3}\))\d{3,4}-?\d{4}|09\d{2}(\d{6}|-\d{3}-\d{3})/,
+                    required: true,
+                  }"
+                  :class="{ 'is-invalid': errors['電話'] }"
+                ></Field>
+                <error-message
+                  name="電話"
+                  class="invalid-feedback"
+                ></error-message>
+              </div>
+
+              <div class="mb-3">
+                <label for="address" class="form-label">地址</label>
+                <Field
+                  id="address"
+                  name="地址"
+                  type="text"
+                  class="form-control"
+                  placeholder="請輸入台灣地址或越南當地住宿地址"
+                  v-model="user.address"
+                  rules="required"
+                  :class="{ 'is-invalid': errors['地址'] }"
+                ></Field>
+                <error-message
+                  name="地址"
+                  class="invalid-feedback"
+                ></error-message>
+              </div>
+              <div class="mb-3">
+                <label for="payment" class="form-label">付款方式</label>
+                <!-- 用as指定成特定標籤 -->
+                <Field
+                  id="payment"
+                  name="付款方式"
+                  class="form-control"
+                  v-model="payment"
+                  as="select"
+                  :class="{ 'is-invalid': errors['付款方式'] }"
+                  rules="required"
+                >
+                  <option disabled value="">請選擇付款方式</option>
+                  <option value="ATM">ATM轉帳</option>
+                  <option value="信用卡">信用卡</option>
+                </Field>
+                <error-message
+                  name="付款方式"
+                  class="invalid-feedback"
+                ></error-message>
+              </div>
+              <div class="mb-3">
+                <label for="msg" class="form-label">留言</label>
+                <Field
+                  as="textarea"
+                  id="msg"
+                  name="留言"
+                  type="text"
+                  class="form-control"
+                  placeholder="請輸入留言"
+                  v-model="message"
+                ></Field>
+              </div>
+
+              <div class="text-end">
+                <router-link
+                  type="button"
+                  @click="
+                    submitOrder();
+                    validate();
+                  "
+                  to="/store/checkout"
+                  tag="button"
+                  class="btn btn-info"
+                >
+                  <i class="bi bi-check"></i> 送出訂單
+                </router-link>
+              </div>
+            </Form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -105,6 +223,13 @@ export default {
       code: "",
       codeMessage: "",
       isSuccess: false,
+      user: {
+        email: "",
+        name: "",
+        tel: "",
+        address: "",
+      },
+      message: "",
     };
   },
   methods: {
@@ -154,6 +279,9 @@ export default {
           this.codeMessage = response.data.message;
         });
     },
+    submitOrder() {
+      console.log(this.user);
+    },
   },
   mounted() {
     this.getCart();
@@ -174,6 +302,14 @@ table.table-fit {
     &.no-border {
       border-bottom: none;
     }
+  }
+}
+
+.form-container {
+  max-width: 500px;
+
+  textarea {
+    height: 120px;
   }
 }
 </style>
