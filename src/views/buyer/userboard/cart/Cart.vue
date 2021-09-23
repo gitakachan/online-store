@@ -26,7 +26,7 @@
                     @change="updateCart(item.id, item.qty)"
                     min="1"
                     type="number"
-                    class="form-control"
+                    class="form-control shadow-none"
                     placeholder="數量"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
@@ -42,44 +42,26 @@
                 </button>
               </td>
             </tr>
+
             <tr>
-              <td class="no-border" colspan="4">
-                <div class="input-group">
-                  <input
-                    type="text"
-                    class="form-control"
-                    placeholder="輸入優惠券"
-                    aria-label="Recipient's username"
-                    aria-describedby="button-addon2"
-                  />
-                  <button
-                    class="btn btn-outline-secondary"
-                    type="button"
-                    id="button-addon2"
-                  >
-                    使用優惠券
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td class="no-border" colspan="4">
-                <h3
-                  class="text-end"
-                  :class="{
-                    'text-decoration-line-through': useCode,
-                    'text-secondary': useCode,
-                  }"
-                >
-                  總計：NT {{ total.toLocaleString() }} 元
-                </h3>
-              </td>
-            </tr>
-            <tr v-show="this.useCode">
               <td class="no-border" colspan="4">
                 <h3 class="text-end">
-                  折扣後：NT {{ final_total.toLocaleString() }} 元
+                  小計：NT {{ total.toLocaleString() }} 元
                 </h3>
+              </td>
+            </tr>
+            <tr>
+              <td class="no-border" colspan="4">
+                <div class="text-end">
+                  <router-link
+                    to="/store/checkout"
+                    tag="button"
+                    type="button"
+                    class="btn btn-info"
+                  >
+                    <i class="bi bi-cart-check"></i> 去結帳
+                  </router-link>
+                </div>
               </td>
             </tr>
           </tbody>
@@ -95,9 +77,7 @@ export default {
     return {
       cartItems: [],
       total: 0,
-      final_total: 0,
       isLoading: false,
-      useCode: false,
     };
   },
   methods: {
@@ -124,7 +104,6 @@ export default {
         });
     },
     deleteCart(id) {
-      console.log(id);
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`;
       this.axios.delete(api).then((response) => {
