@@ -190,18 +190,16 @@
               </div>
 
               <div class="text-end">
-                <router-link
+                <button
                   type="button"
                   @click="
                     submitOrder();
                     validate();
                   "
-                  to="/store/checkout"
-                  tag="button"
                   class="btn btn-info"
                 >
                   <i class="bi bi-check"></i> 送出訂單
-                </router-link>
+                </button>
               </div>
             </Form>
           </div>
@@ -212,7 +210,7 @@
 </template>
 <script>
 export default {
-  name: "Cart",
+  name: "CheckOut",
   data() {
     return {
       cartItems: [],
@@ -230,6 +228,7 @@ export default {
         address: "",
       },
       message: "",
+      payment: "",
     };
   },
   methods: {
@@ -270,7 +269,6 @@ export default {
         .then((response) => {
           if (response.data.success) {
             this.useCode = true;
-            this.getCart();
           } else {
             this.useCode = false;
           }
@@ -280,7 +278,21 @@ export default {
         });
     },
     submitOrder() {
-      console.log(this.user);
+      this.isLoading = true;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
+      this.axios
+        .post(api, {
+          data: {
+            user: this.user,
+            message: this.message,
+          },
+        })
+        .then((response) => {
+          if (response.data.success) {
+            this.$router.push("/store/payment");
+          }
+          this.isLoading = false;
+        });
     },
   },
   mounted() {
