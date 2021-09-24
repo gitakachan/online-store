@@ -1,10 +1,11 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-md navbar-light bg-light">
+    <nav class="navbar navbar-expand-md navbar-light bg-primary">
       <div class="container-fluid">
         <router-link to="/store/home" class="navbar-brand" href="#"
-          >Store</router-link
-        >
+          ><img class="logo" src="~@/assets/imgs/logo.png" alt=""
+        /></router-link>
+
         <button
           ref="collapseBtn"
           class="navbar-toggler"
@@ -70,5 +71,8 @@ export default {
 <style lang="scss" scoped>
 a.nav-link.router-link-active {
   color: #000;
+}
+.logo {
+  width: 100px;
 }
 </style>
