@@ -35,7 +35,7 @@
                 v-for="item in products"
                 :key="item.id"
               >
-                <div class="card rounded-0 h-100">
+                <div class="card gray-box-shadow rounded-0 h-100">
                   <router-link
                     class="img-container position-relative"
                     :to="{
@@ -191,7 +191,6 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/scss/helpers/myVariables.scss";
 .product .card {
-  box-shadow: 5px 10px 10px 2px #ddd;
   .img-container {
     &::before {
       content: "";

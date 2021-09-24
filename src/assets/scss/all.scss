@@ -16,16 +16,20 @@ body {
       box-shadow: none;
     }
   }
-}
-.eng,
-.num {
-  font-family: "Montserrat", sans-serif; //英文、數字
-}
+  .eng,
+  .num {
+    font-family: "Montserrat", sans-serif; //英文、數字
+  }
 
-.unselected {
-  &:hover {
-    cursor: pointer;
-    transition: 0.2s ease;
-    background-color: rgb(226, 252, 254);
+  .unselected {
+    &:hover {
+      cursor: pointer;
+      transition: 0.2s ease;
+      background-color: rgb(226, 252, 254);
+    }
+  }
+
+  .gray-box-shadow {
+    box-shadow: 5px 10px 10px 2px #ddd;
   }
 }
