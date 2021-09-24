@@ -4,7 +4,7 @@
 
 @import "~bootstrap/scss/bootstrap";
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;400&family=Noto+Sans+TC:wght@100;400&display=swap");
-
+@import "./helpers/myVariables";
 body {
   font-family: "Noto Sans TC", sans-serif; //中文
   a {
@@ -12,9 +12,20 @@ body {
     &:hover {
       cursor: pointer;
     }
+    &:focus {
+      box-shadow: none;
+    }
   }
 }
 .eng,
 .num {
   font-family: "Montserrat", sans-serif; //英文、數字
+}
+
+.unselected {
+  &:hover {
+    cursor: pointer;
+    transition: 0.2s ease;
+    background-color: rgb(226, 252, 254);
+  }
 }

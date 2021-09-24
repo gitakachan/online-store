@@ -6,7 +6,7 @@
         :area="selectArea"
         :category="selectCategory"
       ></products-bread-crumb>
-      <div class="row gx-0">
+      <div class="row gx-0 mb-5">
         <!-- 手機dropdown -->
         <div class="col-12 d-md-none mb-2">
           <dropdown
@@ -35,7 +35,7 @@
                 v-for="item in products"
                 :key="item.id"
               >
-                <div class="card h-100">
+                <div class="card rounded-0 h-100">
                   <router-link
                     class="img-container position-relative"
                     :to="{
@@ -44,7 +44,7 @@
                   >
                     <img
                       :src="item.imagesUrl[0]"
-                      class="align-bottom card-img-top"
+                      class="align-bottom card-img-top rounded-0"
                       alt="產品圖片"
                       :ref="setImgRef"
                     />
@@ -80,13 +80,13 @@
                         </div>
                       </div>
                       <div class="tag mb-3">
-                        <span class="badge bg-info">{{ item.tag }}</span>
+                        <span class="badge bg-warning">{{ item.tag }}</span>
                       </div>
                       <div class="label mt-2 d-flex align-items-center">
-                        <span class="badge bg-secondary me-2">{{
+                        <span class="badge bg-danger me-2">{{
                           item.area
                         }}</span>
-                        <span class="badge bg-secondary me-2">{{
+                        <span class="badge bg-success me-2">{{
                           item.category
                         }}</span>
                         <a class="add-cart ms-auto me-2"
@@ -102,7 +102,7 @@
                           path: `/store/products/${item.id}`,
                         }"
                         tag="button"
-                        class="btn btn-warning w-100 rounded-0"
+                        class="btn btn-primary w-100 rounded-0"
                       >
                         <i class="bi bi-eye"></i> 看詳細行程
                       </router-link>
@@ -189,37 +189,50 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.img-container {
-  &::before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-  img {
-    object-fit: cover;
-  }
-  &:hover {
+@import "~@/assets/scss/helpers/myVariables.scss";
+.product .card {
+  box-shadow: 5px 10px 10px 2px #ddd;
+  .img-container {
     &::before {
-      background-color: rgba(0, 0, 0, 0.3);
-      transition: background-color, 0.2s ease-in;
+      content: "";
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+    img {
+      object-fit: cover;
+    }
+    &:hover {
+      &::before {
+        content: "點我看詳細行程";
+        font-size: 20px;
+        font-weight: 100;
+        background-color: rgba(0, 0, 0, 0.3);
+        transition: all 0.2s ease-in;
+      }
     }
   }
-}
-.tag {
-  width: 100%;
-  height: 1rem;
-}
+  .tag {
+    width: 100%;
+    height: 1rem;
+  }
 
-.add-cart {
-  cursor: pointer;
-  i {
-    color: rgb(232, 100, 52);
-    transition: color 0.3s ease;
-    &:hover {
-      color: rgb(240, 12, 8);
+  .add-cart {
+    cursor: pointer;
+    i {
+      -webkit-text-stroke: 2px $danger;
+      color: #fff;
+      transition: color 0.3s ease;
+      &:hover {
+        color: $liked;
+        -webkit-text-stroke: 0;
+      }
     }
   }
 }

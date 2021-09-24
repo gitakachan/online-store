@@ -3,7 +3,7 @@
     <!-- 區域 -->
     <div class="dropdown me-3">
       <button
-        class="btn btn-outline-secondary dropdown-toggle"
+        class="btn btn-primary dropdown-toggle rounded-0 shadow-none"
         type="button"
         id="dropdownMenuButton1"
         data-bs-toggle="dropdown"
@@ -26,7 +26,7 @@
     <!-- 分類 -->
     <div class="dropdown">
       <button
-        class="btn btn-outline-secondary dropdown-toggle"
+        class="btn btn-primary dropdown-toggle rounded-0 shadow-none"
         type="button"
         id="dropdownMenuButton2"
         data-bs-toggle="dropdown"
@@ -60,7 +60,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .selected {
-  background-color: rgb(233, 136, 136);
   transition: 0.4s ease;
 }
 </style>

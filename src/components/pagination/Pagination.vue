@@ -2,10 +2,11 @@
   <div class="d-flex justify-content-center">
     <nav aria-label="Page navigation example">
       <ul class="pagination">
-        <li :class="{ disabled: currentP === 1 }" class="page-item">
+        <li class="page-item" :class="{ disabled: currentP === 1 }">
           <a
             @click.prevent="prevP"
             class="page-link"
+            :class="[currentP === 1 ? 'text-secondary bg-light' : 'text-dark']"
             href="#"
             aria-label="Previous"
           >
@@ -20,7 +21,7 @@
         >
           <a
             @click.prevent="$emit('updatePage', item)"
-            class="page-link"
+            class="page-link text-dark"
             href="#"
           >
             {{ item }}
@@ -34,6 +35,11 @@
           <a
             @click.prevent="nextP"
             class="page-link"
+            :class="[
+              currentP >= page.total_pages
+                ? 'text-secondary bg-light'
+                : 'text-dark',
+            ]"
             href="#"
             aria-label="Next"
           >
@@ -77,7 +83,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.page-link:focus {
-  box-shadow: none;
+.page-link {
+  &:focus {
+    box-shadow: none;
+  }
 }
 </style>
