@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  name: "MemberImages",
+  name: "Images",
   props: {
     imgs: {
       type: Array,

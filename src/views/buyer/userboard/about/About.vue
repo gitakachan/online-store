@@ -12,7 +12,7 @@
           <br />
           致力於推廣越南旅遊、景點開發及台越文化交流。
         </p>
-        <member-images :imgs="memberImgs"></member-images>
+        <images :imgs="memberImgs"></images>
       </div>
     </section>
     <!-- service -->
@@ -31,7 +31,7 @@
           在各辦公室也提供旅遊諮詢、代訂旅館、車票、船票、機票、包車、租借機車和腳踏車等服務，幫助您更深入探索越南的這片土地，歡迎聯絡我們！
         </p>
         <br />
-        <member-images :imgs="serviceImgs"></member-images>
+        <images :imgs="serviceImgs"></images>
         <ul class="list-unstyled mt-3">
           <li>
             <a
@@ -206,9 +206,9 @@
   </div>
 </template>
 <script>
-import MemberImages from "./MemberImages.vue";
+import Images from "./Images.vue";
 export default {
-  components: { MemberImages },
+  components: { Images },
   name: "Cart",
   data() {
     return {
