@@ -95,4 +95,9 @@ const router = createRouter({
   },
 });
 
+router.beforeEach((to, from, next) => {
+  document.documentElement.scrollTop = 0;
+  next();
+});
+
 export default router;

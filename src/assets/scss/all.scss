@@ -7,8 +7,11 @@
 
 body {
   font-family: "Noto Sans TC", sans-serif; //中文
-  a:hover {
-    cursor: pointer;
+  a {
+    text-decoration: none;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 .eng,
