@@ -12,7 +12,7 @@
       </div>
     </section>
     <section class="office-container position-relative">
-      <h1 id="service">/ 業務及服務 /</h1>
+      <h2 id="service">/ 業務及服務 /</h2>
       <p class="bg-text text-white eng">Service</p>
 
       <div class="content bg-primary lh-lg">
@@ -63,7 +63,7 @@
       </div>
 
       <section class="about-us-container position-relative">
-        <h1>/ 聯絡我們 /</h1>
+        <h2>/ 聯絡我們 /</h2>
         <p class="bg-text text-white eng">Contact</p>
 
         <div class="content map bg-primary lh-lg">
@@ -74,9 +74,9 @@
                 <div
                   class="text d-flex flex-column justify-content-center h-100"
                 >
-                  <h2 ref="hcmc">台北辦公室</h2>
+                  <h3 ref="taipei">台北辦公室</h3>
                   <p>
-                    電話：02-2550-5871
+                    電話：(02) 255-5871
                   </p>
                   <p class="text-nowrap">
                     Email：vnext_taipei@mail.net
@@ -100,15 +100,16 @@
                 </div>
               </div>
             </div>
+            <hr class="text-info" />
             <!-- hanoi -->
             <div class="row">
               <div class="col-md-6 mb-3">
                 <div
                   class="text d-flex flex-column justify-content-center h-100"
                 >
-                  <h2 ref="hcmc">河內辦公室</h2>
+                  <h3 ref="hanoi">河內辦公室</h3>
                   <p>
-                    電話：84-04-8261247
+                    電話：(84-04) 826-1247
                   </p>
                   <p class="text-nowrap">
                     Email：vnext_hanoi@mail.net
@@ -133,15 +134,16 @@
                 </div>
               </div>
             </div>
+            <hr class="text-info" />
             <!-- danang -->
             <div class="row">
               <div class="col-md-6 mb-3">
                 <div
                   class="text d-flex flex-column justify-content-center h-100"
                 >
-                  <h2 ref="hcmc">峴港辦公室</h2>
+                  <h3 ref="danang">峴港辦公室</h3>
                   <p>
-                    電話：(84-511) 6 691297
+                    電話：(84-511) 669-1297
                   </p>
                   <p class="text-nowrap">
                     Email：vnext_danang@mail.net
@@ -166,15 +168,16 @@
                 </div>
               </div>
             </div>
+            <hr class="text-info" />
             <!-- hcmc -->
             <div class="row">
               <div class="col-md-6 mb-3">
                 <div
                   class="text d-flex flex-column justify-content-center h-100"
                 >
-                  <h2 ref="hcmc">胡志明市辦公室</h2>
+                  <h3 ref="hcmc">胡志明市辦公室</h3>
                   <p>
-                    電話：(84-8) 38 207 533
+                    電話：(84-8) 820-7533
                   </p>
                   <p>
                     Email：vnext_hcmc@mail.net
@@ -221,9 +224,12 @@ export default {
 <style lang="scss" scoped>
 section {
   overflow: hidden;
-  h1 {
+  h1,
+  h2,
+  h3 {
     padding-top: 70px;
   }
+
   p.bg-text {
     position: absolute;
     top: 0;
