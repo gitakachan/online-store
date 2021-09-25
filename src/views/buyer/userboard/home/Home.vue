@@ -23,12 +23,18 @@
       </div>
       <div class="d-xl-none">
         <video autoplay muted loop class="mobile vw-100 vh-100">
-          <source src="@/assets/videos/vietnamMobile.mp4" type="video/mp4" />
+          <source
+            src="https://media.githubusercontent.com/media/gitakachan/online-store/main/src/assets/videos/vietnamMobile.mp4"
+            type="video/mp4"
+          />
         </video>
       </div>
       <div class="d-none d-xl-block">
         <video autoplay muted loop class="laptop vw-100 vh-100">
-          <source src="@/assets/videos/vietnam.mp4" type="video/mp4" />
+          <source
+            src="https://media.githubusercontent.com/media/gitakachan/online-store/main/src/assets/videos/vietnam.mp4"
+            type="video/mp4"
+          />
         </video>
       </div>
     </div>
