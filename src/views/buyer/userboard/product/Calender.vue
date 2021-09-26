@@ -25,18 +25,6 @@
           />
         </template>
       </v-date-picker>
-      <!-- <v-date-picker v-model="tempDate" :masks="masks" :min-date="new Date()">
-        <template v-slot="{ inputValue, inputEvents }">
-          <input
-            id="date"
-            class="bg-white py-2 px-3 border rounded-start"
-            :class="{ 'border-danger': errorMessage }"
-            :value="inputValue"
-            v-on="inputEvents"
-            placeholder="請選擇出發日期"
-          />
-        </template>
-      </v-date-picker> -->
       <button
         type="button"
         class="btn btn-secondary rounded-end  shadow-none"
@@ -97,6 +85,13 @@ export default {
     },
     startDate() {
       this.tempDate = this.startDate;
+      let day = this.startDate.getDay();
+
+      if (this.notAvalible.indexOf(day) === -1) {
+        console.log("起始日為可使用的");
+      } else {
+        console.log("起始日卡到不可使用的weekday");
+      }
     },
   },
 };

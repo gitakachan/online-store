@@ -178,7 +178,14 @@ export default {
             //若無指定起始日，則為今天開始
             this.min_date = new Date();
           } else {
-            this.min_date = this.product.min_date;
+            let origin_min_date = new Date(this.product.min_date);
+            let today = new Date();
+            //如果後台設定起始日期早於今日 則起始日設為今日
+            if (origin_min_date < today) {
+              this.min_date = today;
+            } else {
+              this.min_date = this.product.min_date;
+            }
           }
           this.order.date = this.min_date;
 
@@ -188,6 +195,15 @@ export default {
               new Date().getFullYear() + 1
             );
           } else {
+            // let origin_max_date = new Date(this.product.max_date);
+            // let today = new Date();
+            // //如果後台設定最晚日期早於今日 則？  (這裡無法控制後台disable product
+            // if (origin_max_date < today) {
+            //   this.max_date = today;
+            // } else {
+            //   this.max_date = this.product.max_date;
+            // }
+
             this.max_date = this.product.max_date;
           }
         }
