@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-md navbar-light bg-primary">
+    <nav class="navbar navbar-expand-md navbar-light bg-primary shadow-sm">
       <div class="container-fluid">
         <router-link to="/store/home" class="navbar-brand" href="#"
           ><img class="logo" src="~@/assets/imgs/logo.png" alt=""
@@ -8,7 +8,7 @@
 
         <button
           ref="collapseBtn"
-          class="navbar-toggler"
+          class="navbar-toggler shadow-sm"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNavAltMarkup"
@@ -16,7 +16,8 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <!-- <span class="navbar-toggler-icon"></span> -->
+          <i class="toggler-icon bi bi-list text-white"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav d-flex w-100">
@@ -74,5 +75,8 @@ a.nav-link.router-link-active {
 }
 .logo {
   width: 100px;
+}
+.toggler-icon {
+  text-shadow: #444 1px 0.3px 0.6px;
 }
 </style>

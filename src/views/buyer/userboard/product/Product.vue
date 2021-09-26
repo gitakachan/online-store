@@ -75,7 +75,7 @@
           <!-- 按鈕 -->
           <div class="d-grid gap-2 my-3">
             <button class="btn btn-primary shadow-none" type="button">
-              <i class="bi bi-heart-fill"></i> 收藏商品
+              <i class="bi bi-heart"></i> 收藏商品
             </button>
             <button
               @click="addCart(product.id, order.quantity)"
@@ -90,7 +90,7 @@
               >
                 <span class="visually-hidden">Loading...</span>
               </div>
-              <i class="bi bi-cart-fill"></i> 放入購物車
+              <i class="bi bi-cart"></i> 放入購物車
             </button>
           </div>
         </div>
@@ -256,4 +256,6 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "~@/assets/scss/helpers/myVariables.scss";
+</style>

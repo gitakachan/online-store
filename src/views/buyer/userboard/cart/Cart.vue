@@ -27,7 +27,7 @@
           </thead>
           <tbody>
             <tr v-for="item in cartItems" :key="item.id">
-              <td @click="backToProduct(item.product_id)">
+              <td class="item-title" @click="backToProduct(item.product_id)">
                 {{ item.product.title }}
               </td>
               <td>{{ item.product.price }}</td>
@@ -43,14 +43,14 @@
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                   />
-                  <span class="input-group-text" id="basic-addon1">{{
+                  <span class="input-group-text bg-primary" id="basic-addon1">{{
                     item.product.unit
                   }}</span>
                 </div>
               </td>
               <td>
                 <button @click="deleteCart(item.id)" class="btn text-danger">
-                  <i class="bi bi-cart-dash-fill"></i>
+                  <i class="bi bi-trash"></i>
                 </button>
               </td>
             </tr>
@@ -147,6 +147,11 @@ table.table-fit {
     width: auto !important;
     &.no-border {
       border-bottom: none;
+    }
+    &.item-title {
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
