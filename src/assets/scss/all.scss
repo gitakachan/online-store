@@ -32,4 +32,13 @@ body {
   .gray-box-shadow {
     box-shadow: 5px 10px 10px 2px #ddd;
   }
+
+  i {
+    &.fb {
+      color: rgb(64, 138, 230);
+    }
+    &.ig {
+      color: rgb(210, 74, 171);
+    }
+  }
 }

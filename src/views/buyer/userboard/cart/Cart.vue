@@ -1,7 +1,7 @@
 <template>
   <div>
     <loading :active="isLoading"></loading>
-    <div class="container mt-4">
+    <div class="container mt-4 min-vh-80">
       <h1 class="text-center">購物車</h1>
       <div class="d-flex justify-content-center mt-4">
         <div v-show="cartItems.length === 0">

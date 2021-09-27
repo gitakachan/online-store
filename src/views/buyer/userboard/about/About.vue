@@ -57,7 +57,7 @@
                 >
                   <h3 :ref="item.ref">{{ item.location }}辦公室</h3>
                   <p>電話：{{ item.tel }}</p>
-                  <p class="text-nowrap">Email：{{ item.Email }}</p>
+                  <p>Email：{{ item.Email }}</p>
                   <p>地址：{{ item.address }}</p>
                 </div>
               </div>
@@ -150,29 +150,33 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-section {
-  h1,
-  h2,
-  h3 {
-    padding-top: 70px;
-  }
+.container {
+  padding-bottom: 100px;
+  overflow: hidden;
+  section {
+    h1,
+    h2,
+    h3 {
+      padding-top: 70px;
+    }
 
-  p.bg-text {
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 100px;
-    z-index: -100;
-    text-shadow: 3px 3px 2px #ddd; //文字外框
-  }
-  .content {
-    margin: 30px auto 60px;
-    padding: 20px 20px 20px 150px;
+    p.bg-text {
+      position: absolute;
+      top: 0;
+      left: 0;
+      font-size: 100px;
+      z-index: -100;
+      text-shadow: 3px 3px 2px #ddd; //文字外框
+    }
+    .content {
+      margin: 30px auto 60px;
+      padding: 20px 20px 20px 150px;
+    }
   }
 }
 
 @media (max-width: 576px) {
-  section {
+  .container section {
     .content {
       padding-left: 20px;
     }

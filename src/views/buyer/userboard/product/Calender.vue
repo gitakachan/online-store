@@ -17,7 +17,7 @@
         <template v-slot="{ inputValue, inputEvents }">
           <input
             id="date"
-            class="bg-white py-2 px-3 border rounded-start"
+            class="bg-white num py-2 px-3 border rounded-start"
             :class="{ 'border-danger': errorMessage }"
             :value="inputValue"
             v-on="inputEvents"

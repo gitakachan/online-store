@@ -42,7 +42,7 @@
               <input
                 v-model.number="order.quantity"
                 type="text"
-                class="form-control text-center"
+                class="form-control text-center eng"
                 min="1"
               />
 
