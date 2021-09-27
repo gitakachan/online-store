@@ -68,10 +68,14 @@
           ></calender>
           <!-- 價格 -->
           <div class="price d-flex justify-content-end align-items-end mb-3">
-            <h6 class="text-decoration-line-through text-secondary">
-              {{ origin_price }}
-            </h6>
-            <h3 class="ms-3">{{ price }}</h3>
+            <h6
+              v-html="priceStyle(this.product.origin_price, this.product.unit)"
+              class="text-decoration-line-through text-secondary"
+            ></h6>
+            <h3
+              v-html="priceStyle(this.product.price, this.product.unit)"
+              class="ms-3"
+            ></h3>
           </div>
           <!-- 按鈕 -->
           <div class="d-grid gap-2 my-3">
@@ -118,22 +122,15 @@ import Images from "./Images.vue";
 import BreadCrumb from "./BreadCrumb.vue";
 import Calender from "./Calender.vue";
 import { getWeekdayText } from "@/methods/weekday.js";
+import priceStyleMixin from "@/mixins/priceStyleMixin.js";
+
 export default {
   name: "Product",
   components: { Images, BreadCrumb, Calender },
+  mixins: [priceStyleMixin],
   props: {
     id: {
       required: true,
-    },
-  },
-  computed: {
-    price() {
-      return "NT$" + " " + this.product.price.toLocaleString() + " " + "/人";
-    },
-    origin_price() {
-      return (
-        "NT$" + " " + this.product.origin_price.toLocaleString() + " " + "/人"
-      );
     },
   },
   data() {

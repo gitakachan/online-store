@@ -58,26 +58,14 @@
                       <div
                         class="price d-flex align-items-end flex-md-column-reverse align-items-md-start"
                       >
-                        <div class="me-3 fs-4">
-                          {{
-                            "NT$" +
-                              " " +
-                              item.price.toLocaleString() +
-                              " " +
-                              "/人"
-                          }}
-                        </div>
                         <div
+                          v-html="priceStyle(item.price, item.unit)"
+                          class="me-3 fs-4"
+                        ></div>
+                        <div
+                          v-html="priceStyle(item.origin_price, item.unit)"
                           class="text-decoration-line-through text-secondary"
-                        >
-                          {{
-                            "NT$" +
-                              " " +
-                              item.origin_price.toLocaleString() +
-                              " " +
-                              "/人"
-                          }}
-                        </div>
+                        ></div>
                       </div>
                       <div class="tag mb-3">
                         <span class="badge bg-warning">{{ item.tag }}</span>
@@ -125,10 +113,11 @@ import Pagination from "@/components/pagination/Pagination.vue";
 
 import Carousel from "../products/Carousel.vue";
 import ProductsBreadCrumb from "../products/ProductsBreadCrumb.vue";
-
-import imgSquareMixin from "@/mixins/imgSquareMixin.js";
 import Dropdown from "../products/Dropdown.vue";
 import SideBar from "../products/SideBar.vue";
+
+import imgSquareMixin from "@/mixins/imgSquareMixin.js";
+import priceStyleMixin from "@/mixins/priceStyleMixin.js";
 
 export default {
   name: "Products",
@@ -140,7 +129,7 @@ export default {
     Dropdown,
     SideBar,
   },
-  mixins: [imgSquareMixin],
+  mixins: [imgSquareMixin, priceStyleMixin],
   inject: ["emitter"],
   data() {
     return {

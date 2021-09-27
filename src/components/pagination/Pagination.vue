@@ -21,7 +21,7 @@
         >
           <a
             @click.prevent="$emit('updatePage', item)"
-            class="page-link text-dark"
+            class="page-link text-dark num"
             href="#"
           >
             {{ item }}
