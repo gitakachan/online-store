@@ -43,11 +43,13 @@ export default {
     notAvalible: {
       type: Array,
     },
-    startDate: {
+    min_date: {
       default: new Date(),
     },
+    max_date: {
+      default: new Date().setFullYear(new Date().getFullYear() + 1),
+    },
   },
-  inject: ["getReaciveMinDate", "getReaciveMaxDate"],
   data() {
     return {
       tempDate: null,
@@ -61,12 +63,6 @@ export default {
     errorMessage() {
       if (!this.tempDate) return "日期為必填";
       return "";
-    },
-    min_date() {
-      return this.getReaciveMinDate();
-    },
-    max_date() {
-      return this.getReaciveMaxDate();
     },
   },
   watch: {
@@ -83,14 +79,17 @@ export default {
         this.notAvalibleWeekday.push(el);
       });
     },
-    startDate() {
-      this.tempDate = this.startDate;
-      let day = this.startDate.getDay();
+    min_date() {
+      this.tempDate = this.min_date;
 
-      if (this.notAvalible.indexOf(day) === -1) {
-        console.log("起始日為可使用的");
-      } else {
-        console.log("起始日卡到不可使用的weekday");
+      //要確認是否會卡到不可使用的weekday 若卡到就延後一天 直到是可用的weekday
+      for (let i = 0; i < this.notAvalible.length; i++) {
+        let day = this.tempDate.getDay();
+        if (day == this.notAvalible[i]) {
+          this.tempDate = new Date(
+            this.tempDate.setDate(this.tempDate.getDate() + 1)
+          );
+        }
       }
     },
   },

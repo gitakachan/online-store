@@ -62,7 +62,8 @@
           <calender
             @selectDate="selectDate"
             :notAvalible="product.notAvalibleWeekday"
-            :startDate="order.date"
+            :min_date="min_date"
+            :max_date="max_date"
             class="mb-4"
           ></calender>
           <!-- 價格 -->
@@ -125,12 +126,6 @@ export default {
       required: true,
     },
   },
-  provide() {
-    return {
-      getReaciveMinDate: () => this.min_date,
-      getReaciveMaxDate: () => this.max_date,
-    };
-  },
   computed: {
     price() {
       return "NT$" + " " + this.product.price.toLocaleString() + " " + "/人";
@@ -187,7 +182,6 @@ export default {
               this.min_date = this.product.min_date;
             }
           }
-          this.order.date = this.min_date;
 
           if (!this.product.max_date) {
             //若無指定截止日，則為一年後（不寫死，可一直延後）
@@ -203,7 +197,6 @@ export default {
             // } else {
             //   this.max_date = this.product.max_date;
             // }
-
             this.max_date = this.product.max_date;
           }
         }
