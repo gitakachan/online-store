@@ -43,6 +43,7 @@
                 v-model.number="order.quantity"
                 type="text"
                 class="form-control text-center"
+                min="1"
               />
 
               <button
@@ -200,6 +201,7 @@ export default {
       });
     },
     addQuantity() {
+      this.tooLess = false;
       this.order.quantity++;
     },
     deductQunatity() {
@@ -246,22 +248,9 @@ export default {
         });
     },
   },
-  watch: {
-    "order.quantity"() {
-      if (this.order.quantity < 1) {
-        this.order.quantity = 1;
-        this.tooLess = true;
-      } else {
-        this.tooLess = false;
-      }
-    },
-  },
-
   mounted() {
     this.getProduct();
   },
 };
 </script>
-<style lang="scss" scoped>
-@import "~@/assets/scss/helpers/myVariables.scss";
-</style>
+<style lang="scss" scoped></style>

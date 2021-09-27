@@ -42,6 +42,7 @@ export default {
   props: {
     notAvalible: {
       type: Array,
+      default: [], //避免每天都可出發時，notAvalible為null
     },
     min_date: {
       default: new Date(),
