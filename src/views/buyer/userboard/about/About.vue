@@ -84,9 +84,12 @@
 </template>
 <script>
 import Images from "./Images.vue";
+import returnTopMixin from "@/mixins/returnTopMixin.js";
+
 export default {
-  components: { Images },
   name: "Cart",
+  mixins: [returnTopMixin],
+  components: { Images },
   data() {
     return {
       memberImgs: [
@@ -141,11 +144,6 @@ export default {
         },
       ],
     };
-  },
-  methods: {
-    returnTop(ref) {
-      ref.scrollIntoView(true);
-    },
   },
 };
 </script>
