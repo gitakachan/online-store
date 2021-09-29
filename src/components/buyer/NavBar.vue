@@ -16,11 +16,10 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <!-- <span class="navbar-toggler-icon"></span> -->
           <i class="toggler-icon bi bi-list text-white"></i>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav d-flex w-100">
+          <div class="navbar-nav d-flex justify-content-end w-100">
             <router-link
               to="/store/home"
               @click="collapse"
@@ -29,25 +28,25 @@
               >首頁</router-link
             >
             <router-link
-              to="/store/about"
+              to="/store/products"
               @click="collapse"
               class="nav-link"
               href="#"
-              >關於我們</router-link
+              >行程＆票券</router-link
             >
             <router-link
               to="/store/vnIntro"
               @click="collapse"
               class="nav-link"
               href="#"
-              >越南簡介</router-link
+              >越南新手旅遊攻略</router-link
             >
             <router-link
-              to="/store/products"
+              to="/store/about"
               @click="collapse"
               class="nav-link"
               href="#"
-              >行程＆票券</router-link
+              >關於我們</router-link
             >
             <router-link
               to="/store/cart"
