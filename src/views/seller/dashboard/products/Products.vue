@@ -47,12 +47,15 @@
       </table>
       <product-modal
         :product="tempProduct"
+        :status="isNew ? '新增' : '編輯'"
         @updateProduct="updateProduct"
         ref="productModal"
       ></product-modal>
       <delete-modal
         @delete="deleteProduct"
-        :item="tempProduct"
+        :title="tempProduct.title"
+        :id="tempProduct.id"
+        :name="'商品'"
         ref="delModal"
       ></delete-modal>
       <toast-list></toast-list>

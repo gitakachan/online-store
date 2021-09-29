@@ -46,12 +46,15 @@
 
     <coupon-modal
       :coupon="tempCoupon"
+      :status="isNew ? '新增' : '編輯'"
       @updateCoupon="updateCoupon"
       ref="couponModal"
     ></coupon-modal>
     <delete-modal
       @delete="deleteCoupon"
-      :item="tempCoupon"
+      :title="tempCoupon.title"
+      :id="tempCoupon.id"
+      :name="'優惠券'"
       ref="delModal"
     ></delete-modal>
     <toast-list></toast-list>

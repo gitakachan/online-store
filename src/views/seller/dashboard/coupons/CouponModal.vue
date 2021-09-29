@@ -12,7 +12,7 @@
         <div class="modal-content border-0">
           <div class="modal-header bg-dark text-white">
             <h5 class="modal-title" id="exampleModalLabel">
-              <span>新增優惠券</span>
+              <span>{{ status }}優惠券</span>
             </h5>
             <button
               type="button"
@@ -121,9 +121,14 @@ import ModalMixin from "@/mixins/ModalMixin";
 import { getUnixDate, getFormDate } from "@/methods/date";
 export default {
   name: "CouponModal",
+  mixins: [ModalMixin],
   props: {
     coupon: {
       type: Object,
+      required: true,
+    },
+    status: {
+      type: String,
       required: true,
     },
   },
@@ -149,7 +154,6 @@ export default {
       }
     },
   },
-  mixins: [ModalMixin],
 };
 </script>
 <style lang="scss" scoped></style>

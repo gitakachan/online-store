@@ -4,30 +4,45 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>名稱</th>
-          <th>優惠碼</th>
-          <th>折扣百分比</th>
-          <th>到期日</th>
-          <th>是否啟用</th>
+          <th>成立時間</th>
+          <th>商品</th>
+          <th>金額</th>
+          <th>付款</th>
           <th>編輯</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in orders" :key="item.id">
-          <td>{{ item.title }}</td>
-          <td>{{ item.code }}</td>
-          <td>{{ item.percent }}%</td>
-          <td>{{ getFormDate(item.due_date) }}</td>
+        <tr
+          v-for="item in orders"
+          :key="item.id"
+          :class="[
+            item.is_done
+              ? 'bg-light text-secondary text-decoration-line-through'
+              : '',
+          ]"
+        >
+          <td class="num">{{ getFormDate(item.create_at) }}</td>
           <td>
-            <span v-if="item.is_enabled" class="text-success">啟用</span>
-            <span v-else class="text-muted">未啟用</span>
+            <ul>
+              <li v-for="(productItem, key) in item.products" :key="key">
+                {{ productItem.product.title }}
+                <span class="text-secondary fst-italic num"
+                  >x{{ productItem.product.num }}</span
+                >
+              </li>
+            </ul>
+          </td>
+          <td class="num">{{ item.total.toLocaleString() }}元</td>
+          <td>
+            <span v-if="item.is_paid" class="text-success">已付款</span>
+            <span v-else class="text-muted">未付款</span>
           </td>
           <td>
             <button
-              @click="openModal(false, item)"
+              @click="openModal(item)"
               class="btn btn-outline-success btn-sm m-1"
             >
-              編輯
+              檢視
             </button>
 
             <button
@@ -40,15 +55,17 @@
         </tr>
       </tbody>
     </table>
-
     <order-modal
-      :coupon="tempOrder"
-      @updateCoupon="updateOrder"
+      :order="tempOrder"
+      :status="'編輯'"
+      @updateOrder="updateOrder"
       ref="orderModal"
     ></order-modal>
     <delete-modal
       @delete="deleteOrder"
-      :item="tempOrder"
+      :title="tempOrder.id"
+      :id="tempOrder.id"
+      :name="'訂單'"
       ref="delModal"
     ></delete-modal>
     <toast-list></toast-list>
@@ -58,11 +75,12 @@
 <script>
 import Pagination from "@/components/pagination/Pagination.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
-import AddNew from "@/components/seller/AddNew.vue";
 import DeleteModal from "@/components/seller/DeleteModal.vue";
+
+import AddNew from "@/components/seller/AddNew.vue";
 import OrderModal from "./OrderModal.vue";
 
-import { getUnixDate, getFormDate } from "@/methods/date";
+import { getFormDate } from "@/methods/date";
 
 export default {
   name: "Orders",
@@ -74,19 +92,12 @@ export default {
       tempOrder: {},
       pagination: {},
       isLoading: false,
-      isNew: false,
     };
   },
   methods: {
-    getUnixDate,
     getFormDate,
-    openModal(isNew, item) {
-      if (isNew) {
-        this.tempOrder = {};
-      } else {
-        this.tempOrder = { ...item };
-      }
-      this.isNew = isNew;
+    openModal(item) {
+      this.tempOrder = { ...item };
       this.$refs.orderModal.showModal();
     },
     openDelModal(item) {
@@ -94,12 +105,13 @@ export default {
       this.tempOrder = JSON.parse(JSON.stringify(item));
     },
     getOrders(page = 1) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`;
       this.isLoading = true;
       this.axios.get(api).then((response) => {
         if (response.data.success) {
           this.isLoading = false;
-          this.coupons = response.data.coupons;
+          this.orders = response.data.orders;
+          console.log(this.orders);
           this.pagination = response.data.pagination;
         }
       });
@@ -108,31 +120,19 @@ export default {
       this.tempOrder = item;
       this.isLoading = true;
 
-      //把回傳的日期轉換回unix time stamp
-      this.tempOrder.due_date = this.getUnixDate(this.tempOrder.due_date);
-
-      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon`;
-      let httpMethod = "post";
-
-      if (!this.isNew) {
-        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${item.id}`;
-        httpMethod = "put";
-      }
-
-      this.axios[httpMethod](api, { data: this.tempCoupon }).then(
-        (response) => {
-          this.isLoading = false;
-          if (response.data.success) {
-            this.getCoupons();
-            this.tempOrder = {};
-          }
-          this.$refs.couponModal.hideModal();
-          this.resMsg(response);
+      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/${item.id}`;
+      this.axios.put(api, { data: this.tempOrder }).then((response) => {
+        if (response.data.success) {
+          this.getOrders();
+          this.tempOrder = {};
         }
-      );
+        this.isLoading = false;
+        this.$refs.orderModal.hideModal();
+        this.resMsg(response);
+      });
     },
     deleteOrder(id) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${id}`;
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/${id}`;
       this.isLoading = true;
       this.axios.delete(api).then((response) => {
         if (response.data.success) {

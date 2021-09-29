@@ -12,7 +12,7 @@
         <div class="modal-content">
           <div class="modal-header bg-danger">
             <h5 class="modal-title text-white" id="exampleModalLabel">
-              刪除商品？
+              刪除{{ name }}？
             </h5>
             <button
               type="button"
@@ -22,7 +22,7 @@
             ></button>
           </div>
           <div class="modal-body">
-            確定永久刪除商品 <span class="fw-bold">{{ item.title }}</span> ?
+            確定永久刪除{{ name }} <span class="fw-bold">{{ title }}</span> ?
             (刪除後即無法復原)
           </div>
           <div class="modal-footer">
@@ -34,7 +34,7 @@
               取消
             </button>
             <button
-              @click="$emit('delete', item.id)"
+              @click="$emit('delete', id)"
               type="button"
               class="btn btn-danger"
             >
@@ -51,8 +51,14 @@ import ModalMixin from "@/mixins/ModalMixin";
 export default {
   name: "DeleteModal",
   props: {
-    item: {
-      type: Object,
+    name: {
+      type: String,
+      default: "",
+    },
+    id: {
+      required: true,
+    },
+    title: {
       required: true,
     },
   },

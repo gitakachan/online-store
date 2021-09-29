@@ -12,7 +12,7 @@
         <div class="modal-content border-0">
           <div class="modal-header bg-dark text-white">
             <h5 class="modal-title" id="exampleModalLabel">
-              <span>新增產品</span>
+              <span>{{ status }}產品</span>
             </h5>
             <button
               type="button"
@@ -395,6 +395,7 @@ import ModalMixin from "@/mixins/ModalMixin";
 import { reverseWeekdayNumber } from "@/methods/weekday.js";
 export default {
   name: "ProductModal",
+  mixins: [ModalMixin],
   props: {
     product: {
       type: Object,
@@ -402,8 +403,11 @@ export default {
         return {};
       },
     },
+    status: {
+      type: String,
+      required: true,
+    },
   },
-
   data() {
     return {
       modal: {},
@@ -509,7 +513,6 @@ export default {
       }
     },
   },
-  mixins: [ModalMixin],
 };
 </script>
 <style lang="scss" scoped>
