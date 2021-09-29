@@ -5,6 +5,12 @@
       <router-view></router-view>
     </div>
     <user-footer></user-footer>
+    <button
+      @click="scrollToTop"
+      class="btn-lg bg-warning m-3 border-0 position-fixed position-absolute bottom-0 end-0"
+    >
+      <i class="bi bi-chevron-up"></i>
+    </button>
   </div>
 </template>
 <script>
@@ -47,6 +53,9 @@ export default {
           content: msg.join("、"),
         });
       }
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
     },
   },
 };
