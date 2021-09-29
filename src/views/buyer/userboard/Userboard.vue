@@ -5,12 +5,7 @@
       <router-view></router-view>
     </div>
     <user-footer></user-footer>
-    <button
-      @click="scrollToTop"
-      class="btn-lg bg-warning m-3 border-0 position-fixed position-absolute bottom-0 end-0"
-    >
-      <i class="bi bi-chevron-up"></i>
-    </button>
+    <back-to-top-btn></back-to-top-btn>
   </div>
 </template>
 <script>
@@ -20,6 +15,7 @@ const emitter = mitt();
 import NavBar from "@/components/buyer/NavBar.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
 import UserFooter from "../../../components/buyer/UserFooter.vue";
+import BackToTopBtn from "../../../components/buyer/BackToTopBtn.vue";
 
 export default {
   name: "Dashboard",
@@ -27,6 +23,7 @@ export default {
     NavBar,
     ToastList,
     UserFooter,
+    BackToTopBtn,
   },
   provide() {
     //讓內部子組件都可使用emitter，避免重複引入
@@ -53,9 +50,6 @@ export default {
           content: msg.join("、"),
         });
       }
-    },
-    scrollToTop() {
-      window.scrollTo(0, 0);
     },
   },
 };

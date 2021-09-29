@@ -13,12 +13,12 @@
         <router-link
           to="/store/vnIntro"
           class="d-block text-white fw-lighter text-center text-decoration-none mt-2"
-          >越南簡介</router-link
+          >越南新手旅遊攻略</router-link
         >
         <router-link
           to="/store/products"
           class="d-block text-white fw-lighter text-center text-decoration-none mt-2"
-          >查看行程</router-link
+          >行程＆票券</router-link
         >
       </div>
       <div class="d-xl-none">

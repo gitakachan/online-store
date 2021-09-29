@@ -27,11 +27,10 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "~@/assets/scss/helpers/myVariables.scss";
 li {
   transition: background-color, 0.2s ease-in;
   &:hover {
-    background-color: $warning;
+    background-color: rgb(246, 252, 183);
   }
 }
 </style>

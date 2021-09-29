@@ -69,6 +69,10 @@ const routes = [
         component: () => import("../views/buyer/userboard/cart/Cart.vue"),
       },
       {
+        path: "liked",
+        component: () => import("../views/buyer/userboard/liked/Liked.vue"),
+      },
+      {
         path: "checkout",
         component: () =>
           import("../views/buyer/userboard/checkout/CheckOut.vue"),
