@@ -410,7 +410,6 @@ export default {
   },
   data() {
     return {
-      modal: {},
       tempProduct: {
         imagesUrl: [], //讓input的:disabled可以有讀取依據
       },

@@ -50,6 +50,7 @@
 import ModalMixin from "@/mixins/ModalMixin";
 export default {
   name: "DeleteModal",
+  mixins: [ModalMixin],
   props: {
     name: {
       type: String,
@@ -62,12 +63,6 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      modal: {},
-    };
-  },
-  mixins: [ModalMixin],
 };
 </script>
 <style lang="scss" scoped></style>

@@ -288,7 +288,6 @@ export default {
   },
   data() {
     return {
-      modal: {},
       tempOrder: {
         total: 0,
         id: "",

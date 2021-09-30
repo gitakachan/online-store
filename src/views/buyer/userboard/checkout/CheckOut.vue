@@ -20,7 +20,7 @@
                   <td @click="backToProduct(item.product_id)">
                     {{ item.product.title }}
                   </td>
-                  <td>{{ item.product.price }}</td>
+                  <td>{{ item.product.price.toLocaleString() }}</td>
                   <td>{{ item.qty + item.product.unit }}</td>
                 </tr>
                 <tr>
@@ -267,6 +267,7 @@ export default {
         .then((response) => {
           if (response.data.success) {
             this.useCode = true;
+            this.getCart();
           } else {
             this.useCode = false;
           }

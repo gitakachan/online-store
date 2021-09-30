@@ -38,7 +38,7 @@
                 <div class="row gx-2">
                   <div class="mb-3 col-md-6">
                     <label for="percent" class="form-label fw-bold"
-                      >折扣百分比*</label
+                      >折扣百分比* ({{ 100 - tempCoupon.percent }}% off)</label
                     >
                     <input
                       type="number"
@@ -132,10 +132,8 @@ export default {
       required: true,
     },
   },
-
   data() {
     return {
-      modal: {},
       tempCoupon: {},
     };
   },
