@@ -111,7 +111,6 @@ export default {
         if (response.data.success) {
           this.isLoading = false;
           this.orders = response.data.orders;
-          console.log(this.orders);
           this.pagination = response.data.pagination;
         }
       });
