@@ -30,7 +30,7 @@
               <td class="item-title" @click="backToProduct(item.product_id)">
                 {{ item.product.title }}
               </td>
-              <td>{{ item.product.price }}</td>
+              <td>{{ item.product.price.toLocaleString() }}</td>
               <td>
                 <div class="input-group">
                   <input
@@ -85,6 +85,7 @@
 <script>
 export default {
   name: "Cart",
+  inject: ["emitter"],
   data() {
     return {
       cartItems: [],
@@ -102,6 +103,9 @@ export default {
           this.cartItems = response.data.data.carts;
           this.total = response.data.data.total;
           this.final_total = response.data.data.final_total;
+
+          //傳送給navbar icon
+          this.emitter.emit("cartLength", this.cartItems.length);
         }
       });
     },

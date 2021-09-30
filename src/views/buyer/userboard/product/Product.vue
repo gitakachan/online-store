@@ -129,6 +129,7 @@ export default {
   name: "Product",
   components: { Images, BreadCrumb, Calender },
   mixins: [priceStyleMixin],
+  inject: ["emitter"],
   props: {
     id: {
       required: true,
@@ -244,8 +245,19 @@ export default {
         .then((response) => {
           if (response.data.success) {
             this.addCartLoading = false;
+            this.getCart();
           }
         });
+    },
+    getCart() {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+      this.axios.get(api).then((response) => {
+        if (response.data.success) {
+          let cartItems = response.data.data.carts;
+          //傳送給navbar icon
+          this.emitter.emit("cartLength", cartItems.length);
+        }
+      });
     },
   },
   mounted() {

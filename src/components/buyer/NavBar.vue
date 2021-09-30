@@ -99,10 +99,20 @@ import navBarCollapse from "@/mixins/navBarCollapse.js";
 export default {
   name: "NavBar",
   mixins: [navBarCollapse],
+  inject: ["emitter"],
   data() {
     return {
-      cartQty: 0,
+      // cartQty: 0,
+      itemLength: 0,
     };
+  },
+  computed: {
+    cartQty() {
+      this.emitter.on("cartLength", (length) => {
+        this.itemLength = length;
+      });
+      return this.itemLength;
+    },
   },
 };
 </script>
