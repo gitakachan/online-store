@@ -141,7 +141,7 @@ export default {
   name: "Product",
   components: { Images, BreadCrumb, Calender, ToastList },
   mixins: [priceStyleMixin, likedProductMixin],
-  inject: ["emitter"],
+  inject: ["emitter", "resMsg"],
   props: {
     id: {
       required: true,
@@ -258,6 +258,7 @@ export default {
           if (response.data.success) {
             this.addCartLoading = false;
             this.getCart();
+            this.resMsg(response, "加入購物車");
           }
         });
     },

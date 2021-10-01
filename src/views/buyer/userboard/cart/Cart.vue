@@ -1,6 +1,7 @@
 <template>
   <div>
     <loading :active="isLoading"></loading>
+    <toast-list></toast-list>
     <div class="container min-vh-80">
       <centered-header :title="'購物車'"></centered-header>
 
@@ -84,12 +85,13 @@
   </div>
 </template>
 <script>
-import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue";
+import CenteredHeader from "@/components/buyer/CenteredHeader.vue";
+import ToastList from "@/components/responseMessages/ToastList.vue";
 
 export default {
   name: "Cart",
-  inject: ["emitter"],
-  components: { CenteredHeader },
+  inject: ["emitter", "resMsg"],
+  components: { CenteredHeader, ToastList, ToastList },
   data() {
     return {
       cartItems: [],
@@ -120,6 +122,7 @@ export default {
         .then((response) => {
           if (response.data.success) {
             this.getCart();
+            this.resMsg(response, "更新");
           }
         });
     },
@@ -130,6 +133,7 @@ export default {
         if (response.data.success) {
           this.isLoading = false;
           this.getCart();
+          this.resMsg(response, "刪除");
         }
       });
     },

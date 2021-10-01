@@ -102,4 +102,10 @@ export default {
     max-width: 120px;
   }
 }
+
+@media (max-width: 375px) {
+  .container h4.title {
+    letter-spacing: 5px;
+  }
+}
 </style>
