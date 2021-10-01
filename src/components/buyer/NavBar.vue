@@ -109,6 +109,16 @@ export default {
       return this.itemLength;
     },
   },
+  mounted() {
+    const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+    this.axios.get(api).then((response) => {
+      if (response.data.success) {
+        let cartItems = response.data.data.carts;
+        //傳送給navbar icon
+        this.emitter.emit("cartLength", cartItems.length);
+      }
+    });
+  },
 };
 </script>
 <style lang="scss" scoped>
