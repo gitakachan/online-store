@@ -1,5 +1,5 @@
 <template>
-  <div class="toast-container position-absolute top-0 end-0">
+  <div class="toast-container position-fixed top-0 end-0">
     <toast v-for="(item, index) in messages" :key="index" :msg="item"></toast>
   </div>
 </template>
@@ -23,6 +23,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .toast-container {
-  margin-top: 20px;
+  margin-top: 65px;
 }
 </style>
