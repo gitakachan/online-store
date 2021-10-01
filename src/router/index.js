@@ -1,6 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
+  { path: "/", redirect: "/store/home" },
   {
     path: "/login",
     component: () => import("../views/seller/login/Login.vue"),
@@ -88,10 +89,7 @@ const routes = [
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
-  scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    }
+  scrollBehavior(to, from) {
     if (to.hash) {
       return { el: to.hash, behavior: "smooth" };
     }
