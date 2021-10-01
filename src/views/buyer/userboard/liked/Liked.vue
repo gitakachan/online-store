@@ -24,6 +24,14 @@
       :target="likedList"
       :gridItemClass="['col-12', 'col-md-4']"
     ></product-list>
+    <div v-show="this.likedList.length === 0" class="pt-5 pb-8 text-center">
+      <h2 class="pb-4">目前尚無收藏的商品</h2>
+      <h3>
+        <router-link to="/store/products" class="text-info"
+          ><i class="bi bi-arrow-up-right"></i> 去逛逛</router-link
+        >
+      </h3>
+    </div>
     <loading :active="isLoading"></loading>
     <toast-list></toast-list>
   </div>
