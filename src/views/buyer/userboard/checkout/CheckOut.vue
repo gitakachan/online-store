@@ -2,8 +2,8 @@
   <div>
     <loading :active="isLoading"></loading>
     <div class="container">
-      <h1 class="text-center my-4">填寫訂單資料</h1>
-      <div class="row">
+      <centered-header :title="'填寫訂單資料'"></centered-header>
+      <div class="row pb-7">
         <div class="col-lg-6">
           <h2 class="text-center">訂單內容</h2>
           <div class="d-flex justify-content-center mt-1">
@@ -207,8 +207,10 @@
   </div>
 </template>
 <script>
+import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue";
 export default {
   name: "CheckOut",
+  components: { CenteredHeader },
   data() {
     return {
       cartItems: [],
@@ -239,6 +241,9 @@ export default {
           this.cartItems = response.data.data.carts;
           this.total = response.data.data.total;
           this.final_total = response.data.data.final_total;
+          if (this.cartItems.length === 0) {
+            this.$router.push("/store/products");
+          }
         }
       });
     },

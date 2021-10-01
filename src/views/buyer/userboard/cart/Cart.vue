@@ -1,8 +1,9 @@
 <template>
   <div>
     <loading :active="isLoading"></loading>
-    <div class="container mt-4 min-vh-80">
-      <h1 class="text-center">購物車</h1>
+    <div class="container min-vh-80">
+      <centered-header :title="'購物車'"></centered-header>
+
       <div class="d-flex justify-content-center mt-4">
         <div v-show="cartItems.length === 0">
           <h2 class="mb-3">購物車內尚無任何商品</h2>
@@ -83,9 +84,12 @@
   </div>
 </template>
 <script>
+import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue";
+
 export default {
   name: "Cart",
   inject: ["emitter"],
+  components: { CenteredHeader },
   data() {
     return {
       cartItems: [],

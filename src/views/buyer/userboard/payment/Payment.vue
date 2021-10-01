@@ -2,8 +2,8 @@
   <div>
     <loading :active="isLoading"></loading>
     <div class="container">
-      <h1 class="text-center my-4">付款</h1>
-      <div class="row">
+      <centered-header :title="'付款'"></centered-header>
+      <div class="row pb-7">
         <div class="col-lg-6">
           <h2 class="text-center">訂單內容</h2>
           <div class="d-flex justify-content-center mt-1">
@@ -88,8 +88,12 @@
 </template>
 <script>
 import { getFormDate } from "@/methods/date.js";
+import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue";
+
 export default {
   name: "Payment",
+  components: { CenteredHeader },
+
   data() {
     return {
       isLoading: false,

@@ -1,26 +1,7 @@
 <template>
   <div class="container">
-    <div class="header pt-5">
-      <div class="position-relative m-4">
-        <div class="progress" style="height: 1px;">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            style="width: 100%;"
-            aria-valuenow="100"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          ></div>
-        </div>
-        <h1
-          class="position-absolute top-0 start-50 bg-white px-3 translate-middle  rounded-pill"
-        >
-          收藏列表
-        </h1>
-      </div>
-    </div>
+    <centered-header :title="'收藏列表'"></centered-header>
     <product-list
-      class="py-5"
       :target="likedList"
       :gridItemClass="['col-12', 'col-md-4']"
     ></product-list>
@@ -28,7 +9,7 @@
       <h2 class="pb-4">目前尚無收藏的商品</h2>
       <h3>
         <router-link to="/store/products" class="text-info"
-          ><i class="bi bi-arrow-up-right"></i> 去逛逛</router-link
+          ><i class="bi bi-arrow-up-right"></i> 回去逛逛</router-link
         >
       </h3>
     </div>
@@ -41,11 +22,12 @@ import ToastList from "@/components/responseMessages/ToastList.vue";
 import ProductList from "@/components/buyer/ProductList.vue";
 
 import likedProductMixin from "@/mixins/likedProductMixin.js";
+import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue";
 export default {
   name: "Liked",
   mixins: [likedProductMixin], //likedList更新的依據
   inject: ["emitter"],
-  components: { ToastList, ProductList },
+  components: { ToastList, ProductList, CenteredHeader },
   data() {
     return {
       isLoading: false,
