@@ -24,5 +24,6 @@ export default {
 <style lang="scss" scoped>
 .toast-container {
   margin-top: 65px;
+  z-index: 100;
 }
 </style>

@@ -80,8 +80,17 @@
           </div>
           <!-- 按鈕 -->
           <div class="d-grid gap-2 my-3">
-            <button class="btn btn-primary shadow-none" type="button">
-              <i class="bi bi-heart"></i> 收藏商品
+            <button
+              @click="addLiked(product.id)"
+              class="btn btn-primary shadow-none add-liked"
+              type="button"
+            >
+              <i
+                :class="likedStatus(product.id)"
+                class="bi bi-heart-fill text-primary"
+              ></i>
+              <span v-if="likedStatus(product.id) !== 'added'"> 收藏商品</span>
+              <span v-else> 取消收藏</span>
             </button>
             <button
               @click="addCart(product.id, order.quantity)"
@@ -116,6 +125,7 @@
       </div>
     </div>
     <loading :active="isLoading"></loading>
+    <toast-list></toast-list>
   </div>
 </template>
 <script>
@@ -124,11 +134,13 @@ import BreadCrumb from "./BreadCrumb.vue";
 import Calender from "./Calender.vue";
 import { getWeekdayText } from "@/methods/weekday.js";
 import priceStyleMixin from "@/mixins/priceStyleMixin.js";
+import likedProductMixin from "@/mixins/likedProductMixin.js";
+import ToastList from "@/components/responseMessages/ToastList.vue";
 
 export default {
   name: "Product",
-  components: { Images, BreadCrumb, Calender },
-  mixins: [priceStyleMixin],
+  components: { Images, BreadCrumb, Calender, ToastList },
+  mixins: [priceStyleMixin, likedProductMixin],
   inject: ["emitter"],
   props: {
     id: {

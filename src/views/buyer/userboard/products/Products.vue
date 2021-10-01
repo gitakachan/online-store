@@ -79,10 +79,10 @@
                         }}</span>
                         <a
                           @click.prevent="addLiked(item.id)"
-                          class="add-cart ms-auto me-2"
+                          class="add-liked ms-auto me-2"
                           ><i
                             :class="likedStatus(item.id)"
-                            class="bi bi-heart-fill"
+                            class="bi bi-heart-fill text-white"
                           ></i
                         ></a>
                       </div>
@@ -217,20 +217,6 @@ export default {
   .tag {
     width: 100%;
     height: 1rem;
-  }
-
-  .add-cart {
-    cursor: pointer;
-    i {
-      -webkit-text-stroke: 2px $danger;
-      color: #fff;
-      transition: color 0.3s ease;
-      &.added,
-      &:hover {
-        color: $liked;
-        -webkit-text-stroke: 0;
-      }
-    }
   }
 }
 </style>

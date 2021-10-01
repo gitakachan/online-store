@@ -41,4 +41,17 @@ body {
       color: rgb(210, 74, 171);
     }
   }
+
+  .add-liked {
+    cursor: pointer;
+    i {
+      -webkit-text-stroke: 2px $danger;
+      transition: color 0.3s ease;
+      &.added,
+      &:hover {
+        color: $liked !important;
+        -webkit-text-stroke: 0;
+      }
+    }
+  }
 }
