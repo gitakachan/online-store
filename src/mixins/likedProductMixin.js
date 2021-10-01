@@ -20,7 +20,6 @@ export default {
         this.resMsg({ data: { success: true } }, "取消收藏");
       }
       localStorage.setItem("likedProducts", JSON.stringify(this.likedStorage)); //local storage只能存字串
-      console.log(this.likedStorage);
     },
   },
   computed: {

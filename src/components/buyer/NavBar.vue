@@ -8,7 +8,6 @@
         <div class="d-md-none flex-grow-1 text-end">
           <router-link
             to="/store/cart"
-            @click="collapse"
             class="text-dark position-relative cart"
             href="#"
             ><i class="bi bi-cart3 text fs-5"></i>
@@ -17,11 +16,7 @@
               >{{ cartQty }}</span
             >
           </router-link>
-          <router-link
-            to="/store/liked"
-            @click="collapse"
-            class="text-dark px-3"
-            href="#"
+          <router-link to="/store/liked" class="text-dark px-3" href="#"
             ><i class="bi bi-heart-fill text-danger fs-5"></i
           ></router-link>
         </div>
