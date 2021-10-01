@@ -30,7 +30,7 @@
         <div class="col-12 col-md-9">
           <div class="container">
             <product-list
-              :target="products"
+              :target="filterProducts[currentPage]"
               :gridItemClass="['col-12', 'col-md-6']"
             ></product-list>
           </div>
@@ -75,7 +75,50 @@ export default {
       isLoading: false,
       selectArea: "所有區域",
       selectCategory: "所有分類",
+      newProducts: [],
+      currentPage: 0,
+      totalProducts: [],
     };
+  },
+  computed: {
+    filterProducts() {
+      this.currentPage = 0;
+      this.newProducts = []; //將符合filter的product分配到各自的分頁（最終回傳的數據）
+      let tempProducts = []; //裝符合filter的product(無分頁)
+      tempProducts = this.products.filter((item) => {
+        if (
+          this.selectArea === "所有區域" &&
+          this.selectCategory === "所有分類"
+        ) {
+          return item;
+        } else if (
+          this.selectArea === "所有區域" &&
+          this.selectCategory !== "所有分類"
+        ) {
+          return item.category === this.selectCategory;
+        } else if (
+          this.selectArea !== "所有區域" &&
+          this.selectCategory === "所有分類"
+        ) {
+          return item.area === this.selectArea;
+        } else if (
+          this.selectArea !== "所有區域" &&
+          this.selectCategory !== "所有分類"
+        ) {
+          return (
+            item.area == this.selectArea && item.category == this.selectCategory
+          );
+        }
+      });
+      tempProducts.forEach((item, i) => {
+        if (i % 10 == 0) {
+          this.newProducts.push([]); //每十筆資料新增一頁
+        }
+        const page = parseInt(i / 10); //這筆資料該放在第幾頁（parseInt回傳整數）
+        this.newProducts[page].push(item);
+      });
+      return this.newProducts;
+    },
   },
   methods: {
     getProducts(page = 1) {

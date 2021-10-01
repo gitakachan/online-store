@@ -82,7 +82,7 @@ export default {
   props: {
     target: {
       type: Array,
-      required: true,
+      default: [],
     },
     gridItemClass: {
       type: Array,
