@@ -77,8 +77,13 @@
                         <span class="badge bg-success me-2">{{
                           item.category
                         }}</span>
-                        <a class="add-cart ms-auto me-2"
-                          ><i class="bi bi-heart-fill"></i
+                        <a
+                          @click.prevent="addLiked(item.id)"
+                          class="add-cart ms-auto me-2"
+                          ><i
+                            :class="likedStatus(item.id)"
+                            class="bi bi-heart-fill"
+                          ></i
                         ></a>
                       </div>
                     </div>
@@ -104,6 +109,7 @@
       </div>
       <loading :active="isLoading"></loading>
       <pagination :page="pagination" @updatePage="getProducts"></pagination>
+      <toast-list></toast-list>
     </div>
   </div>
 </template>
@@ -118,6 +124,7 @@ import SideBar from "../products/SideBar.vue";
 
 import imgSquareMixin from "@/mixins/imgSquareMixin.js";
 import priceStyleMixin from "@/mixins/priceStyleMixin.js";
+import likedProductMixin from "@/mixins/likedProductMixin.js";
 
 export default {
   name: "Products",
@@ -128,8 +135,9 @@ export default {
     ProductsBreadCrumb,
     Dropdown,
     SideBar,
+    ToastList,
   },
-  mixins: [imgSquareMixin, priceStyleMixin],
+  mixins: [imgSquareMixin, priceStyleMixin, likedProductMixin],
   inject: ["emitter"],
   data() {
     return {
@@ -217,6 +225,7 @@ export default {
       -webkit-text-stroke: 2px $danger;
       color: #fff;
       transition: color 0.3s ease;
+      &.added,
       &:hover {
         color: $liked;
         -webkit-text-stroke: 0;
