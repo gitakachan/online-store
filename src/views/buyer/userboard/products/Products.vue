@@ -29,15 +29,16 @@
         <!-- 商品列 -->
         <div class="col-12 col-md-9">
           <div class="container">
+            <!-- 注意：頁數是從1開始，但陣列是從0開始 -->
             <product-list
-              :target="filterProducts[currentPage]"
+              :target="filterProducts[currentPage - 1]"
               :gridItemClass="['col-12', 'col-md-6']"
             ></product-list>
           </div>
         </div>
       </div>
       <loading :active="isLoading"></loading>
-      <pagination :page="pagination" @updatePage="getProducts"></pagination>
+      <pagination :page="pagination" @updatePage="updatePage"></pagination>
       <toast-list></toast-list>
     </div>
   </div>
@@ -70,22 +71,22 @@ export default {
   inject: ["emitter"],
   data() {
     return {
-      products: [],
-      pagination: {},
+      products: [], //暫存每次遠端資料回傳的products
       isLoading: false,
       selectArea: "所有區域",
       selectCategory: "所有分類",
       newProducts: [],
       currentPage: 0,
-      totalProducts: [],
+      totalPages: 0,
+      totalProducts: [], //獲取每頁的products後全部裝在totalProducts
     };
   },
   computed: {
     filterProducts() {
-      this.currentPage = 0;
+      this.currentPage = 1;
       this.newProducts = []; //將符合filter的product分配到各自的分頁（最終回傳的數據）
       let tempProducts = []; //裝符合filter的product(無分頁)
-      tempProducts = this.products.filter((item) => {
+      tempProducts = this.totalProducts.filter((item) => {
         if (
           this.selectArea === "所有區域" &&
           this.selectCategory === "所有分類"
@@ -111,48 +112,74 @@ export default {
         }
       });
       tempProducts.forEach((item, i) => {
-        if (i % 10 == 0) {
-          this.newProducts.push([]); //每十筆資料新增一頁
+        if (i % 4 == 0) {
+          this.newProducts.push([]); //每4筆資料新增一頁
         }
-        const page = parseInt(i / 10); //這筆資料該放在第幾頁（parseInt回傳整數）
+        const page = parseInt(i / 4); //這筆資料該放在第幾頁（parseInt回傳整數）
         this.newProducts[page].push(item);
       });
       return this.newProducts;
     },
+    pagination() {
+      //傳入pagination組件
+      return {
+        current_page: this.currentPage,
+        total_pages: this.filterProducts.length,
+      };
+    },
+  },
+  watch: {
+    //mounted後會修改totalPages，看總頁數減去已獲取的第一頁後還有幾頁，就跑幾圈獲取剩餘的每頁資料，全部加入totalProducts
+    totalPages() {
+      for (let i = 2; i <= this.totalPages; i++) {
+        const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products?page=${i}`;
+        this.isLoading = true;
+        this.axios.get(api).then((response) => {
+          this.isLoading = false;
+          if (response.data.success) {
+            let products = response.data.products;
+            //避免imagesUrl為undefined
+            products.forEach((element) => {
+              if (element.imagesUrl == undefined) {
+                element.imagesUrl = [];
+              }
+            });
+            this.totalProducts = [...this.totalProducts, ...products];
+          }
+        });
+      }
+    },
   },
   methods: {
-    getProducts(page = 1) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products?page=${page}`;
-      this.isLoading = true;
-      this.axios.get(api).then((response) => {
-        this.isLoading = false;
-        if (response.data.success) {
-          this.pagination = response.data.pagination;
-          this.products = response.data.products;
-
-          //避免imagesUrl為undefined
-          this.products.forEach((element) => {
-            if (element.imagesUrl == undefined) {
-              element.imagesUrl = [];
-            }
-          });
-        }
-      });
-    },
     setArea(item) {
       this.selectArea = item;
     },
     setCategory(item) {
       this.selectCategory = item;
     },
+    updatePage(page) {
+      this.currentPage = page;
+    },
   },
   mounted() {
-    this.emitter.on("setOption", (data) => {
-      this.selectArea = data.area;
-      this.selectCategory = data.category;
-      console.log(data);
+    //先獲取第一頁資料
+    const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products?page=1`;
+    this.isLoading = true;
+    this.axios.get(api).then((response) => {
+      this.isLoading = false;
+      if (response.data.success) {
+        this.totalPages = response.data.pagination.total_pages; //總共有幾頁每頁十筆的資料
+        this.currentPage = 1;
+        let products = response.data.products;
+        //避免imagesUrl為undefined
+        products.forEach((element) => {
+          if (element.imagesUrl == undefined) {
+            element.imagesUrl = [];
+          }
+        });
+        this.totalProducts = [...products]; //加入第一頁獲得的資料
+      }
     });
-    this.getProducts();
   },
 };
 </script>
