@@ -1,7 +1,10 @@
 export default {
   watch: {
-    imgRefs() {
-      this.resetImgSize();
+    imgRefs: {
+      deep: true, //深度監視 有可能陣列長度沒變，但內容變了
+      handler() {
+        this.resetImgSize();
+      },
     },
   },
   methods: {
