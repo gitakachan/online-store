@@ -34,11 +34,16 @@
               :target="filterProducts[currentPage - 1]"
               :gridItemClass="['col-12', 'col-md-6']"
             ></product-list>
+            <div class="pt-3 pb-7" v-show="filterProducts.length === 0">
+              <h1 class="fw-light">此分類目前無商品</h1>
+            </div>
           </div>
         </div>
       </div>
       <loading :active="isLoading"></loading>
-      <pagination :page="pagination" @updatePage="updatePage"></pagination>
+      <div v-show="filterProducts.length !== 0">
+        <pagination :page="pagination" @updatePage="updatePage"></pagination>
+      </div>
       <toast-list></toast-list>
     </div>
   </div>
