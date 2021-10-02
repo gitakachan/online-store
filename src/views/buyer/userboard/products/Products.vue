@@ -1,6 +1,8 @@
 <template>
   <div>
-    <carousel></carousel>
+    <div ref="carousel">
+      <carousel></carousel>
+    </div>
     <div class="container my-4">
       <products-bread-crumb
         :area="selectArea"
@@ -132,6 +134,9 @@ export default {
         total_pages: this.filterProducts.length,
       };
     },
+    carouselHeight() {
+      return this.$refs.carousel.offsetHeight;
+    },
   },
   watch: {
     //mounted後會修改totalPages，看總頁數減去已獲取的第一頁後還有幾頁，就跑幾圈獲取剩餘的每頁資料，全部加入totalProducts
@@ -164,6 +169,7 @@ export default {
     },
     updatePage(page) {
       this.currentPage = page;
+      window.scrollTo(0, this.carouselHeight);
     },
   },
   mounted() {
