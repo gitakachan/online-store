@@ -163,9 +163,15 @@ export default {
   methods: {
     setArea(item) {
       this.selectArea = item;
+      this.$router.push(
+        `/store/products?area=${item}&category=${this.selectCategory}`
+      );
     },
     setCategory(item) {
       this.selectCategory = item;
+      this.$router.push(
+        `/store/products?area=${this.selectArea}&category=${item}`
+      );
     },
     updatePage(page) {
       this.currentPage = page;
@@ -191,6 +197,14 @@ export default {
         this.totalProducts = [...products]; //加入第一頁獲得的資料
       }
     });
+
+    if (!this.$route.query.area && !this.$route.query.category) {
+      this.$router.push("/store/products?area=所有區域&category=所有分類");
+      return;
+    } else {
+      this.selectArea = this.$route.query.area;
+      this.selectCategory = this.$route.query.category;
+    }
   },
 };
 </script>

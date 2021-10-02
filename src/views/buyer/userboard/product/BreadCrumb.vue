@@ -45,11 +45,7 @@ export default {
   },
   methods: {
     goTo(area, category) {
-      this.emitter.emit("setOption", {
-        area: area,
-        category: category,
-      });
-      this.$router.push("/store/products");
+      this.$router.push(`/store/products?area=${area}&category=${category}`);
     },
   },
 };
