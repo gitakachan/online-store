@@ -3,9 +3,14 @@ import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
   { path: "/", redirect: "/store/home" },
   {
+    path: "/:pathMatch(.*)*",
+    redirect: "/store/home",
+  },
+  {
     path: "/login",
     component: () => import("../views/seller/login/Login.vue"),
   },
+
   {
     path: "/dashboard",
     component: () => import("../views/seller/dashboard/Dashboard.vue"),
