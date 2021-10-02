@@ -163,15 +163,11 @@ export default {
   methods: {
     setArea(item) {
       this.selectArea = item;
-      this.$router.push(
-        `/store/products?area=${item}&category=${this.selectCategory}`
-      );
+      window.scrollTo(0, this.carouselHeight);
     },
     setCategory(item) {
       this.selectCategory = item;
-      this.$router.push(
-        `/store/products?area=${this.selectArea}&category=${item}`
-      );
+      window.scrollTo(0, this.carouselHeight);
     },
     updatePage(page) {
       this.currentPage = page;
@@ -199,11 +195,11 @@ export default {
     });
 
     if (!this.$route.query.area && !this.$route.query.category) {
-      this.$router.push("/store/products?area=所有區域&category=所有分類");
       return;
     } else {
       this.selectArea = this.$route.query.area;
       this.selectCategory = this.$route.query.category;
+      this.$router.push("/store/products");
     }
   },
 };
