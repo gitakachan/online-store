@@ -21,96 +21,124 @@
               aria-label="Close"
             ></button>
           </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col">
-                <div class="mb-3">
-                  <label for="title" class="form-label fw-bold">標題*</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="title"
-                    placeholder="請輸入標題"
-                    v-model="tempCoupon.title"
-                  />
-                </div>
-
-                <div class="row gx-2">
-                  <div class="mb-3 col-md-6">
-                    <label for="percent" class="form-label fw-bold"
-                      >折扣百分比* ({{ 100 - tempCoupon.percent }}% off)</label
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="percent"
-                      placeholder="請輸入百分比"
-                      v-model.number="tempCoupon.percent"
-                    />
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label for="code" class="form-label fw-bold">優惠碼*</label>
-                    <input
+          <Form v-slot="{ errors, validate }">
+            <div class="modal-body">
+              <div class="row">
+                <div class="col">
+                  <div class="mb-3">
+                    <label for="title" class="form-label fw-bold">標題*</label>
+                    <Field
+                      id="title"
+                      name="標題"
                       type="text"
                       class="form-control"
-                      id="code"
-                      placeholder="請輸入優惠碼"
-                      v-model.number="tempCoupon.code"
-                    />
+                      placeholder="請輸入標題"
+                      rules="required"
+                      :class="{ 'is-invalid': errors['標題'] }"
+                      v-model="tempCoupon.title"
+                    ></Field>
+                    <error-message
+                      name="標題"
+                      class="invalid-feedback"
+                    ></error-message>
                   </div>
-                </div>
-                <div class="row">
-                  <div class="mb-3 col-md-6">
-                    <label for="date" class="form-label fw-bold">到期日*</label>
-                    <v-date-picker
-                      v-model="tempCoupon.due_date"
-                      :min-date="new Date()"
-                    >
-                      <template v-slot="{ inputValue, inputEvents }">
+                  <div class="row gx-2">
+                    <div class="mb-3 col-md-6">
+                      <label for="percent" class="form-label fw-bold"
+                        >折扣百分比* ({{ 100 - tempCoupon.percent }}%
+                        off)</label
+                      >
+                      <Field
+                        id="percent"
+                        name="比例"
+                        type="number"
+                        class="form-control"
+                        placeholder="請輸入折扣百分比"
+                        rules="required|between:1,100"
+                        :class="{ 'is-invalid': errors['比例'] }"
+                        v-model="tempCoupon.percent"
+                      ></Field>
+                      <error-message
+                        name="比例"
+                        class="invalid-feedback"
+                      ></error-message>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                      <label for="code" class="form-label fw-bold"
+                        >優惠碼*</label
+                      >
+                      <Field
+                        id="code"
+                        name="優惠碼"
+                        type="text"
+                        class="form-control"
+                        placeholder="請輸入優惠碼"
+                        rules="required|max:10"
+                        :class="{ 'is-invalid': errors['優惠碼'] }"
+                        v-model="tempCoupon.code"
+                      ></Field>
+                      <error-message
+                        name="優惠碼"
+                        class="invalid-feedback"
+                      ></error-message>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="mb-3 col-md-6">
+                      <label for="date" class="form-label fw-bold"
+                        >到期日*</label
+                      >
+                      <v-date-picker
+                        v-model="tempCoupon.due_date"
+                        :min-date="new Date()"
+                      >
+                        <template v-slot="{ inputValue, inputEvents }">
+                          <input
+                            class="form-control"
+                            :value="inputValue"
+                            v-on="inputEvents"
+                            id="date"
+                          />
+                        </template>
+                      </v-date-picker>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                      <div class="form-check">
                         <input
-                          class="form-control"
-                          :value="inputValue"
-                          v-on="inputEvents"
-                          id="date"
+                          class="form-check-input"
+                          type="checkbox"
+                          :true-value="1"
+                          :false-value="0"
+                          id="is_enabled"
+                          v-model="tempCoupon.is_enabled"
                         />
-                      </template>
-                    </v-date-picker>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <div class="form-check">
-                      <input
-                        class="form-check-input"
-                        type="checkbox"
-                        :true-value="1"
-                        :false-value="0"
-                        id="is_enabled"
-                        v-model="tempCoupon.is_enabled"
-                      />
-                      <label class="form-check-label" for="is_enabled">
-                        是否啟用
-                      </label>
+                        <label class="form-check-label" for="is_enabled">
+                          是否啟用
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-bs-dismiss="modal"
-            >
-              取消
-            </button>
-            <button
-              @click="$emit('updateCoupon', tempCoupon)"
-              type="button"
-              class="btn btn-primary"
-            >
-              確認
-            </button>
-          </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-bs-dismiss="modal"
+              >
+                取消
+              </button>
+
+              <button
+                @click="validate(), checkStatus(errors)"
+                type="button"
+                class="btn btn-primary"
+              >
+                確認
+              </button>
+            </div>
+          </Form>
         </div>
       </div>
     </div>
@@ -119,6 +147,7 @@
 <script>
 import ModalMixin from "@/mixins/ModalMixin";
 import { getUnixDate, getFormDate } from "@/methods/date";
+
 export default {
   name: "CouponModal",
   mixins: [ModalMixin],
@@ -140,6 +169,14 @@ export default {
   methods: {
     getUnixDate,
     getFormDate,
+    checkStatus(e) {
+      console.log(Object.keys(e).length);
+      if (Object.keys(e).length === 0) {
+        this.$emit("updateCoupon", this.tempCoupon);
+      } else {
+        return;
+      }
+    },
   },
   watch: {
     coupon() {

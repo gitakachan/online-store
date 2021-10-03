@@ -15,13 +15,15 @@ import VCalendar from "v-calendar";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 import { Field, Form, ErrorMessage, defineRule, configure } from "vee-validate";
-import { required, email, regex } from "@vee-validate/rules";
+import { required, email, regex, between, max } from "@vee-validate/rules";
 import { localize, setLocale } from "@vee-validate/i18n";
 import zhTW from "@vee-validate/i18n/dist/locale/zh_TW.json";
 
 defineRule("required", required);
 defineRule("email", email);
 defineRule("regex", regex);
+defineRule("between", between);
+defineRule("max", max);
 
 configure({
   generateMessage: localize({ zh_TW: zhTW }),
