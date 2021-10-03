@@ -27,7 +27,7 @@
               <li v-for="(productItem, key) in item.products" :key="key">
                 {{ productItem.product.title }}
                 <span class="text-secondary fst-italic num"
-                  >x{{ productItem.product.num }}</span
+                  >x{{ productItem.qty }}</span
                 >
               </li>
             </ul>

@@ -84,7 +84,7 @@
                       <td>
                         {{ item.product.title }}
                         <span class="text-secondary fst-italic num"
-                          >x{{ item.product.num }}</span
+                          >x{{ item.qty }}</span
                         >
                       </td>
                     </tr>
