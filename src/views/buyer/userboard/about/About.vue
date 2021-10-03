@@ -93,16 +93,16 @@ export default {
   data() {
     return {
       memberImgs: [
-        "https://images.unsplash.com/photo-1551854591-e778089e0b8c?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1738&q=80",
-        "https://images.unsplash.com/photo-1579389082289-3d6922d506c4?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80",
-        "https://images.unsplash.com/photo-1534471770828-9bde524ee634?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80",
-        "https://images.unsplash.com/photo-1475823678248-624fc6f85785?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+        "aboutMember/01.jpeg",
+        "aboutMember/02.jpeg",
+        "aboutMember/03.jpeg",
+        "aboutMember/04.jpeg",
       ],
       serviceImgs: [
-        "https://images.unsplash.com/photo-1587813369290-091c9d432daf?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80",
-        "https://images.unsplash.com/photo-1570125909232-eb263c188f7e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80",
-        "https://images.unsplash.com/photo-1577598204579-3be87a14bfb3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80",
-        "https://images.unsplash.com/photo-1516289637866-1e298d7c6a54?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1770&q=80",
+        "aboutService/01.jpeg",
+        "aboutService/02.jpeg",
+        "aboutService/03.jpeg",
+        "aboutService/04.jpeg",
       ],
       office: [
         {
