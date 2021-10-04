@@ -1,19 +1,8 @@
 # online-store
 
-## Project setup
-```
-npm install
-```
+## 主題
+越南旅遊旅行社網站
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 技術
+* vue 3, SCSS, bootstrap 5
+* v-calender, vee-validate,

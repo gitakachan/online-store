@@ -32,7 +32,7 @@
               <td class="item-title" @click="backToProduct(item.product_id)">
                 {{ item.product.title }}
               </td>
-              <td>{{ item.product.price.toLocaleString() }}</td>
+              <td class="num">{{ item.product.price.toLocaleString() }}</td>
               <td>
                 <div class="input-group">
                   <input
@@ -40,7 +40,7 @@
                     @change="updateCart(item.id, item.qty)"
                     min="1"
                     type="number"
-                    class="form-control shadow-none"
+                    class="form-control shadow-none num"
                     placeholder="數量"
                     aria-label="Username"
                     aria-describedby="basic-addon1"
@@ -60,7 +60,8 @@
             <tr>
               <td class="no-border" colspan="4">
                 <h3 class="text-end">
-                  小計：NT {{ total.toLocaleString() }} 元
+                  小計：
+                  <span class="num"> NT {{ total.toLocaleString() }} 元</span>
                 </h3>
               </td>
             </tr>

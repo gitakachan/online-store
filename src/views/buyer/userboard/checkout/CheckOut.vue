@@ -20,8 +20,11 @@
                   <td @click="backToProduct(item.product_id)">
                     {{ item.product.title }}
                   </td>
-                  <td>{{ item.product.price.toLocaleString() }}</td>
-                  <td>{{ item.qty + item.product.unit }}</td>
+                  <td class="num">{{ item.product.price.toLocaleString() }}</td>
+                  <td>
+                    <span class="num">{{ item.qty }}</span
+                    >{{ item.product.unit }}
+                  </td>
                 </tr>
                 <tr>
                   <td class="no-border" colspan="4">
@@ -58,7 +61,10 @@
                         'text-secondary': useCode,
                       }"
                     >
-                      總計：NT {{ total.toLocaleString() }} 元
+                      總計：<span class="num">
+                        NT {{ total.toLocaleString() }}</span
+                      >
+                      元
                     </h3>
                   </td>
                 </tr>
@@ -293,7 +299,6 @@ export default {
         })
         .then((response) => {
           if (response.data.success) {
-            console.log(response.data.orderId);
             this.$router.push(`/store/payment/${response.data.orderId}`);
           }
           this.isLoading = false;

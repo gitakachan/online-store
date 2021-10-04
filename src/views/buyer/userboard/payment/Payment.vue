@@ -20,13 +20,16 @@
                   <td>
                     {{ item.product.title }}
                   </td>
-                  <td>{{ item.product.price }}</td>
-                  <td>{{ item.qty }}</td>
+                  <td class="num">{{ item.product.price.toLocaleString() }}</td>
+                  <td class="num">{{ item.qty }}</td>
                 </tr>
                 <tr>
                   <td class="no-border" colspan="4">
                     <h3 class="text-end">
-                      總金額：NT {{ total.toLocaleString() }} 元
+                      總金額：<span class="num"
+                        >NT {{ total.toLocaleString() }}</span
+                      >
+                      元
                     </h3>
                   </td>
                 </tr>
