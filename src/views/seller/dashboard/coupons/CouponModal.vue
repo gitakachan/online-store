@@ -129,11 +129,14 @@
               >
                 取消
               </button>
-
               <button
-                @click="validate(), checkStatus(errors)"
+                @click="
+                  validate();
+                  checkStatus();
+                "
                 type="button"
                 class="btn btn-primary"
+                :disabled="submitBtn"
               >
                 確認
               </button>
@@ -164,18 +167,14 @@ export default {
   data() {
     return {
       tempCoupon: {},
+      submitBtn: false,
     };
   },
   methods: {
     getUnixDate,
     getFormDate,
-    checkStatus(e) {
-      console.log(Object.keys(e).length);
-      if (Object.keys(e).length === 0) {
-        this.$emit("updateCoupon", this.tempCoupon);
-      } else {
-        return;
-      }
+    checkStatus() {
+      this.$emit("updateCoupon", this.tempCoupon);
     },
   },
   watch: {
@@ -187,6 +186,27 @@ export default {
         //unix time stamp -> formDate
         this.tempCoupon.due_date = this.getFormDate(this.tempCoupon.due_date);
       }
+      if (!this.tempCoupon.title) {
+        this.tempCoupon.title = "";
+      }
+      if (!this.tempCoupon.code) {
+        this.tempCoupon.code = "";
+      }
+      if (!this.tempCoupon.is_enabled) {
+        this.tempCoupon.is_enabled = 0;
+      }
+    },
+    tempCoupon: {
+      deep: true,
+      handler() {
+        for (let item in this.tempCoupon) {
+          if (!this.tempCoupon[item]) {
+            this.submitBtn = true;
+          } else {
+            this.submitBtn = false;
+          }
+        }
+      },
     },
   },
 };

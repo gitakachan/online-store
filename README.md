@@ -1,8 +1,11 @@
-# online-store
+# 主題：越南旅遊旅行社網站
+## 主要使用工具：
+* vue 3, vue router, SCSS, bootstrap 5, bootstrap icon
+* vue-axios, v-calender, vee-validate, vue3-loading-overlay
+* mitt
 
-## 主題
-越南旅遊旅行社網站
+### 圖片來源：
+* unsplash, 個人提供
 
-### 工具
-* vue 3, SCSS, bootstrap 5
-* v-calender, vee-validate,
+### 影片素材：
+* Stock footage provided by Videvo, downloaded from www.videvo.net
