@@ -7,8 +7,9 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
       ref="modal"
+      data-bs-backdrop="static"
     >
-      <Form v-slot="{ errors, validate }">
+      <Form v-slot="{ errors, validate, resetForm }">
         <div class="modal-dialog modal-xl" role="document">
           <div class="modal-content border-0">
             <div class="modal-header bg-dark text-white">
@@ -20,6 +21,7 @@
                 class="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                @click="resetForm"
               ></button>
             </div>
             <div class="modal-body">
@@ -427,13 +429,13 @@
                 type="button"
                 class="btn btn-outline-secondary"
                 data-bs-dismiss="modal"
+                @click="resetForm"
               >
                 取消
               </button>
               <button
                 @click="
                   validate();
-
                   $emit('updateProduct', tempProduct);
                 "
                 type="button"

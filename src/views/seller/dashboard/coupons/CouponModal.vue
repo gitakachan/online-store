@@ -7,21 +7,24 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
       ref="modal"
+      data-bs-backdrop="static"
     >
-      <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content border-0">
-          <div class="modal-header bg-dark text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
-              <span>{{ status }}優惠券</span>
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <Form v-slot="{ errors, validate }">
+      <Form v-slot="{ errors, validate, resetForm }">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content border-0">
+            <div class="modal-header bg-dark text-white">
+              <h5 class="modal-title" id="exampleModalLabel">
+                <span>{{ status }}優惠券</span>
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                @click="resetForm"
+              ></button>
+            </div>
+
             <div class="modal-body">
               <div class="row">
                 <div class="col">
@@ -126,6 +129,7 @@
                 type="button"
                 class="btn btn-outline-secondary"
                 data-bs-dismiss="modal"
+                @click="resetForm"
               >
                 取消
               </button>
@@ -141,9 +145,9 @@
                 確認
               </button>
             </div>
-          </Form>
+          </div>
         </div>
-      </div>
+      </Form>
     </div>
   </div>
 </template>
