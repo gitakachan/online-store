@@ -3,14 +3,9 @@ import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
   { path: "/", redirect: "/store/home" },
   {
-    path: "/:pathMatch(.*)*",
-    redirect: "/store/home",
-  },
-  {
     path: "/login",
     component: () => import("../views/seller/login/Login.vue"),
   },
-
   {
     path: "/dashboard",
     component: () => import("../views/seller/dashboard/Dashboard.vue"),
@@ -32,6 +27,10 @@ const routes = [
         path: "coupons",
         component: () =>
           import("../views/seller/dashboard/coupons/Coupons.vue"),
+      },
+      {
+        path: "/dashboard/:pathMatch(.*)*",
+        redirect: "/dashboard/products",
       },
     ],
   },
@@ -87,7 +86,15 @@ const routes = [
         path: "payment/:orderId",
         component: () => import("../views/buyer/userboard/payment/Payment.vue"),
       },
+      {
+        path: "/store/:pathMatch(.*)*",
+        redirect: "/store/home",
+      },
     ],
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/store/home",
   },
 ];
 
