@@ -8,234 +8,242 @@
       aria-hidden="true"
       ref="modal"
     >
-      <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content border-0">
-          <div class="modal-header bg-dark text-white">
-            <h5 class="modal-title" id="exampleModalLabel">
-              <span>{{ status }}產品</span>
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-sm-8">
-                <div class="mb-3">
-                  <label for="title" class="form-label fw-bold">標題*</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="title"
-                    placeholder="請輸入標題"
-                    v-model="tempProduct.title"
-                  />
-                </div>
-                <div class="row gx-2">
-                  <div class="mb-3 col">
-                    <label for="category" class="form-label fw-bold"
-                      >分類*</label
-                    >
-
-                    <select
-                      class="form-select"
-                      aria-label="Default select example"
-                      v-model="tempProduct.category"
-                    >
-                      <option value="" disabled>選擇分類</option>
-                      <option
-                        v-for="item in categoryOptionList"
-                        :key="item"
-                        :value="item"
-                        >{{ item }}</option
+      <Form v-slot="{ errors, validate }">
+        <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content border-0">
+            <div class="modal-header bg-dark text-white">
+              <h5 class="modal-title" id="exampleModalLabel">
+                <span>{{ status }}產品</span>
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-8">
+                  <!-- title -->
+                  <div class="mb-3">
+                    <label for="title" class="form-label fw-bold">標題*</label>
+                    <Field
+                      id="title"
+                      name="標題"
+                      type="text"
+                      class="form-control"
+                      placeholder="請輸入標題"
+                      rules="required"
+                      :class="{ 'is-invalid': errors['標題'] }"
+                      v-model="tempProduct.title"
+                    ></Field>
+                    <error-message
+                      name="標題"
+                      class="invalid-feedback"
+                    ></error-message>
+                  </div>
+                  <div class="row gx-2">
+                    <!-- category -->
+                    <div class="mb-3 col">
+                      <label for="category" class="form-labe fw-bold"
+                        >分類*</label
                       >
-                    </select>
-                  </div>
-                </div>
-                <div class="row gx-2">
-                  <div class="mb-3 col">
-                    <label for="location" class="form-label">地點</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="location"
-                      placeholder="請輸入地點"
-                      v-model="tempProduct.location"
-                    />
-                  </div>
-                </div>
-                <!-- tag -->
-                <div class="row gx-2">
-                  <div class="mb-3 col">
-                    <label for="tag" class="form-label">標籤</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="tag"
-                      placeholder="請輸入標籤"
-                      v-model="tempProduct.tag"
-                    />
-                  </div>
-                </div>
-                <!-- area -->
-                <div class="row gx-2">
-                  <div class="mb-3 col-md-6">
-                    <label for="area" class="form-label">區域</label>
-                    <select
-                      class="form-select"
-                      aria-label="Default select example"
-                      v-model="tempProduct.area"
-                    >
-                      <option value="" disabled>選擇地點</option>
-                      <option value="北越">北越</option>
-                      <option value="中越">中越</option>
-                      <option value="南越">南越</option>
-                      <option value="離島">離島</option>
-                    </select>
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label for="price" class="form-label fw-bold">單位*</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="unit"
-                      placeholder="請輸入單位"
-                      v-model="tempProduct.unit"
-                    />
-                  </div>
-                </div>
-                <!-- 價格 -->
-                <div class="row gx-2">
-                  <div class="mb-3 col-md-6">
-                    <label for="origin_price" class="form-label fw-bold"
-                      >原價*</label
-                    >
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="origin_price"
-                      placeholder="請輸入原價"
-                      v-model="tempProduct.origin_price"
-                    />
-                  </div>
-                  <div class="mb-3 col-md-6">
-                    <label for="price" class="form-label fw-bold">售價*</label>
-                    <input
-                      type="number"
-                      class="form-control"
-                      id="price"
-                      placeholder="請輸入售價"
-                      v-model="tempProduct.price"
-                    />
-                  </div>
-                </div>
-                <!-- 日期 -->
-                <hr />
-                <div class="row gx-2">
-                  <!-- 星期幾 -->
-                  <div class="mb-3 col-12">
-                    <div>可使用星期</div>
-                    <section class="group">
-                      <div
-                        v-for="item in weekdays"
-                        :key="item.id"
-                        class="form-check form-check-inline"
-                      >
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          :id="item.id"
-                          :value="item.id"
-                          v-model="tempProduct.weekdays"
-                        />
-                        <label class="form-check-label" :for="item.id">{{
-                          item.title
-                        }}</label>
-                      </div>
-                    </section>
-                  </div>
-                </div>
-                <div class="mb-3 col-12">
-                  <div>最早可預定日</div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      name="start"
-                      type="radio"
-                      id="today"
-                      v-model="startDate"
-                      value="default"
-                    />
-                    <label class="form-check-label" for="today">
-                      今天
-                    </label>
-                  </div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      id="StartDate"
-                      name="start"
-                      v-model="startDate"
-                      value="true"
-                      @click="setDefaultStart"
-                    />
-                    <label class="form-check-label" for="startDate">
-                      自定
-                    </label>
-                  </div>
-                </div>
-                <div class="mb-3 col-md-6">
-                  <v-date-picker
-                    v-model="tempProduct.min_date"
-                    :min-date="new Date()"
-                  >
-                    <template v-slot="{ inputValue, inputEvents }">
-                      <input
+                      <Field
+                        id="category"
+                        name="分類"
                         class="form-control"
-                        :value="inputValue"
-                        v-on="inputEvents"
-                        :disabled="startDate === 'default'"
-                        id="min_date"
-                      />
-                    </template>
-                  </v-date-picker>
-                </div>
-                <div class="mb-3 col-12">
-                  <div>最晚可預定日</div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      name="end"
-                      type="radio"
-                      id="inAYear"
-                      v-model="endDate"
-                      value="default"
-                    />
-                    <label class="form-check-label" for="inAYear">
-                      一年以內
-                    </label>
+                        v-model="tempProduct.category"
+                        as="select"
+                        :class="{ 'is-invalid': errors['分類'] }"
+                        rules="required"
+                      >
+                        <option disabled value="">請選擇分類</option>
+                        <option
+                          v-for="item in categoryOptionList"
+                          :key="item"
+                          :value="item"
+                          >{{ item }}</option
+                        >
+                      </Field>
+                      <error-message
+                        name="分類"
+                        class="invalid-feedback"
+                      ></error-message>
+                    </div>
                   </div>
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="radio"
-                      id="endDate"
-                      name="end"
-                      v-model="endDate"
-                      value="true"
-                      @click="setDefaultEnd"
-                    />
-                    <label class="form-check-label" for="endDate">
-                      自定
-                    </label>
+                  <div class="row gx-2">
+                    <div class="mb-3 col">
+                      <label for="location" class="form-label">地點</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="location"
+                        placeholder="請輸入地點"
+                        v-model="tempProduct.location"
+                      />
+                    </div>
+                  </div>
+                  <!-- tag -->
+                  <div class="row gx-2">
+                    <div class="mb-3 col">
+                      <label for="tag" class="form-label">標籤</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="tag"
+                        placeholder="請輸入標籤"
+                        v-model="tempProduct.tag"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="row gx-2">
+                    <!-- area -->
+                    <div class="mb-3 col-md-6">
+                      <label for="area" class="form-label">區域</label>
+                      <select
+                        class="form-select"
+                        aria-label="Default select example"
+                        v-model="tempProduct.area"
+                      >
+                        <option value="" disabled>選擇地點</option>
+                        <option value="北越">北越</option>
+                        <option value="中越">中越</option>
+                        <option value="南越">南越</option>
+                        <option value="離島">離島</option>
+                      </select>
+                    </div>
+                    <!-- unit -->
+                    <div class="mb-3 col-md-6">
+                      <label for="price" class="form-label fw-bold"
+                        >單位*</label
+                      >
+                      <Field
+                        id="unit"
+                        name="單位"
+                        type="text"
+                        class="form-control"
+                        placeholder="請輸入單位"
+                        rules="required"
+                        :class="{ 'is-invalid': errors['單位'] }"
+                        v-model="tempProduct.unit"
+                      ></Field>
+                      <error-message
+                        name="單位"
+                        class="invalid-feedback"
+                      ></error-message>
+                    </div>
+                  </div>
+                  <!-- 價格 -->
+                  <div class="row gx-2">
+                    <div class="mb-3 col-md-6">
+                      <label for="origin_price" class="form-label fw-bold"
+                        >原價*</label
+                      >
+                      <Field
+                        id="origin_price"
+                        name="原價"
+                        type="number"
+                        class="form-control"
+                        placeholder="請輸入原價"
+                        rules="required"
+                        :class="{ 'is-invalid': errors['原價'] }"
+                        v-model.number="tempProduct.origin_price"
+                      ></Field>
+                      <error-message
+                        name="原價"
+                        class="invalid-feedback"
+                      ></error-message>
+                    </div>
+
+                    <div class="mb-3 col-md-6">
+                      <label for="price" class="form-label fw-bold"
+                        >售價*</label
+                      >
+                      <Field
+                        id="price"
+                        name="售價"
+                        type="number"
+                        class="form-control"
+                        placeholder="請輸入售價"
+                        rules="required"
+                        :class="{ 'is-invalid': errors['售價'] }"
+                        v-model.number="tempProduct.price"
+                      ></Field>
+                      <error-message
+                        name="售價"
+                        class="invalid-feedback"
+                      ></error-message>
+                    </div>
+                  </div>
+                  <!-- 日期 -->
+                  <hr />
+                  <div class="row gx-2">
+                    <!-- 星期幾 -->
+                    <div class="mb-3 col-12">
+                      <div>可使用星期</div>
+                      <section class="group">
+                        <div
+                          v-for="item in weekdays"
+                          :key="item.id"
+                          class="form-check form-check-inline"
+                        >
+                          <Field
+                            class="form-check-input"
+                            name="weekdays"
+                            type="checkbox"
+                            :id="item.id"
+                            :value="item.id"
+                            v-model="tempProduct.weekdays"
+                            rules="required"
+                            :class="{ 'is-invalid': errors['weekdays'] }"
+                          ></Field>
+                          <label class="form-check-label" :for="item.id">{{
+                            item.title
+                          }}</label>
+                        </div>
+                        <br />
+                        <error-message
+                          class="text-danger"
+                          name="weekdays"
+                        ></error-message>
+                      </section>
+                    </div>
+                  </div>
+                  <div class="mb-3 col-12">
+                    <div>最早可預定日</div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        name="start"
+                        type="radio"
+                        id="today"
+                        v-model="startDate"
+                        value="default"
+                      />
+                      <label class="form-check-label" for="today">
+                        今天
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        id="StartDate"
+                        name="start"
+                        v-model="startDate"
+                        value="true"
+                        @click="setDefaultStart"
+                      />
+                      <label class="form-check-label" for="startDate">
+                        自定
+                      </label>
+                    </div>
                   </div>
                   <div class="mb-3 col-md-6">
                     <v-date-picker
-                      v-model="tempProduct.max_date"
+                      v-model="tempProduct.min_date"
                       :min-date="new Date()"
                     >
                       <template v-slot="{ inputValue, inputEvents }">
@@ -243,156 +251,208 @@
                           class="form-control"
                           :value="inputValue"
                           v-on="inputEvents"
-                          :disabled="endDate === 'default'"
-                          id="max_date"
+                          :disabled="startDate === 'default'"
+                          id="min_date"
                         />
                       </template>
                     </v-date-picker>
                   </div>
-                </div>
-                <hr />
-                <!-- 簡短描述 -->
-                <div class="mb-3">
-                  <label for="short_description" class="form-label"
-                    >簡短行程描述(呈現在商品列表)</label
-                  >
-                  <textarea
-                    type="text"
-                    class="form-control"
-                    id="short_description"
-                    placeholder="請輸入簡短行程描述"
-                    v-model="tempProduct.short_description"
-                  ></textarea>
-                </div>
-                <!-- 詳細描述 -->
-                <div class="mb-3">
-                  <label for="description" class="form-label"
-                    >詳細行程描述</label
-                  >
-                  <textarea
-                    type="text"
-                    class="form-control"
-                    id="description"
-                    placeholder="請輸入行程描述"
-                    v-model="tempProduct.description"
-                  ></textarea>
-                </div>
-                <!-- 內容 -->
-                <div class="mb-3">
-                  <label for="content" class="form-label">行程內容</label>
-                  <textarea
-                    type="text"
-                    class="form-control"
-                    id="content"
-                    placeholder="請輸入產品說明內容"
-                    v-model="tempProduct.content"
-                  ></textarea>
-                </div>
-                <!-- 是否啟用 -->
-                <div class="mb-3">
-                  <div class="form-check">
-                    <input
-                      class="form-check-input"
-                      type="checkbox"
-                      :true-value="1"
-                      :false-value="0"
-                      id="is_enabled"
-                      v-model="tempProduct.is_enabled"
-                    />
-                    <label class="form-check-label" for="is_enabled">
-                      是否啟用
-                    </label>
+                  <div class="mb-3 col-12">
+                    <div>最晚可預定日</div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        name="end"
+                        type="radio"
+                        id="inAYear"
+                        v-model="endDate"
+                        value="default"
+                      />
+                      <label class="form-check-label" for="inAYear">
+                        一年以內
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="radio"
+                        id="endDate"
+                        name="end"
+                        v-model="endDate"
+                        value="true"
+                        @click="setDefaultEnd"
+                      />
+                      <label class="form-check-label" for="endDate">
+                        自定
+                      </label>
+                    </div>
+                    <div class="mb-3 col-md-6">
+                      <v-date-picker
+                        v-model="tempProduct.max_date"
+                        :min-date="new Date()"
+                      >
+                        <template v-slot="{ inputValue, inputEvents }">
+                          <input
+                            class="form-control"
+                            :value="inputValue"
+                            v-on="inputEvents"
+                            :disabled="endDate === 'default'"
+                            id="max_date"
+                          />
+                        </template>
+                      </v-date-picker>
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              <div class="col-sm-4">
-                <hr class="d-sm-none" />
-                <!-- 多圖 -->
-                <div>
-                  <h6>最多可選五張圖片</h6>
-                  <label for="image" class="form-label">輸入圖片網址</label>
+                  <hr />
+                  <!-- 簡短描述 -->
                   <div class="mb-3">
-                    <input
+                    <label for="short_description" class="form-label"
+                      >簡短行程描述(呈現在商品列表)</label
+                    >
+                    <textarea
                       type="text"
                       class="form-control"
-                      id="image"
-                      placeholder="請輸入圖片連結"
-                      @change="addUrl($event)"
-                      :disabled="tempProduct.imagesUrl.length >= 5"
-                    />
+                      id="short_description"
+                      placeholder="請輸入簡短行程描述"
+                      v-model="tempProduct.short_description"
+                    ></textarea>
                   </div>
+                  <!-- 詳細描述 -->
                   <div class="mb-3">
-                    <label for="customFile" class="form-label"
-                      >或 上傳圖片
-                      <i class="fas fa-spinner fa-spin"></i>
-                    </label>
-                    <input
-                      type="file"
-                      id="customFile"
-                      class="form-control"
-                      @change="uploadFile"
-                      ref="fileInput"
-                      multiple
-                      :disabled="tempProduct.imagesUrl.length >= 5"
-                    />
-                  </div>
-                  <div
-                    v-for="(item, index) in tempProduct.imagesUrl"
-                    :key="item"
-                    class="mb-3 input-group"
-                  >
-                    <input
-                      type="url"
-                      class="form-control form-control"
-                      placeholder="請輸入連結"
-                      @change="addUrl($event)"
-                      v-model="tempProduct.imagesUrl[index]"
-                    />
-                    <button
-                      type="button"
-                      class="btn btn-outline-danger"
-                      @click="removeImage(item)"
+                    <label for="description" class="form-label"
+                      >詳細行程描述</label
                     >
-                      移除
-                    </button>
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      id="description"
+                      placeholder="請輸入行程描述"
+                      v-model="tempProduct.description"
+                    ></textarea>
+                  </div>
+                  <!-- 內容 -->
+                  <div class="mb-3">
+                    <label for="content" class="form-label">行程內容</label>
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      id="content"
+                      placeholder="請輸入產品說明內容"
+                      v-model="tempProduct.content"
+                    ></textarea>
+                  </div>
+                  <!-- 是否啟用 -->
+                  <div class="mb-3">
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        :true-value="1"
+                        :false-value="0"
+                        id="is_enabled"
+                        v-model="tempProduct.is_enabled"
+                      />
+                      <label class="form-check-label" for="is_enabled">
+                        是否啟用
+                      </label>
+                    </div>
                   </div>
                 </div>
-                <!-- 預覽圖片 -->
-                <img
-                  v-for="item in tempProduct.imagesUrl"
-                  :key="item"
-                  :src="item"
-                  class="img-fluid mb-3"
-                  alt=""
-                />
+
+                <div class="col-sm-4">
+                  <hr class="d-sm-none" />
+                  <!-- 多圖 -->
+                  <div>
+                    <h6>最多可選五張圖片</h6>
+                    <label for="image" class="form-label">輸入圖片網址</label>
+                    <div class="mb-3">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="image"
+                        placeholder="請輸入圖片連結"
+                        @change="addUrl($event)"
+                        :disabled="tempProduct.imagesUrl.length >= 5"
+                      />
+                    </div>
+                    <div class="mb-3">
+                      <label for="customFile" class="form-label"
+                        >或 上傳圖片
+                        <i class="fas fa-spinner fa-spin"></i>
+                      </label>
+                      <input
+                        type="file"
+                        id="customFile"
+                        class="form-control"
+                        @change="uploadFile"
+                        ref="fileInput"
+                        multiple
+                        :disabled="tempProduct.imagesUrl.length >= 5"
+                      />
+                    </div>
+                    <div
+                      v-for="(item, index) in tempProduct.imagesUrl"
+                      :key="item"
+                      class="mb-3 input-group"
+                    >
+                      <input
+                        type="url"
+                        class="form-control form-control"
+                        placeholder="請輸入連結"
+                        @change="addUrl($event)"
+                        v-model="tempProduct.imagesUrl[index]"
+                      />
+                      <button
+                        type="button"
+                        class="btn btn-outline-danger"
+                        @click="removeImage(item)"
+                      >
+                        移除
+                      </button>
+                    </div>
+                  </div>
+                  <!-- 預覽圖片 -->
+                  <img
+                    v-for="item in tempProduct.imagesUrl"
+                    :key="item"
+                    :src="item"
+                    class="img-fluid mb-3"
+                    alt=""
+                  />
+                </div>
               </div>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-outline-secondary"
-              data-bs-dismiss="modal"
-            >
-              取消
-            </button>
-            <button
-              @click="$emit('updateProduct', tempProduct)"
-              type="button"
-              class="btn btn-primary"
-            >
-              確認
-            </button>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-bs-dismiss="modal"
+              >
+                取消
+              </button>
+              <button
+                @click="
+                  validate();
+
+                  $emit('updateProduct', tempProduct);
+                "
+                type="button"
+                class="btn btn-primary"
+                :disabled="submitBtn"
+              >
+                確認
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </Form>
     </div>
   </div>
 </template>
 <script>
 import ModalMixin from "@/mixins/ModalMixin";
 import { reverseWeekdayNumber } from "@/methods/weekday.js";
+
 export default {
   name: "ProductModal",
   mixins: [ModalMixin],
@@ -433,6 +493,26 @@ export default {
       startDate: "default",
       endDate: "default",
     };
+  },
+  computed: {
+    submitBtn() {
+      //必填項目若未填寫則無法送出建立產品請求
+      const {
+        title,
+        category,
+        unit,
+        price,
+        origin_price,
+        weekdays, //type:Array
+      } = this.tempProduct;
+      let arr = [title, category, unit, price, origin_price, weekdays];
+      let num = arr.findIndex((item) => !item || item.length === 0);
+      if (num < 0) {
+        return false;
+      } else {
+        return true;
+      }
+    },
   },
   methods: {
     //上傳圖片
@@ -483,7 +563,6 @@ export default {
       if (!this.tempProduct.weekdays) {
         this.tempProduct.weekdays = [1, 2, 3, 4, 5, 6, 7]; //預設全選
       }
-
       if (this.tempProduct.min_date) {
         this.startDate = true;
       } else {

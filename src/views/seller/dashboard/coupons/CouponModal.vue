@@ -166,7 +166,10 @@ export default {
   },
   data() {
     return {
-      tempCoupon: {},
+      tempCoupon: {
+        title: "",
+        code: "",
+      },
       submitBtn: false,
     };
   },
@@ -199,12 +202,10 @@ export default {
     tempCoupon: {
       deep: true,
       handler() {
-        for (let item in this.tempCoupon) {
-          if (!this.tempCoupon[item]) {
-            this.submitBtn = true;
-          } else {
-            this.submitBtn = false;
-          }
+        if (this.tempCoupon.title && this.tempCoupon.code) {
+          this.submitBtn = false;
+        } else {
+          this.submitBtn = true;
         }
       },
     },
