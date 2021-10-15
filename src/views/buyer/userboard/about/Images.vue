@@ -19,12 +19,12 @@ export default {
   props: {
     imgs: {
       type: Array,
-      required: true,
-    },
+      required: true
+    }
   },
-  data() {
-    return {};
-  },
-};
+  data () {
+    return {}
+  }
+}
 </script>
 <style lang="scss" scoped></style>

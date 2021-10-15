@@ -83,26 +83,26 @@
   </div>
 </template>
 <script>
-import Images from "./Images.vue";
-import returnTopMixin from "@/mixins/returnTopMixin.js";
+import Images from "./Images.vue"
+import returnTopMixin from "@/mixins/returnTopMixin.js"
 
 export default {
   name: "Cart",
   mixins: [returnTopMixin],
   components: { Images },
-  data() {
+  data () {
     return {
       memberImgs: [
         "aboutMember/01.jpeg",
         "aboutMember/02.jpeg",
         "aboutMember/03.jpeg",
-        "aboutMember/04.jpeg",
+        "aboutMember/04.jpeg"
       ],
       serviceImgs: [
         "aboutService/01.jpeg",
         "aboutService/02.jpeg",
         "aboutService/03.jpeg",
-        "aboutService/04.jpeg",
+        "aboutService/04.jpeg"
       ],
       office: [
         {
@@ -112,7 +112,7 @@ export default {
           Email: "vnext_taipei@mail.net",
           address: "台北市大安區新生南路一段83號 宜津大樓 9F",
           map:
-            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1507.1994976330266!2d121.53307620390167!3d25.04144283366844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a97c590d2ea7%3A0x13e0b5027bccc792!2zMTA25Y-w5YyX5biC5aSn5a6J5Y2A5paw55Sf5Y2X6Lev5LiA5q61ODPomZ_lrpzmtKXlpKfmqJM!5e0!3m2!1szh-TW!2stw!4v1632472173078!5m2!1szh-TW!2stw",
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1507.1994976330266!2d121.53307620390167!3d25.04144283366844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a97c590d2ea7%3A0x13e0b5027bccc792!2zMTA25Y-w5YyX5biC5aSn5a6J5Y2A5paw55Sf5Y2X6Lev5LiA5q61ODPomZ_lrpzmtKXlpKfmqJM!5e0!3m2!1szh-TW!2stw!4v1632472173078!5m2!1szh-TW!2stw"
         },
         {
           ref: "hanoi",
@@ -121,7 +121,7 @@ export default {
           Email: "vnext_hanoi@mail.net",
           address: "146 Chương Dương Độ, Chuong Duong Do, 還劍郡 Hà Nội, 越南",
           map:
-            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.061560257776!2d105.8585422502099!3d21.030222685928823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abc27abf9b0f%3A0x57c48d8dfa970d96!2zMTQ2IENoxrDGoW5nIETGsMahbmcgxJDhu5ksIEhvw6BuIEtp4bq_bSwgSMOgIE7hu5lpLCDotorljZc!5e0!3m2!1szh-TW!2stw!4v1632471673409!5m2!1szh-TW!2stw",
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.061560257776!2d105.8585422502099!3d21.030222685928823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135abc27abf9b0f%3A0x57c48d8dfa970d96!2zMTQ2IENoxrDGoW5nIETGsMahbmcgxJDhu5ksIEhvw6BuIEtp4bq_bSwgSMOgIE7hu5lpLCDotorljZc!5e0!3m2!1szh-TW!2stw!4v1632471673409!5m2!1szh-TW!2stw"
         },
         {
           ref: "danang",
@@ -130,7 +130,7 @@ export default {
           Email: "vnext_danang@mail.net",
           address: "125 Nguyễn Văn Linh, Vĩnh Trung, Q. Thanh Khê, 峴港越南",
           map:
-            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.105755195794!2d108.21056531456593!3d16.060000988886618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219b5e8fc2767%3A0x355c74ec67255daa!2zMTI1IE5ndXnhu4VuIFbEg24gTGluaCwgVsSpbmggVHJ1bmcsIFEuIFRoYW5oIEtow6osIMSQw6AgTuG6tW5nIDU1MDAwMOi2iuWNlw!5e0!3m2!1szh-TW!2stw!4v1632471361535!5m2!1szh-TW!2stw",
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3834.105755195794!2d108.21056531456593!3d16.060000988886618!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314219b5e8fc2767%3A0x355c74ec67255daa!2zMTI1IE5ndXnhu4VuIFbEg24gTGluaCwgVsSpbmggVHJ1bmcsIFEuIFRoYW5oIEtow6osIMSQw6AgTuG6tW5nIDU1MDAwMOi2iuWNlw!5e0!3m2!1szh-TW!2stw!4v1632471361535!5m2!1szh-TW!2stw"
         },
         {
           ref: "hcmc",
@@ -140,12 +140,12 @@ export default {
           address:
             "Nguyễn Phi Khanh, Tân Định, Quận 1, Thành phố Hồ Chí Minh, 越南",
           map:
-            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.2558185454773!2d106.69145685006222!3d10.791708492273424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528cc839f1123%3A0x7421856513df9412!2zTmd1eeG7hW4gUGhpIEtoYW5oLCBUw6JuIMSQ4buLbmgsIFF14bqtbiAxLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIOi2iuWNlw!5e0!3m2!1szh-TW!2stw!4v1632467261318!5m2!1szh-TW!2stw",
-        },
-      ],
-    };
-  },
-};
+            "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.2558185454773!2d106.69145685006222!3d10.791708492273424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528cc839f1123%3A0x7421856513df9412!2zTmd1eeG7hW4gUGhpIEtoYW5oLCBUw6JuIMSQ4buLbmgsIFF14bqtbiAxLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIOi2iuWNlw!5e0!3m2!1szh-TW!2stw!4v1632467261318!5m2!1szh-TW!2stw"
+        }
+      ]
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .container {

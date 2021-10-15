@@ -47,22 +47,22 @@
   </div>
 </template>
 <script>
-import ModalMixin from "@/mixins/ModalMixin";
+import ModalMixin from "@/mixins/ModalMixin"
 export default {
   name: "DeleteModal",
   mixins: [ModalMixin],
   props: {
     name: {
       type: String,
-      default: "",
+      default: ""
     },
     id: {
-      required: true,
+      required: true
     },
     title: {
-      required: true,
-    },
-  },
-};
+      required: true
+    }
+  }
+}
 </script>
 <style lang="scss" scoped></style>

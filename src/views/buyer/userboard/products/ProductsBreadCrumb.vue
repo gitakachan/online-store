@@ -15,16 +15,16 @@ export default {
   props: {
     area: {
       default: "",
-      type: String,
+      type: String
     },
     category: {
       default: "",
-      type: String,
-    },
+      type: String
+    }
   },
-  data() {
-    return {};
-  },
-};
+  data () {
+    return {}
+  }
+}
 </script>
 <style lang="scss" scoped></style>

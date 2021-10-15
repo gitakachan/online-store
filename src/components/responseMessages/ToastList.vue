@@ -4,22 +4,22 @@
   </div>
 </template>
 <script>
-import Toast from "./Toast.vue";
+import Toast from "./Toast.vue"
 export default {
   components: { Toast },
   name: "ToastList",
-  data() {
+  data () {
     return {
-      messages: [],
-    };
+      messages: []
+    }
   },
   inject: ["emitter"],
-  mounted() {
+  mounted () {
     this.emitter.on("pushMessage", (message) => {
-      this.messages.push(message);
-    });
-  },
-};
+      this.messages.push(message)
+    })
+  }
+}
 </script>
 <style lang="scss" scoped>
 .toast-container {

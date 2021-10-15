@@ -2,7 +2,7 @@
   <div
     class="vh-100 d-flex align-items-center"
     :style="{
-      backgroundImage: 'url(' + require('@/assets/imgs/login/bg.jpeg') + ')',
+      backgroundImage: 'url(' + require('@/assets/imgs/login/bg.jpeg') + ')'
     }"
   >
     <div class="container py-6 ">
@@ -56,32 +56,32 @@
 <script>
 export default {
   name: "Login",
-  data() {
+  data () {
     return {
       user: {
         username: "",
-        password: "",
+        password: ""
       },
-      isLoading: false,
-    };
+      isLoading: false
+    }
   },
   methods: {
-    login() {
-      const api = `${process.env.VUE_APP_API}admin/signin`; //https://vue3-course-api.hexschool.io/admin/signin
-      this.isLoading = true;
-      this.axios.post(api, this.user).then((response) => {
-        this.isLoading = false;
+    login () {
+      const api = `${process.env.VUE_APP_API}admin/signin` // https://vue3-course-api.hexschool.io/admin/signin
+      this.isLoading = true
+      this.axios.post(api, this.user).then(response => {
+        this.isLoading = false
         if (response.data.success) {
-          const { token, expired } = response.data;
-          document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-          this.$router.push("/dashboard/products"); //登入成功就跳轉到dashboard
+          const { token, expired } = response.data
+          document.cookie = `hexToken=${token}; expires=${new Date(expired)}`
+          this.$router.push("/dashboard/products") // 登入成功就跳轉到dashboard
         } else {
-          alert(response.data.message + "，請再試一次");
+          alert(response.data.message + "，請再試一次")
         }
-      });
-    },
-  },
-};
+      })
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .container {

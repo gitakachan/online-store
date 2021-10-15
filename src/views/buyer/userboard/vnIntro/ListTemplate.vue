@@ -14,17 +14,19 @@ export default {
   props: {
     listItem: {
       type: Array,
-      default: [],
+      default () {
+        return []
+      }
     },
     listStyle: {
       type: String,
-      default: "'＊ '",
-    },
+      default: "'＊ '"
+    }
   },
-  data() {
-    return {};
-  },
-};
+  data () {
+    return {}
+  }
+}
 </script>
 <style lang="scss" scoped>
 li {

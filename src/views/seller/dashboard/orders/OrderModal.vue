@@ -271,22 +271,22 @@
   </div>
 </template>
 <script>
-import ModalMixin from "@/mixins/ModalMixin";
-import { getFormDate } from "@/methods/date";
+import ModalMixin from "@/mixins/ModalMixin"
+import { getFormDate } from "@/methods/date"
 export default {
   name: "OrderModal",
   mixins: [ModalMixin],
   props: {
     order: {
       type: Object,
-      required: true,
+      required: true
     },
     status: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
-  data() {
+  data () {
     return {
       tempOrder: {
         total: 0,
@@ -296,28 +296,28 @@ export default {
           email: "",
           tel: "",
           address: "",
-          payment_method: "",
-        },
+          payment_method: ""
+        }
       },
       infoStatus: "",
-      allowEditInfo: false,
-    };
+      allowEditInfo: false
+    }
   },
   methods: {
     getFormDate,
-    checkInfo(e) {
+    checkInfo (e) {
       // console.log(Object.keys(e).length); //錯誤的物件長度
       if (Object.keys(e).length === 0) {
-        this.allowEditInfo = false;
-        this.infoStatus = "";
+        this.allowEditInfo = false
+        this.infoStatus = ""
       }
-    },
+    }
   },
   watch: {
-    order() {
-      this.tempOrder = JSON.parse(JSON.stringify(this.order));
+    order () {
+      this.tempOrder = JSON.parse(JSON.stringify(this.order))
       if (!this.tempOrder.total) {
-        this.tempOrder.total = 0;
+        this.tempOrder.total = 0
       }
       if (!this.tempOrder.user) {
         this.tempOrder.user = {
@@ -325,19 +325,19 @@ export default {
           email: "",
           tel: "",
           address: "",
-          payment_method: "",
-        };
+          payment_method: ""
+        }
       }
     },
-    infoStatus() {
+    infoStatus () {
       if (this.infoStatus === "edit") {
-        this.allowEditInfo = true;
+        this.allowEditInfo = true
       } else if (this.infoStatus === "reset") {
-        this.allowEditInfo = false;
-        this.tempOrder.user = JSON.parse(JSON.stringify(this.order.user));
+        this.allowEditInfo = false
+        this.tempOrder.user = JSON.parse(JSON.stringify(this.order.user))
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 <style lang="scss" scoped></style>

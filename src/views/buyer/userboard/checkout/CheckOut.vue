@@ -213,11 +213,11 @@
   </div>
 </template>
 <script>
-import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue";
+import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue"
 export default {
   name: "CheckOut",
   components: { CenteredHeader },
-  data() {
+  data () {
     return {
       cartItems: [],
       total: 0,
@@ -232,83 +232,83 @@ export default {
         name: "",
         tel: "",
         address: "",
-        payment_method: "",
+        payment_method: ""
       },
-      message: "",
-    };
+      message: ""
+    }
   },
   methods: {
-    getCart() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+    getCart () {
+      this.isLoading = true
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
       this.axios.get(api).then((response) => {
         if (response.data.success) {
-          this.isLoading = false;
-          this.cartItems = response.data.data.carts;
-          this.total = response.data.data.total;
-          this.final_total = response.data.data.final_total;
+          this.isLoading = false
+          this.cartItems = response.data.data.carts
+          this.total = response.data.data.total
+          this.final_total = response.data.data.final_total
           if (this.cartItems.length === 0) {
-            this.$router.push("/store/products");
+            this.$router.push("/store/products")
           }
         }
-      });
+      })
     },
-    updateCart(id, qty) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`;
+    updateCart (id, qty) {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`
       this.axios
         .put(api, { data: { product_id: id, qty: qty } })
         .then((response) => {
           if (response.data.success) {
-            this.getCart();
+            this.getCart()
           }
-        });
+        })
     },
-    backToProduct(id) {
-      this.$router.push(`/store/products/${id}`);
+    backToProduct (id) {
+      this.$router.push(`/store/products/${id}`)
     },
-    addCoupon() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/coupon`;
+    addCoupon () {
+      this.isLoading = true
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/coupon`
       this.axios
         .post(api, {
           data: {
-            code: this.code,
-          },
+            code: this.code
+          }
         })
         .then((response) => {
           if (response.data.success) {
-            this.useCode = true;
-            this.getCart();
+            this.useCode = true
+            this.getCart()
           } else {
-            this.useCode = false;
+            this.useCode = false
           }
-          this.isLoading = false;
-          this.isSuccess = response.data.success;
-          this.codeMessage = response.data.message;
-        });
+          this.isLoading = false
+          this.isSuccess = response.data.success
+          this.codeMessage = response.data.message
+        })
     },
-    submitOrder() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
+    submitOrder () {
+      this.isLoading = true
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`
       this.axios
         .post(api, {
           data: {
             user: this.user,
-            message: this.message,
-          },
+            message: this.message
+          }
         })
         .then((response) => {
           if (response.data.success) {
-            this.$router.push(`/store/payment/${response.data.orderId}`);
+            this.$router.push(`/store/payment/${response.data.orderId}`)
           }
-          this.isLoading = false;
-        });
-    },
+          this.isLoading = false
+        })
+    }
   },
-  mounted() {
-    this.getCart();
-  },
-};
+  mounted () {
+    this.getCart()
+  }
+}
 </script>
 <style lang="scss" scoped>
 table.table-fit {

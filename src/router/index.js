@@ -1,10 +1,10 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router"
 
 const routes = [
   { path: "/", redirect: "/store/home" },
   {
     path: "/login",
-    component: () => import("../views/seller/login/Login.vue"),
+    component: () => import("../views/seller/login/Login.vue")
   },
   {
     path: "/dashboard",
@@ -12,27 +12,27 @@ const routes = [
     children: [
       {
         path: "",
-        redirect: "/dashboard/products",
+        redirect: "/dashboard/products"
       },
       {
         path: "products",
         component: () =>
-          import("../views/seller/dashboard/products/Products.vue"),
+          import("../views/seller/dashboard/products/Products.vue")
       },
       {
         path: "orders",
-        component: () => import("../views/seller/dashboard/orders/Orders.vue"),
+        component: () => import("../views/seller/dashboard/orders/Orders.vue")
       },
       {
         path: "coupons",
         component: () =>
-          import("../views/seller/dashboard/coupons/Coupons.vue"),
+          import("../views/seller/dashboard/coupons/Coupons.vue")
       },
       {
         path: "/dashboard/:pathMatch(.*)*",
-        redirect: "/dashboard/products",
-      },
-    ],
+        redirect: "/dashboard/products"
+      }
+    ]
   },
   {
     path: "/store",
@@ -40,24 +40,24 @@ const routes = [
     children: [
       {
         path: "",
-        redirect: "/store/home",
+        redirect: "/store/home"
       },
       {
         path: "home",
-        component: () => import("../views/buyer/userboard/home/Home.vue"),
+        component: () => import("../views/buyer/userboard/home/Home.vue")
       },
       {
         path: "about",
-        component: () => import("../views/buyer/userboard/about/About.vue"),
+        component: () => import("../views/buyer/userboard/about/About.vue")
       },
       {
         path: "vnIntro",
-        component: () => import("../views/buyer/userboard/vnIntro/VnIntro.vue"),
+        component: () => import("../views/buyer/userboard/vnIntro/VnIntro.vue")
       },
       {
         path: "products",
         component: () =>
-          import("../views/buyer/userboard/products/Products.vue"),
+          import("../views/buyer/userboard/products/Products.vue")
       },
       {
         path: "products/:productId",
@@ -65,47 +65,47 @@ const routes = [
         component: () => import("../views/buyer/userboard/product/Product.vue"),
         props: (route) => {
           return {
-            id: route.params.productId,
-          };
-        },
+            id: route.params.productId
+          }
+        }
       },
       {
         path: "cart",
-        component: () => import("../views/buyer/userboard/cart/Cart.vue"),
+        component: () => import("../views/buyer/userboard/cart/Cart.vue")
       },
       {
         path: "liked",
-        component: () => import("../views/buyer/userboard/liked/Liked.vue"),
+        component: () => import("../views/buyer/userboard/liked/Liked.vue")
       },
       {
         path: "checkout",
         component: () =>
-          import("../views/buyer/userboard/checkout/CheckOut.vue"),
+          import("../views/buyer/userboard/checkout/CheckOut.vue")
       },
       {
         path: "payment/:orderId",
-        component: () => import("../views/buyer/userboard/payment/Payment.vue"),
+        component: () => import("../views/buyer/userboard/payment/Payment.vue")
       },
       {
         path: "/store/:pathMatch(.*)*",
-        redirect: "/store/home",
-      },
-    ],
+        redirect: "/store/home"
+      }
+    ]
   },
   {
     path: "/:pathMatch(.*)*",
-    redirect: "/store/home",
-  },
-];
+    redirect: "/store/home"
+  }
+]
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes,
-});
+  routes
+})
 
 router.beforeEach((to, from, next) => {
-  document.documentElement.scrollTop = 0;
-  next();
-});
+  document.documentElement.scrollTop = 0
+  next()
+})
 
-export default router;
+export default router

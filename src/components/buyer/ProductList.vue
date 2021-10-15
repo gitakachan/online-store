@@ -10,7 +10,7 @@
         <router-link
           class="img-container position-relative"
           :to="{
-            path: '/store/products/' + `${item.id}`,
+            path: '/store/products/' + `${item.id}`
           }"
         >
           <img
@@ -59,7 +59,7 @@
           <div class="fw-bold w-100">
             <router-link
               :to="{
-                path: `/store/products/${item.id}`,
+                path: `/store/products/${item.id}`
               }"
               tag="button"
               class="btn btn-primary w-100 rounded-0"
@@ -73,28 +73,32 @@
   </div>
 </template>
 <script>
-import imgSquareMixin from "@/mixins/imgSquareMixin.js";
-import priceStyleMixin from "@/mixins/priceStyleMixin.js";
-import likedProductMixin from "@/mixins/likedProductMixin.js";
+import imgSquareMixin from "@/mixins/imgSquareMixin.js"
+import priceStyleMixin from "@/mixins/priceStyleMixin.js"
+import likedProductMixin from "@/mixins/likedProductMixin.js"
 export default {
   name: "ProductList",
   mixins: [imgSquareMixin, priceStyleMixin, likedProductMixin],
   props: {
     target: {
       type: Array,
-      default: [],
+      default () {
+        return []
+      }
     },
     gridItemClass: {
       type: Array,
-      default: [],
-    },
+      default () {
+        return []
+      }
+    }
   },
-  data() {
+  data () {
     return {
-      imgRefs: [],
-    };
-  },
-};
+      imgRefs: []
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .product .card {

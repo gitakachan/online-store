@@ -8,14 +8,14 @@
 <script>
 export default {
   name: "BackToTopBtn",
-  data() {
-    return {};
+  data () {
+    return {}
   },
   methods: {
-    scrollToTop() {
-      window.scrollTo(0, 0);
-    },
-  },
-};
+    scrollToTop () {
+      window.scrollTo(0, 0)
+    }
+  }
+}
 </script>
 <style lang="scss" scoped></style>

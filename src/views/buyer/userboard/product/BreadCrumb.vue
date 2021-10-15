@@ -33,21 +33,21 @@ export default {
   name: "BreadCrumb",
   props: {
     area: {
-      required: true,
+      required: true
     },
     category: {
-      required: true,
-    },
+      required: true
+    }
   },
   inject: ["emitter"],
-  data() {
-    return {};
+  data () {
+    return {}
   },
   methods: {
-    goTo(area, category) {
-      this.$router.push(`/store/products?area=${area}&category=${category}`);
-    },
-  },
-};
+    goTo (area, category) {
+      this.$router.push(`/store/products?area=${area}&category=${category}`)
+    }
+  }
+}
 </script>
 <style lang="scss" scoped></style>

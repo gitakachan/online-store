@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  name: "AddNew",
-};
+  name: "AddNew"
+}
 </script>
 <style lang="scss" scoped></style>

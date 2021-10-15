@@ -2,74 +2,74 @@ export default {
   inject: ["emitter"],
   props: {
     selectArea: {
-      required: true,
+      required: true
     },
     selectCategory: {
-      required: true,
-    },
+      required: true
+    }
   },
-  data() {
+  data () {
     return {
       areas: [
         {
           id: "all",
-          title: "所有區域",
+          title: "所有區域"
         },
         {
           id: "north",
-          title: "北越",
+          title: "北越"
         },
         {
           id: "central",
-          title: "南越",
+          title: "南越"
         },
         {
           id: "south",
-          title: "中越",
+          title: "中越"
         },
         {
           id: "island",
-          title: "離島",
-        },
+          title: "離島"
+        }
       ],
       categories: [
         {
           id: "all",
-          title: "所有分類",
+          title: "所有分類"
         },
         {
           id: "food",
-          title: "餐飲",
+          title: "餐飲"
         },
         {
           id: "transport",
-          title: "交通",
+          title: "交通"
         },
         {
           id: "tour",
-          title: "一日遊、多日遊",
+          title: "一日遊、多日遊"
         },
         {
           id: "ticket",
-          title: "門票",
+          title: "門票"
         },
         {
           id: "outdoor",
-          title: "戶外活動",
+          title: "戶外活動"
         },
         {
           id: "experience",
-          title: "特殊體驗",
-        },
-      ],
-    };
+          title: "特殊體驗"
+        }
+      ]
+    }
   },
   methods: {
-    setArea(item) {
-      this.$emit("setArea", item);
+    setArea (item) {
+      this.$emit("setArea", item)
     },
-    setCategory(item) {
-      this.$emit("setCategory", item);
-    },
-  },
-};
+    setCategory (item) {
+      this.$emit("setCategory", item)
+    }
+  }
+}

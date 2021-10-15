@@ -1,7 +1,7 @@
 export default {
   methods: {
-    returnTop(ref) {
-      ref.scrollIntoView(true);
-    },
-  },
-};
+    returnTop (ref) {
+      ref.scrollIntoView(true)
+    }
+  }
+}

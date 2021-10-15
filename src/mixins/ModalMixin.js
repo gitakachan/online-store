@@ -1,19 +1,19 @@
-import Modal from "bootstrap/js/dist/modal";
+import Modal from "bootstrap/js/dist/modal"
 export default {
-  data() {
+  data () {
     return {
-      modal: {},
-    };
+      modal: {}
+    }
   },
   methods: {
-    showModal() {
-      this.modal.show();
+    showModal () {
+      this.modal.show()
     },
-    hideModal() {
-      this.modal.hide();
-    },
+    hideModal () {
+      this.modal.hide()
+    }
   },
-  mounted() {
-    this.modal = new Modal(this.$refs.modal);
-  },
-};
+  mounted () {
+    this.modal = new Modal(this.$refs.modal)
+  }
+}

@@ -62,38 +62,38 @@
   </div>
 </template>
 <script>
-import imgSquareMixin from "@/mixins/imgSquareMixin.js";
+import imgSquareMixin from "@/mixins/imgSquareMixin.js"
 export default {
   name: "Images",
   mixins: [imgSquareMixin],
   props: {
     imagesUrl: {
-      required: true,
-    },
+      required: true
+    }
   },
-  data() {
+  data () {
     return {
       isActive: 0,
-      imgRefs: [],
-    };
+      imgRefs: []
+    }
   },
   methods: {
-    prevClick() {
+    prevClick () {
       if (this.isActive !== 0) {
-        this.isActive--;
+        this.isActive--
       } else {
-        this.isActive = this.imagesUrl.length - 1;
+        this.isActive = this.imagesUrl.length - 1
       }
     },
-    nextClick() {
+    nextClick () {
       if (this.isActive !== this.imagesUrl.length - 1) {
-        this.isActive++;
+        this.isActive++
       } else {
-        this.isActive = 0;
+        this.isActive = 0
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 img {

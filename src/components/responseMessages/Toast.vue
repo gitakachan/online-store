@@ -20,30 +20,30 @@
   </div>
 </template>
 <script>
-import Toast from "bootstrap/js/dist/toast";
+import Toast from "bootstrap/js/dist/toast"
 export default {
   name: "Toast",
   props: {
     msg: {
-      required: true,
-    },
+      required: true
+    }
   },
-  data() {
-    return {};
+  data () {
+    return {}
   },
   computed: {
-    style() {
-      return `bg-${this.msg.style}`;
-    },
+    style () {
+      return `bg-${this.msg.style}`
+    }
   },
-  mounted() {
-    const toastEl = this.$refs.toast;
+  mounted () {
+    const toastEl = this.$refs.toast
     const toast = new Toast(toastEl, {
-      delay: 7000,
-    });
-    toast.show();
-  },
-};
+      delay: 7000
+    })
+    toast.show()
+  }
+}
 </script>
 <style lang="scss" scoped>
 .toast {

@@ -37,14 +37,14 @@
   </div>
 </template>
 <script>
-import dropdownSideBarMixin from "@/mixins/dropdownSideBarMixin.js";
+import dropdownSideBarMixin from "@/mixins/dropdownSideBarMixin.js"
 export default {
   name: "SideBar",
   mixins: [dropdownSideBarMixin],
-  data() {
-    return {};
-  },
-};
+  data () {
+    return {}
+  }
+}
 </script>
 <style lang="scss" scoped>
 .selected {

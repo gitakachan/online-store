@@ -79,10 +79,10 @@
 <script>
 export default {
   name: "",
-  data() {
-    return {};
-  },
-};
+  data () {
+    return {}
+  }
+}
 </script>
 <style lang="scss" scoped>
 .container {

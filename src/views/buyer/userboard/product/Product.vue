@@ -129,13 +129,13 @@
   </div>
 </template>
 <script>
-import Images from "./Images.vue";
-import BreadCrumb from "./BreadCrumb.vue";
-import Calender from "./Calender.vue";
-import { getWeekdayText } from "@/methods/weekday.js";
-import priceStyleMixin from "@/mixins/priceStyleMixin.js";
-import likedProductMixin from "@/mixins/likedProductMixin.js";
-import ToastList from "@/components/responseMessages/ToastList.vue";
+import Images from "./Images.vue"
+import BreadCrumb from "./BreadCrumb.vue"
+import Calender from "./Calender.vue"
+import { getWeekdayText } from "@/methods/weekday.js"
+import priceStyleMixin from "@/mixins/priceStyleMixin.js"
+import likedProductMixin from "@/mixins/likedProductMixin.js"
+import ToastList from "@/components/responseMessages/ToastList.vue"
 
 export default {
   name: "Product",
@@ -144,20 +144,20 @@ export default {
   inject: ["emitter", "resMsg"],
   props: {
     id: {
-      required: true,
-    },
+      required: true
+    }
   },
-  data() {
+  data () {
     return {
       product: {
         ImagesUrl: [],
         price: 0,
-        origin_price: 0,
+        origin_price: 0
       },
       isLoading: false,
       order: {
         quantity: 1,
-        date: new Date(),
+        date: new Date()
       },
       tooLess: false,
       content: "",
@@ -165,40 +165,40 @@ export default {
       weekdays: "",
       min_date: "",
       max_date: "",
-      addCartLoading: false,
-    };
+      addCartLoading: false
+    }
   },
 
   methods: {
-    getProduct() {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`;
-      this.isLoading = true;
+    getProduct () {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`
+      this.isLoading = true
       this.axios.get(api).then((response) => {
-        this.isLoading = false;
+        this.isLoading = false
         if (response.data.success) {
-          this.product = response.data.product;
-          this.content = this.fixTextArea(this.product.content);
-          this.description = this.fixTextArea(this.product.description);
-          this.weekdays = this.getWeekdays(this.product.weekdays);
+          this.product = response.data.product
+          this.content = this.fixTextArea(this.product.content)
+          this.description = this.fixTextArea(this.product.description)
+          this.weekdays = this.getWeekdays(this.product.weekdays)
           if (!this.product.min_date) {
-            //若無指定起始日，則為今天開始
-            this.min_date = new Date();
+            // 若無指定起始日，則為今天開始
+            this.min_date = new Date()
           } else {
-            let origin_min_date = new Date(this.product.min_date);
-            let today = new Date();
-            //如果後台設定起始日期早於今日 則起始日設為今日
+            const origin_min_date = new Date(this.product.min_date)
+            const today = new Date()
+            // 如果後台設定起始日期早於今日 則起始日設為今日
             if (origin_min_date < today) {
-              this.min_date = today;
+              this.min_date = today
             } else {
-              this.min_date = this.product.min_date;
+              this.min_date = this.product.min_date
             }
           }
 
           if (!this.product.max_date) {
-            //若無指定截止日，則為一年後（不寫死，可一直延後）
+            // 若無指定截止日，則為一年後（不寫死，可一直延後）
             this.max_date = new Date().setFullYear(
               new Date().getFullYear() + 1
-            );
+            )
           } else {
             // let origin_max_date = new Date(this.product.max_date);
             // let today = new Date();
@@ -208,74 +208,74 @@ export default {
             // } else {
             //   this.max_date = this.product.max_date;
             // }
-            this.max_date = this.product.max_date;
+            this.max_date = this.product.max_date
           }
         }
-      });
+      })
     },
-    addQuantity() {
-      this.tooLess = false;
-      this.order.quantity++;
+    addQuantity () {
+      this.tooLess = false
+      this.order.quantity++
     },
-    deductQunatity() {
+    deductQunatity () {
       if (this.order.quantity > 1) {
-        this.order.quantity--;
+        this.order.quantity--
       } else if (this.order.quantity <= 1) {
-        this.tooLess = true;
+        this.tooLess = true
       }
     },
-    fixTextArea(str) {
-      str = str.replace(/\n/g, "<br />");
-      return str;
+    fixTextArea (str) {
+      str = str.replace(/\n/g, "<br />")
+      return str
     },
-    selectDate(date) {
-      this.order.date = date;
+    selectDate (date) {
+      this.order.date = date
     },
-    getWeekdays(arr) {
-      let str = "";
+    getWeekdays (arr) {
+      let str = ""
       if (arr.length === 7) {
-        str = "每天 ";
+        str = "每天 "
       } else {
-        arr = this.getWeekdayText(arr);
-        str = `每週 ${arr.join("、")}`;
+        arr = this.getWeekdayText(arr)
+        str = `每週 ${arr.join("、")}`
       }
       if (
         this.product.category === "門票" ||
         this.product.category === "餐飲"
       ) {
-        return (str += " 可使用");
+        return (str += " 可使用")
       } else {
-        return (str += " 出發");
+        return (str += " 出發")
       }
     },
     getWeekdayText,
-    addCart(id, qty) {
-      this.addCartLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+    addCart (id, qty) {
+      this.addCartLoading = true
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
       this.axios
         .post(api, { data: { product_id: id, qty: qty } })
         .then((response) => {
           if (response.data.success) {
-            this.addCartLoading = false;
-            this.getCart();
-            this.resMsg(response, "加入購物車");
+            this.addCartLoading = false
+            this.getCart()
+            this.resMsg(response, "加入購物車")
           }
-        });
+        })
     },
-    getCart() {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+    getCart () {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
       this.axios.get(api).then((response) => {
         if (response.data.success) {
-          let cartItems = response.data.data.carts;
-          //傳送給navbar icon
-          this.emitter.emit("cartLength", cartItems.length);
+          const cartItems = response.data.data.carts
+          // 傳送給navbar icon
+          this.emitter.emit("cartLength", cartItems.length)
         }
-      });
-    },
+      })
+    }
   },
-  mounted() {
-    this.getProduct();
-  },
-};
+  mounted () {
+    this.getProduct()
+  }
+}
 </script>
 <style lang="scss" scoped></style>

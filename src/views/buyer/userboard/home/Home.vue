@@ -43,10 +43,10 @@
 <script>
 export default {
   name: "Home",
-  data() {
-    return {};
-  },
-};
+  data () {
+    return {}
+  }
+}
 </script>
 <style lang="scss" scoped>
 .content {

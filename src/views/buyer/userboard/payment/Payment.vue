@@ -90,14 +90,14 @@
   </div>
 </template>
 <script>
-import { getFormDate } from "@/methods/date.js";
-import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue";
+import { getFormDate } from "@/methods/date.js"
+import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue"
 
 export default {
   name: "Payment",
   components: { CenteredHeader },
 
-  data() {
+  data () {
     return {
       isLoading: false,
       orderId: "",
@@ -106,46 +106,46 @@ export default {
       total: 0,
       payment_method: "",
       is_paid: false,
-      paid_date: "",
-    };
+      paid_date: ""
+    }
   },
   methods: {
-    getOrder() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order/${this.orderId}`;
+    getOrder () {
+      this.isLoading = true
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order/${this.orderId}`
       this.axios.get(api).then((response) => {
         if (response.data.success) {
-          const order = response.data.order;
-          const user = order.user;
+          const order = response.data.order
+          const user = order.user
 
-          this.orderItems = order.products;
-          this.total = order.total;
-          this.is_paid = order.is_paid;
-          this.paid_date = order.paid_date;
+          this.orderItems = order.products
+          this.total = order.total
+          this.is_paid = order.is_paid
+          this.paid_date = order.paid_date
 
-          this.user = user;
-          this.payment_method = user.payment_method;
+          this.user = user
+          this.payment_method = user.payment_method
         }
-        this.isLoading = false;
-      });
+        this.isLoading = false
+      })
     },
-    submitPayment() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/pay/${this.orderId}`;
+    submitPayment () {
+      this.isLoading = true
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/pay/${this.orderId}`
       this.axios.post(api).then((response) => {
         if (response.data.success) {
-          this.getOrder();
+          this.getOrder()
         }
-        this.isLoading = false;
-      });
+        this.isLoading = false
+      })
     },
-    getFormDate,
+    getFormDate
   },
-  mounted() {
-    this.orderId = this.$route.params.orderId;
-    this.getOrder();
-  },
-};
+  mounted () {
+    this.orderId = this.$route.params.orderId
+    this.getOrder()
+  }
+}
 </script>
 <style lang="scss" scoped>
 table.table-fit {

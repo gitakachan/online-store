@@ -18,58 +18,58 @@
   </div>
 </template>
 <script>
-import ToastList from "@/components/responseMessages/ToastList.vue";
-import ProductList from "@/components/buyer/ProductList.vue";
+import ToastList from "@/components/responseMessages/ToastList.vue"
+import ProductList from "@/components/buyer/ProductList.vue"
 
-import likedProductMixin from "@/mixins/likedProductMixin.js";
-import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue";
+import likedProductMixin from "@/mixins/likedProductMixin.js"
+import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue"
 export default {
   name: "Liked",
-  mixins: [likedProductMixin], //likedList更新的依據
+  mixins: [likedProductMixin], // likedList更新的依據
   inject: ["emitter"],
   components: { ToastList, ProductList, CenteredHeader },
-  data() {
+  data () {
     return {
       isLoading: false,
-      products: [],
-    };
+      products: []
+    }
   },
   computed: {
-    likedList() {
-      //依照加入收藏列表的先後順序排列
-      let arr = [];
+    likedList () {
+      // 依照加入收藏列表的先後順序排列
+      const arr = []
       this.likedStorage.forEach((likedItem) => {
         this.products.forEach((productItem, index) => {
           if (productItem.id === likedItem) {
-            arr.push(this.products[index]);
+            arr.push(this.products[index])
           }
-        });
-      });
-      return arr.reverse(); //(後加入在前)
-    },
+        })
+      })
+      return arr.reverse() // (後加入在前)
+    }
   },
   methods: {
-    getProducts() {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products`;
-      this.isLoading = true;
+    getProducts () {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products`
+      this.isLoading = true
       this.axios.get(api).then((response) => {
-        this.isLoading = false;
+        this.isLoading = false
         if (response.data.success) {
-          this.products = response.data.products;
+          this.products = response.data.products
 
-          //避免imagesUrl為undefined
+          // 避免imagesUrl為undefined
           this.products.forEach((element) => {
-            if (element.imagesUrl == undefined) {
-              element.imagesUrl = [];
+            if (element.imagesUrl === undefined) {
+              element.imagesUrl = []
             }
-          });
+          })
         }
-      });
-    },
+      })
+    }
   },
-  mounted() {
-    this.getProducts();
-  },
-};
+  mounted () {
+    this.getProducts()
+  }
+}
 </script>
 <style lang="scss" scoped></style>

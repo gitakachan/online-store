@@ -86,66 +86,66 @@
   </div>
 </template>
 <script>
-import CenteredHeader from "@/components/buyer/CenteredHeader.vue";
-import ToastList from "@/components/responseMessages/ToastList.vue";
+import CenteredHeader from "@/components/buyer/CenteredHeader.vue"
+import ToastList from "@/components/responseMessages/ToastList.vue"
 
 export default {
   name: "Cart",
   inject: ["emitter", "resMsg"],
-  components: { CenteredHeader, ToastList, ToastList },
-  data() {
+  components: { CenteredHeader, ToastList },
+  data () {
     return {
       cartItems: [],
       total: 0,
-      isLoading: false,
-    };
+      isLoading: false
+    }
   },
   methods: {
-    getCart() {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
-      this.axios.get(api).then((response) => {
+    getCart () {
+      this.isLoading = true
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
+      this.axios.get(api).then(response => {
         if (response.data.success) {
-          this.isLoading = false;
-          this.cartItems = response.data.data.carts;
-          this.total = response.data.data.total;
-          this.final_total = response.data.data.final_total;
+          this.isLoading = false
+          this.cartItems = response.data.data.carts
+          this.total = response.data.data.total
+          this.final_total = response.data.data.final_total
 
-          //傳送給navbar icon
-          this.emitter.emit("cartLength", this.cartItems.length);
+          // 傳送給navbar icon
+          this.emitter.emit("cartLength", this.cartItems.length)
         }
-      });
+      })
     },
-    updateCart(id, qty) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`;
+    updateCart (id, qty) {
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`
       this.axios
         .put(api, { data: { product_id: id, qty: qty } })
-        .then((response) => {
+        .then(response => {
           if (response.data.success) {
-            this.getCart();
-            this.resMsg(response, "更新");
+            this.getCart()
+            this.resMsg(response, "更新")
           }
-        });
+        })
     },
-    deleteCart(id) {
-      this.isLoading = true;
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`;
-      this.axios.delete(api).then((response) => {
+    deleteCart (id) {
+      this.isLoading = true
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`
+      this.axios.delete(api).then(response => {
         if (response.data.success) {
-          this.isLoading = false;
-          this.getCart();
-          this.resMsg(response, "刪除");
+          this.isLoading = false
+          this.getCart()
+          this.resMsg(response, "刪除")
         }
-      });
+      })
     },
-    backToProduct(id) {
-      this.$router.push(`/store/products/${id}`);
-    },
+    backToProduct (id) {
+      this.$router.push(`/store/products/${id}`)
+    }
   },
-  mounted() {
-    this.getCart();
-  },
-};
+  mounted () {
+    this.getCart()
+  }
+}
 </script>
 <style lang="scss" scoped>
 table.table-fit {
