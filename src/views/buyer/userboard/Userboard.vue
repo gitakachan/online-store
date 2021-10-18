@@ -9,12 +9,12 @@
   </div>
 </template>
 <script>
-import mitt from "mitt"
+import mitt from "mitt";
 
-import NavBar from "@/components/buyer/NavBar.vue"
-import UserFooter from "../../../components/buyer/UserFooter.vue"
-import BackToTopBtn from "../../../components/buyer/BackToTopBtn.vue"
-const emitter = mitt()
+import NavBar from "@/components/buyer/NavBar.vue";
+import UserFooter from "../../../components/buyer/UserFooter.vue";
+import BackToTopBtn from "../../../components/buyer/BackToTopBtn.vue";
+const emitter = mitt();
 
 export default {
   name: "Dashboard",
@@ -28,7 +28,7 @@ export default {
     return {
       emitter,
       resMsg: this.resMsg
-    }
+    };
   },
   methods: {
     resMsg (response, title = "更新") {
@@ -36,20 +36,20 @@ export default {
         emitter.emit("pushMessage", {
           style: "success",
           title: `${title}成功`
-        })
+        });
       } else {
-        let msg = response.data.message
+        let msg = response.data.message;
         if (typeof msg === "string") {
-          msg = [msg]
+          msg = [msg];
         }
         emitter.emit("pushMessage", {
           style: "danger",
           title: `${title}失敗`,
           content: msg.join("、")
-        })
+        });
       }
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped></style>

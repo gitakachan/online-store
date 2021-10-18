@@ -3,7 +3,7 @@ export default {
     priceStyle (price, unit) {
       return `<span class="eng">NT$ ${price.toLocaleString()} / </span>${
         unit
-      }`
+      }`;
     }
   }
-}
+};

@@ -41,13 +41,13 @@ export default {
   },
   inject: ["emitter"],
   data () {
-    return {}
+    return {};
   },
   methods: {
     goTo (area, category) {
-      this.$router.push(`/store/products?area=${area}&category=${category}`)
+      this.$router.push(`/store/products?area=${area}&category=${category}`);
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped></style>

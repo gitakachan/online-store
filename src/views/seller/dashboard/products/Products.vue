@@ -64,11 +64,11 @@
   </div>
 </template>
 <script>
-import ProductModal from "./ProductModal.vue"
-import DeleteModal from "@/components/seller/DeleteModal.vue"
-import ToastList from "@/components/responseMessages/ToastList.vue"
-import Pagination from "@/components/pagination/Pagination.vue"
-import AddNew from "@/components/seller/AddNew.vue"
+import ProductModal from "./ProductModal.vue";
+import DeleteModal from "@/components/seller/DeleteModal.vue";
+import ToastList from "@/components/responseMessages/ToastList.vue";
+import Pagination from "@/components/pagination/Pagination.vue";
+import AddNew from "@/components/seller/AddNew.vue";
 
 export default {
   components: { ProductModal, DeleteModal, ToastList, Pagination, AddNew },
@@ -80,80 +80,80 @@ export default {
       tempProduct: {},
       isNew: false, // 判斷是否為新增產品
       isLoading: false
-    }
+    };
   },
   inject: ["resMsg"],
   methods: {
     openModal (isNew, item) {
       if (isNew) {
         // 若為新增
-        this.tempProduct = { imagesUrl: [] }
+        this.tempProduct = { imagesUrl: [] };
       } else {
         // 若為編輯
-        this.tempProduct = JSON.parse(JSON.stringify(item)) // 深拷貝 （imagesUrl為陣列，使item為多層物件）
+        this.tempProduct = JSON.parse(JSON.stringify(item)); // 深拷貝 （imagesUrl為陣列，使item為多層物件）
       }
-      this.isNew = isNew
-      this.$refs.productModal.showModal()
+      this.isNew = isNew;
+      this.$refs.productModal.showModal();
     },
     openDelModal (item) {
-      this.$refs.delModal.showModal()
-      this.tempProduct = JSON.parse(JSON.stringify(item))
+      this.$refs.delModal.showModal();
+      this.tempProduct = JSON.parse(JSON.stringify(item));
     },
     getProducts (page = 1) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`
-      this.isLoading = true
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`;
+      this.isLoading = true;
       this.axios.get(api).then((response) => {
-        this.isLoading = false
+        this.isLoading = false;
         if (response.data.success) {
-          this.products = response.data.products
-          this.pagination = response.data.pagination
+          this.products = response.data.products;
+          this.pagination = response.data.pagination;
         } else {
-          this.$router.push("/login")
+          this.$router.push("/login");
         }
-      })
+      });
     },
     updateProduct (item) {
-      this.tempProduct = item // 將內部傳來的參數存為tempProduct
-      this.isLoading = true
+      this.tempProduct = item; // 將內部傳來的參數存為tempProduct
+      this.isLoading = true;
 
       // 新增產品
-      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`
-      let httpMethod = "post"
+      let api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product`;
+      let httpMethod = "post";
 
       // 編輯產品
       if (!this.isNew) {
-        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`
-        httpMethod = "put"
+        api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${item.id}`;
+        httpMethod = "put";
       }
 
       this.axios[httpMethod](api, { data: this.tempProduct }).then(
         (response) => {
-          this.isLoading = false
+          this.isLoading = false;
           if (response.data.success) {
-            this.getProducts(this.pagination.current_page) // 取得最新products資料
+            this.getProducts(this.pagination.current_page); // 取得最新products資料
           }
-          this.resMsg(response)
-          this.$refs.productModal.hideModal() // 關閉modal
+          this.resMsg(response);
+          this.$refs.productModal.hideModal(); // 關閉modal
         }
-      )
+      );
     },
     deleteProduct (id) {
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${id}`
-      this.isLoading = true
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${id}`;
+      this.isLoading = true;
       this.axios.delete(api).then((response) => {
         if (response.data.success) {
-          this.$refs.delModal.hideModal()
-          this.isLoading = false
-          this.getProducts(this.pagination.current_page)
+          this.$refs.delModal.hideModal();
+          this.isLoading = false;
+          this.getProducts(this.pagination.current_page);
         }
-        this.resMsg(response, "刪除")
-      })
+        this.resMsg(response, "刪除");
+      });
     }
   },
   mounted () {
-    this.getProducts()
+    this.getProducts();
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 table {

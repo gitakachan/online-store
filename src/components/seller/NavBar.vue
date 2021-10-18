@@ -50,26 +50,26 @@
   </div>
 </template>
 <script>
-import navBarCollapse from "@/mixins/navBarCollapse.js"
+import navBarCollapse from "@/mixins/navBarCollapse.js";
 export default {
   name: "NavBar",
   mixins: [navBarCollapse],
   methods: {
     logOut () {
-      const api = `${process.env.VUE_APP_API}logout`
+      const api = `${process.env.VUE_APP_API}logout`;
       this.axios
         .post(api)
         .then((response) => {
           if (response.data.success) {
-            this.$router.push("/login") // 登出成功跳轉至登入頁面
+            this.$router.push("/login"); // 登出成功跳轉至登入頁面
           }
         })
         .catch((e) => {
-          console.log(e)
-        })
+          console.log(e);
+        });
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 a.nav-link.router-link-active {

@@ -452,8 +452,8 @@
   </div>
 </template>
 <script>
-import ModalMixin from "@/mixins/ModalMixin"
-import { reverseWeekdayNumber } from "@/methods/weekday.js"
+import ModalMixin from "@/mixins/ModalMixin";
+import { reverseWeekdayNumber } from "@/methods/weekday.js";
 
 export default {
   name: "ProductModal",
@@ -462,7 +462,7 @@ export default {
     product: {
       type: Object,
       default () {
-        return {}
+        return {};
       }
     },
     status: {
@@ -494,7 +494,7 @@ export default {
       ],
       startDate: "default",
       endDate: "default"
-    }
+    };
   },
   computed: {
     submitBtn () {
@@ -506,13 +506,13 @@ export default {
         price,
         origin_price,
         weekdays // type:Array
-      } = this.tempProduct
-      const arr = [title, category, unit, price, origin_price, weekdays]
-      const num = arr.findIndex((item) => !item || item.length === 0)
+      } = this.tempProduct;
+      const arr = [title, category, unit, price, origin_price, weekdays];
+      const num = arr.findIndex((item) => !item || item.length === 0);
       if (num < 0) {
-        return false
+        return false;
       } else {
-        return true
+        return true;
       }
     }
   },
@@ -523,77 +523,77 @@ export default {
         this.$refs.fileInput.files.length + this.tempProduct.imagesUrl.length >
         5
       ) {
-        alert("最多只能選擇五張圖片")
+        alert("最多只能選擇五張圖片");
       } else {
         this.$refs.fileInput.files.forEach((element) => {
-          const uploadedFile = element // 取得檔案
-          const formData = new FormData()
-          formData.append("file-to-upload", uploadedFile)
-          const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`
+          const uploadedFile = element; // 取得檔案
+          const formData = new FormData();
+          formData.append("file-to-upload", uploadedFile);
+          const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`;
           this.axios.post(api, formData).then((response) => {
             if (response.data.success) {
-              this.tempProduct.imagesUrl.push(response.data.imageUrl)
+              this.tempProduct.imagesUrl.push(response.data.imageUrl);
             }
-          })
-        })
+          });
+        });
       }
     },
     addUrl (e) {
-      const input = e.target.value
-      this.tempProduct.imagesUrl.push(input)
-      e.target.value = ""
+      const input = e.target.value;
+      this.tempProduct.imagesUrl.push(input);
+      e.target.value = "";
     },
     removeImage (item) {
-      const index = this.tempProduct.imagesUrl.indexOf(item)
-      this.tempProduct.imagesUrl.splice(index, 1)
+      const index = this.tempProduct.imagesUrl.indexOf(item);
+      this.tempProduct.imagesUrl.splice(index, 1);
     },
     reverseWeekdayNumber,
     setDefaultStart () {
-      this.tempProduct.min_date = new Date()
+      this.tempProduct.min_date = new Date();
     },
     setDefaultEnd () {
-      this.tempProduct.max_date = new Date()
+      this.tempProduct.max_date = new Date();
     }
   },
   watch: {
     product () {
-      this.tempProduct = this.product // 每次傳新的prop的product進來後，就將要撰寫資料的tempProduct指向空的prop的product
+      this.tempProduct = this.product; // 每次傳新的prop的product進來後，就將要撰寫資料的tempProduct指向空的prop的product
       if (!this.tempProduct.imagesUrl) {
         // 新產品先初始化，以免填圖片時imagesUrl為undefined；舊產品則是避免之前沒有填過圖片，imagesUrl會為undefined
-        this.tempProduct.imagesUrl = []
+        this.tempProduct.imagesUrl = [];
       }
       if (!this.tempProduct.weekdays) {
-        this.tempProduct.weekdays = [1, 2, 3, 4, 5, 6, 7] // 預設全選
+        this.tempProduct.weekdays = [1, 2, 3, 4, 5, 6, 7]; // 預設全選
       }
       if (this.tempProduct.min_date) {
-        this.startDate = true
+        this.startDate = true;
       } else {
-        this.startDate = "default"
+        this.startDate = "default";
       }
       if (this.tempProduct.max_date) {
-        this.endDate = true
+        this.endDate = true;
       } else {
-        this.endDate = "default"
+        this.endDate = "default";
       }
     },
     "tempProduct.weekdays" () {
       // 找出not avilable 的日子
       this.tempProduct.notAvalibleWeekday = this.reverseWeekdayNumber(
         this.tempProduct.weekdays
-      )
+      );
     },
     startDate () {
       if (this.startDate === "default") {
-        this.tempProduct.min_date = null
+        this.tempProduct.min_date = null;
       }
     },
     endDate () {
       if (this.endDate === "default") {
-        this.tempProduct.max_date = null
+        this.tempProduct.max_date = null;
       }
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 textarea {

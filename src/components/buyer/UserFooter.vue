@@ -80,9 +80,9 @@
 export default {
   name: "",
   data () {
-    return {}
+    return {};
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .container {

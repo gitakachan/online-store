@@ -3,14 +3,14 @@ export default {
     imgRefs: {
       deep: true, // 深度監視 有可能陣列長度沒變，但內容變了
       handler () {
-        this.resetImgSize()
+        this.resetImgSize();
       }
     }
   },
   methods: {
     setImgRef (el) {
       if (el !== null) {
-        this.imgRefs.push(el)
+        this.imgRefs.push(el);
       }
     },
     resetImgSize () {
@@ -19,19 +19,19 @@ export default {
           this.imgRefs[i] !== null &&
           this.imgRefs[i].offsetHeight !== this.imgRefs[i].offsetWidth
         ) {
-          this.imgRefs[i].style.height = this.imgRefs[i].offsetWidth + "px"
+          this.imgRefs[i].style.height = this.imgRefs[i].offsetWidth + "px";
         }
       }
     }
   },
   mounted () {
-    window.addEventListener("resize", this.resetImgSize)
+    window.addEventListener("resize", this.resetImgSize);
   },
   beforeUpdate () {
-    this.imgRefs = []
+    this.imgRefs = [];
   },
 
   destroyed () {
-    window.removeEventListener("resize", this.resetImgSize)
+    window.removeEventListener("resize", this.resetImgSize);
   }
-}
+};

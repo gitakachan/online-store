@@ -7,10 +7,10 @@
   </div>
 </template>
 <script>
-import mitt from "mitt"
+import mitt from "mitt";
 
-import NavBar from "@/components/seller/NavBar.vue"
-const emitter = mitt()
+import NavBar from "@/components/seller/NavBar.vue";
+const emitter = mitt();
 
 export default {
   name: "Dashboard",
@@ -22,7 +22,7 @@ export default {
     return {
       emitter,
       resMsg: this.resMsg
-    }
+    };
   },
   methods: {
     resMsg (response, title = "更新") {
@@ -30,17 +30,17 @@ export default {
         emitter.emit("pushMessage", {
           style: "success",
           title: `${title}成功`
-        })
+        });
       } else {
-        let msg = response.data.message
+        let msg = response.data.message;
         if (typeof msg === "string") {
-          msg = [msg]
+          msg = [msg];
         }
         emitter.emit("pushMessage", {
           style: "danger",
           title: `${title}失敗`,
           content: msg.join("、")
-        })
+        });
       }
     }
   },
@@ -49,15 +49,15 @@ export default {
     const token = document.cookie.replace(
       /(?:(?:^|.*;\s*)hexToken\s*\s*([^;]*).*$)|^.*$/,
       "$1"
-    )
-    this.axios.defaults.headers.common.Authorization = token
-    const api = `${process.env.VUE_APP_API}api/user/check` // 檢查用戶是否仍持續登入
+    );
+    this.axios.defaults.headers.common.Authorization = token;
+    const api = `${process.env.VUE_APP_API}api/user/check`; // 檢查用戶是否仍持續登入
     this.axios.post(api).then(response => {
       if (!response.data.success) {
-        this.$router.push("/login")
+        this.$router.push("/login");
       }
-    })
+    });
   }
-}
+};
 </script>
 <style lang="scss" scoped></style>

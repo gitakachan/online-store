@@ -43,7 +43,7 @@ export default {
     notAvalible: {
       type: Array,
       default () {
-        return [] // 避免每天都可出發時，notAvalible為null
+        return []; // 避免每天都可出發時，notAvalible為null
       }
     },
     min_date: {
@@ -60,42 +60,42 @@ export default {
         input: "YYYY-MM-DD"
       },
       notAvalibleWeekday: []
-    }
+    };
   },
   computed: {
     errorMessage () {
-      if (!this.tempDate) return "日期為必填"
-      return ""
+      if (!this.tempDate) return "日期為必填";
+      return "";
     }
   },
   watch: {
     tempDate () {
-      this.$emit("selectDate", this.tempDate)
+      this.$emit("selectDate", this.tempDate);
     },
     notAvalible () {
       this.notAvalible.forEach(el => {
         if (el === 7) {
-          el = 1
+          el = 1;
         } else {
-          el++
+          el++;
         }
-        this.notAvalibleWeekday.push(el)
-      })
+        this.notAvalibleWeekday.push(el);
+      });
     },
     min_date () {
-      this.tempDate = this.min_date
+      this.tempDate = this.min_date;
 
       // 要確認是否會卡到不可使用的weekday 若卡到就延後一天 直到是可用的weekday
       for (let i = 0; i < this.notAvalible.length; i++) {
-        const day = this.tempDate.getDay()
+        const day = this.tempDate.getDay();
         if (day === this.notAvalible[i]) {
           this.tempDate = new Date(
             this.tempDate.setDate(this.tempDate.getDate() + 1)
-          )
+          );
         }
       }
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped></style>

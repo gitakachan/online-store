@@ -44,9 +44,9 @@
 export default {
   name: "Home",
   data () {
-    return {}
+    return {};
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .content {

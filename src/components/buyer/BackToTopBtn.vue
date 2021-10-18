@@ -9,13 +9,13 @@
 export default {
   name: "BackToTopBtn",
   data () {
-    return {}
+    return {};
   },
   methods: {
     scrollToTop () {
-      window.scrollTo(0, 0)
+      window.scrollTo(0, 0);
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped></style>

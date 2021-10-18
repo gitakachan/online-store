@@ -62,14 +62,14 @@ export default {
           title: "特殊體驗"
         }
       ]
-    }
+    };
   },
   methods: {
     setArea (item) {
-      this.$emit("setArea", item)
+      this.$emit("setArea", item);
     },
     setCategory (item) {
-      this.$emit("setCategory", item)
+      this.$emit("setCategory", item);
     }
   }
-}
+};

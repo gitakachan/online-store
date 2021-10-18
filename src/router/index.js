@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory } from "vue-router"
+import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
   { path: "/", redirect: "/store/home" },
@@ -66,7 +66,7 @@ const routes = [
         props: (route) => {
           return {
             id: route.params.productId
-          }
+          };
         }
       },
       {
@@ -96,16 +96,16 @@ const routes = [
     path: "/:pathMatch(.*)*",
     redirect: "/store/home"
   }
-]
+];
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes
-})
+});
 
 router.beforeEach((to, from, next) => {
-  document.documentElement.scrollTop = 0
-  next()
-})
+  document.documentElement.scrollTop = 0;
+  next();
+});
 
-export default router
+export default router;

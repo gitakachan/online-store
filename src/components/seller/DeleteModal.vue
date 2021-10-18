@@ -47,7 +47,7 @@
   </div>
 </template>
 <script>
-import ModalMixin from "@/mixins/ModalMixin"
+import ModalMixin from "@/mixins/ModalMixin";
 export default {
   name: "DeleteModal",
   mixins: [ModalMixin],
@@ -63,6 +63,6 @@ export default {
       required: true
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped></style>

@@ -12,6 +12,6 @@
 <script>
 export default {
   name: "AddNew"
-}
+};
 </script>
 <style lang="scss" scoped></style>

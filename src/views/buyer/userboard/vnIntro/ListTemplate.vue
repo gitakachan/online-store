@@ -15,7 +15,7 @@ export default {
     listItem: {
       type: Array,
       default () {
-        return []
+        return [];
       }
     },
     listStyle: {
@@ -24,9 +24,9 @@ export default {
     }
   },
   data () {
-    return {}
+    return {};
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 li {

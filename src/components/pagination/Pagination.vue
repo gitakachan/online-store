@@ -62,25 +62,25 @@ export default {
   data () {
     return {
       currentP: 1
-    }
+    };
   },
   watch: {
     page () {
       // 每次傳入新的props時，更新this.currentP
-      this.currentP = this.page.current_page
+      this.currentP = this.page.current_page;
     }
   },
   methods: {
     nextP () {
-      this.currentP++
-      this.$emit("updatePage", this.currentP)
+      this.currentP++;
+      this.$emit("updatePage", this.currentP);
     },
     prevP () {
-      this.currentP--
-      this.$emit("updatePage", this.currentP)
+      this.currentP--;
+      this.$emit("updatePage", this.currentP);
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .page-link {

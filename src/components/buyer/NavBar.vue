@@ -90,36 +90,35 @@
   </div>
 </template>
 <script>
-import navBarCollapse from "@/mixins/navBarCollapse.js"
+import navBarCollapse from "@/mixins/navBarCollapse.js";
 export default {
   name: "NavBar",
   mixins: [navBarCollapse],
   inject: ["emitter"],
   data () {
     return {
-      // cartQty: 0,
       itemLength: 0
-    }
+    };
   },
   computed: {
     cartQty () {
-      this.emitter.on("cartLength", (length) => {
-        this.itemLength = length
-      })
-      return this.itemLength
+      this.emitter.on("cartLength", length => {
+        this.itemLength = length;
+      });
+      return this.itemLength;
     }
   },
   mounted () {
-    const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
-    this.axios.get(api).then((response) => {
+    const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
+    this.axios.get(api).then(response => {
       if (response.data.success) {
-        const cartItems = response.data.data.carts
+        const cartItems = response.data.data.carts;
         // 傳送給navbar icon
-        this.emitter.emit("cartLength", cartItems.length)
+        this.emitter.emit("cartLength", cartItems.length);
       }
-    })
+    });
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 a {

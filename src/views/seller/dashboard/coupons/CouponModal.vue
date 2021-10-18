@@ -152,8 +152,8 @@
   </div>
 </template>
 <script>
-import ModalMixin from "@/mixins/ModalMixin"
-import { getUnixDate, getFormDate } from "@/methods/date"
+import ModalMixin from "@/mixins/ModalMixin";
+import { getUnixDate, getFormDate } from "@/methods/date";
 
 export default {
   name: "CouponModal",
@@ -175,45 +175,45 @@ export default {
         code: ""
       },
       submitBtn: false
-    }
+    };
   },
   methods: {
     getUnixDate,
     getFormDate,
     checkStatus () {
-      this.$emit("updateCoupon", this.tempCoupon)
+      this.$emit("updateCoupon", this.tempCoupon);
     }
   },
   watch: {
     coupon () {
-      this.tempCoupon = this.coupon
+      this.tempCoupon = this.coupon;
       if (!this.tempCoupon.due_date) {
-        this.tempCoupon.due_date = new Date()
+        this.tempCoupon.due_date = new Date();
       } else {
         // unix time stamp -> formDate
-        this.tempCoupon.due_date = this.getFormDate(this.tempCoupon.due_date)
+        this.tempCoupon.due_date = this.getFormDate(this.tempCoupon.due_date);
       }
       if (!this.tempCoupon.title) {
-        this.tempCoupon.title = ""
+        this.tempCoupon.title = "";
       }
       if (!this.tempCoupon.code) {
-        this.tempCoupon.code = ""
+        this.tempCoupon.code = "";
       }
       if (!this.tempCoupon.is_enabled) {
-        this.tempCoupon.is_enabled = 0
+        this.tempCoupon.is_enabled = 0;
       }
     },
     tempCoupon: {
       deep: true,
       handler () {
         if (this.tempCoupon.title && this.tempCoupon.code) {
-          this.submitBtn = false
+          this.submitBtn = false;
         } else {
-          this.submitBtn = true
+          this.submitBtn = true;
         }
       }
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped></style>

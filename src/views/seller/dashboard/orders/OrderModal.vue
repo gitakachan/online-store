@@ -271,8 +271,8 @@
   </div>
 </template>
 <script>
-import ModalMixin from "@/mixins/ModalMixin"
-import { getFormDate } from "@/methods/date"
+import ModalMixin from "@/mixins/ModalMixin";
+import { getFormDate } from "@/methods/date";
 export default {
   name: "OrderModal",
   mixins: [ModalMixin],
@@ -301,23 +301,23 @@ export default {
       },
       infoStatus: "",
       allowEditInfo: false
-    }
+    };
   },
   methods: {
     getFormDate,
     checkInfo (e) {
       // console.log(Object.keys(e).length); //錯誤的物件長度
       if (Object.keys(e).length === 0) {
-        this.allowEditInfo = false
-        this.infoStatus = ""
+        this.allowEditInfo = false;
+        this.infoStatus = "";
       }
     }
   },
   watch: {
     order () {
-      this.tempOrder = JSON.parse(JSON.stringify(this.order))
+      this.tempOrder = JSON.parse(JSON.stringify(this.order));
       if (!this.tempOrder.total) {
-        this.tempOrder.total = 0
+        this.tempOrder.total = 0;
       }
       if (!this.tempOrder.user) {
         this.tempOrder.user = {
@@ -326,18 +326,18 @@ export default {
           tel: "",
           address: "",
           payment_method: ""
-        }
+        };
       }
     },
     infoStatus () {
       if (this.infoStatus === "edit") {
-        this.allowEditInfo = true
+        this.allowEditInfo = true;
       } else if (this.infoStatus === "reset") {
-        this.allowEditInfo = false
-        this.tempOrder.user = JSON.parse(JSON.stringify(this.order.user))
+        this.allowEditInfo = false;
+        this.tempOrder.user = JSON.parse(JSON.stringify(this.order.user));
       }
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped></style>

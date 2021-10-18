@@ -73,9 +73,9 @@
   </div>
 </template>
 <script>
-import imgSquareMixin from "@/mixins/imgSquareMixin.js"
-import priceStyleMixin from "@/mixins/priceStyleMixin.js"
-import likedProductMixin from "@/mixins/likedProductMixin.js"
+import imgSquareMixin from "@/mixins/imgSquareMixin.js";
+import priceStyleMixin from "@/mixins/priceStyleMixin.js";
+import likedProductMixin from "@/mixins/likedProductMixin.js";
 export default {
   name: "ProductList",
   mixins: [imgSquareMixin, priceStyleMixin, likedProductMixin],
@@ -83,22 +83,22 @@ export default {
     target: {
       type: Array,
       default () {
-        return []
+        return [];
       }
     },
     gridItemClass: {
       type: Array,
       default () {
-        return []
+        return [];
       }
     }
   },
   data () {
     return {
       imgRefs: []
-    }
+    };
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .product .card {

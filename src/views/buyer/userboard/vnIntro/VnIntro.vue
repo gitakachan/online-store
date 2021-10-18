@@ -173,9 +173,9 @@
   </div>
 </template>
 <script>
-import ScrollSpy from "bootstrap/js/dist/scrollspy.js"
-import returnTopMixin from "@/mixins/returnTopMixin.js"
-import ListTemplate from "./ListTemplate.vue"
+import ScrollSpy from "bootstrap/js/dist/scrollspy.js";
+import returnTopMixin from "@/mixins/returnTopMixin.js";
+import ListTemplate from "./ListTemplate.vue";
 
 export default {
   components: { ListTemplate },
@@ -309,17 +309,17 @@ export default {
           }
         }
       }
-    }
+    };
   },
   mounted () {
     this.scrollSpy = new ScrollSpy(document.body, {
       target: this.$refs.introNav
-    })
+    });
     this.scrollSpyMobile = new ScrollSpy(document.body, {
       target: this.$refs.introNavMobile
-    })
+    });
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 @import "~@/assets/scss/helpers/myVariables.scss";

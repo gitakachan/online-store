@@ -83,8 +83,8 @@
   </div>
 </template>
 <script>
-import Images from "./Images.vue"
-import returnTopMixin from "@/mixins/returnTopMixin.js"
+import Images from "./Images.vue";
+import returnTopMixin from "@/mixins/returnTopMixin.js";
 
 export default {
   name: "Cart",
@@ -143,9 +143,9 @@ export default {
             "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.2558185454773!2d106.69145685006222!3d10.791708492273424!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528cc839f1123%3A0x7421856513df9412!2zTmd1eeG7hW4gUGhpIEtoYW5oLCBUw6JuIMSQ4buLbmgsIFF14bqtbiAxLCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIOi2iuWNlw!5e0!3m2!1szh-TW!2stw!4v1632467261318!5m2!1szh-TW!2stw"
         }
       ]
-    }
+    };
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .container {

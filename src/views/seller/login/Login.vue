@@ -63,25 +63,25 @@ export default {
         password: ""
       },
       isLoading: false
-    }
+    };
   },
   methods: {
     login () {
-      const api = `${process.env.VUE_APP_API}admin/signin` // https://vue3-course-api.hexschool.io/admin/signin
-      this.isLoading = true
+      const api = `${process.env.VUE_APP_API}admin/signin`; // https://vue3-course-api.hexschool.io/admin/signin
+      this.isLoading = true;
       this.axios.post(api, this.user).then(response => {
-        this.isLoading = false
+        this.isLoading = false;
         if (response.data.success) {
-          const { token, expired } = response.data
-          document.cookie = `hexToken=${token}; expires=${new Date(expired)}`
-          this.$router.push("/dashboard/products") // 登入成功就跳轉到dashboard
+          const { token, expired } = response.data;
+          document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
+          this.$router.push("/dashboard/products"); // 登入成功就跳轉到dashboard
         } else {
-          alert(response.data.message + "，請再試一次")
+          alert(response.data.message + "，請再試一次");
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 <style lang="scss" scoped>
 .container {
