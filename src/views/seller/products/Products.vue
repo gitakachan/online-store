@@ -28,6 +28,7 @@
             </td>
             <td>
               <button
+                type="button"
                 @click="openModal(false, item)"
                 class="btn btn-outline-success btn-sm m-1"
               >
@@ -35,6 +36,7 @@
               </button>
 
               <button
+                type="button"
                 @click="openDelModal(item)"
                 class="btn btn-outline-danger btn-sm m-1"
               >
@@ -67,7 +69,7 @@
 import ProductModal from "./ProductModal.vue";
 import DeleteModal from "@/components/seller/DeleteModal.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
-import Pagination from "@/components/pagination/Pagination.vue";
+import Pagination from "@/components/Pagination.vue";
 import AddNew from "@/components/seller/AddNew.vue";
 
 export default {

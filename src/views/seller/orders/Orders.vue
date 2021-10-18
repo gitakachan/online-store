@@ -73,7 +73,7 @@
   </div>
 </template>
 <script>
-import Pagination from "@/components/pagination/Pagination.vue";
+import Pagination from "@/components/Pagination.vue";
 import ToastList from "@/components/responseMessages/ToastList.vue";
 import DeleteModal from "@/components/seller/DeleteModal.vue";
 

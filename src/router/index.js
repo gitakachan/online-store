@@ -4,25 +4,23 @@ const routes = [
   { path: "/", redirect: "/store/home" },
   {
     path: "/login",
-    component: () => import("../views/seller/login/Login.vue"),
+    component: () => import("../views/seller/Login.vue"),
   },
   {
     path: "/dashboard",
-    component: () => import("../views/seller/dashboard/Dashboard.vue"),
+    component: () => import("../views/seller/Dashboard.vue"),
     children: [
       {
         path: "products",
-        component: () =>
-          import("../views/seller/dashboard/products/Products.vue"),
+        component: () => import("../views/seller/products/Products.vue"),
       },
       {
         path: "orders",
-        component: () => import("../views/seller/dashboard/orders/Orders.vue"),
+        component: () => import("../views/seller/orders/Orders.vue"),
       },
       {
         path: "coupons",
-        component: () =>
-          import("../views/seller/dashboard/coupons/Coupons.vue"),
+        component: () => import("../views/seller/coupons/Coupons.vue"),
       },
       {
         path: "/dashboard/:pathMatch(.*)*",

@@ -49,13 +49,13 @@
 </template>
 <script>
 import ToastList from "@/components/responseMessages/ToastList.vue";
-import Pagination from "@/components/pagination/Pagination.vue";
+import Pagination from "@/components/Pagination.vue";
 import ProductList from "@/components/buyer/ProductList.vue";
 
-import Carousel from "../products/Carousel.vue";
-import ProductsBreadCrumb from "../products/ProductsBreadCrumb.vue";
-import Dropdown from "../products/Dropdown.vue";
-import SideBar from "../products/SideBar.vue";
+import Carousel from "./Carousel.vue";
+import ProductsBreadCrumb from "./ProductsBreadCrumb.vue";
+import Dropdown from "./Dropdown.vue";
+import SideBar from "./SideBar.vue";
 
 import likedProductMixin from "@/mixins/likedProductMixin.js";
 
