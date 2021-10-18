@@ -1,9 +1,9 @@
 <template>
-  <div class="container py-5">
+  <div ref="vnIntro" class="container py-5">
     <img
       class="img-fluid pb-1 pb-md-5"
       src="@/assets/imgs/introBg.png"
-      alt="越南新手旅遊攻略"
+      alt="越南新手旅遊攻略頁首圖片"
     />
     <!-- 圖片有標題但還是有隱藏的h1 -->
     <h1 class="text-center position-absolute" style="color: transparent">
@@ -21,7 +21,6 @@
               navbar
               introNav
               navbar-light
-              py-md-6
               bg-light
               flex-column
               align-items-stretch
@@ -81,7 +80,7 @@
         <div
           data-bs-spy="scroll"
           data-bs-target="#navbar-example3"
-          data-bs-offset="0"
+          data-bs-offset="50"
           tabindex="0"
           class="content bg-primary px-4 eng"
         >
@@ -90,9 +89,10 @@
             <h2
               v-html="nav.intro.mobile"
               ref="intro"
-              class="pt-8 pt-md-6"
+              class="pt-4"
               id="intro"
             ></h2>
+            <!-- class="pt-8 pt-md-6" -->
             <div>
               <p>{{ nav.intro.paragraph }}</p>
               <ListTemplate
@@ -106,7 +106,7 @@
             <h2
               v-html="nav.nature.mobile"
               ref="nature"
-              class="pt-8 pt-md-6"
+              class="pt-4"
               id="nature"
             ></h2>
             <div>
@@ -125,7 +125,7 @@
             <h2
               v-html="nav.transportation.mobile"
               ref="transportation"
-              class="pt-8 pt-md-6"
+              class="pt-4"
               id="transportation"
             ></h2>
             <p
@@ -137,12 +137,7 @@
           </div>
           <!-- food -->
           <div class="border-bottom border-white border-2">
-            <h2
-              v-html="nav.food.mobile"
-              ref="food"
-              class="pt-8 pt-md-6"
-              id="food"
-            ></h2>
+            <h2 v-html="nav.food.mobile" ref="food" class="pt-4" id="food"></h2>
             <div>
               <p>{{ nav.food.paragraph }}</p>
               <ListTemplate :listItem="nav.food.food.listItem">
@@ -171,11 +166,11 @@
             </div>
           </div>
           <!--specialty& souvenior -->
-          <div class="pb-6">
+          <div class="pb-3">
             <h2
               v-html="nav.specialty.mobile"
               ref="specialty"
-              class="pt-8 pt-md-6"
+              class="pt-4"
               id="specialty"
             ></h2>
             <p v-for="(item, index) in nav.specialty.paragraphs" :key="index">
@@ -194,13 +189,11 @@
 </template>
 <script>
 import ScrollSpy from "bootstrap/js/dist/scrollspy.js";
-import returnTopMixin from "@/mixins/returnTopMixin.js";
 import ListTemplate from "./ListTemplate.vue";
 
 export default {
   components: { ListTemplate },
   name: "VnIntro",
-  mixins: [returnTopMixin],
   data() {
     return {
       scrollspy: {},
@@ -331,12 +324,25 @@ export default {
       },
     };
   },
+  methods: {
+    returnTop(ref) {
+      if (window.innerWidth > 768) {
+        const top = ref.offsetTop - 50;
+        window.scrollTo(0, top);
+      } else {
+        const top = ref.offsetTop - 80;
+        window.scrollTo(0, top);
+      }
+    },
+  },
   mounted() {
     this.scrollSpy = new ScrollSpy(document.body, {
       target: this.$refs.introNav,
+      offset: 70,
     });
     this.scrollSpyMobile = new ScrollSpy(document.body, {
       target: this.$refs.introNavMobile,
+      offset: 70,
     });
   },
 };
@@ -348,7 +354,7 @@ export default {
   .introNavMobile {
     a {
       &.active {
-        background-color: $warning;
+        background-color: $bg-primary-d-200;
       }
     }
   }

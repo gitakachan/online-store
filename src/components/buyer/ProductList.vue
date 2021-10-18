@@ -10,13 +10,13 @@
         <router-link
           class="img-container position-relative"
           :to="{
-            path: '/store/products/' + `${item.id}`
+            path: '/store/products/' + `${item.id}`,
           }"
         >
           <img
             :src="item.imagesUrl[0]"
             class="align-bottom card-img-top rounded-0"
-            alt="產品圖片"
+            :alt="`產品圖片：${item.title}`"
             :ref="setImgRef"
           />
         </router-link>
@@ -27,7 +27,13 @@
               {{ item.short_description }}
             </div>
             <div
-              class="price d-flex align-items-end flex-md-column-reverse align-items-md-start"
+              class="
+                price
+                d-flex
+                align-items-end
+                flex-md-column-reverse
+                align-items-md-start
+              "
             >
               <div
                 v-html="priceStyle(item.price, item.unit)"
@@ -39,11 +45,13 @@
               ></div>
             </div>
             <div class="tag mb-3">
-              <span class="badge bg-warning">{{ item.tag }}</span>
+              <span class="badge bg-primary-d-200">{{ item.tag }}</span>
             </div>
             <div class="label mt-2 d-flex align-items-center">
-              <span class="badge bg-danger me-2">{{ item.area }}</span>
-              <span class="badge bg-success me-2">{{ item.category }}</span>
+              <span class="badge bg-primary-d-400 me-2">{{ item.area }}</span>
+              <span class="badge bg-primary-d-600 me-2">{{
+                item.category
+              }}</span>
               <a
                 @click.prevent="addLiked(item.id)"
                 class="add-liked ms-auto me-2"
@@ -59,7 +67,7 @@
           <div class="fw-bold w-100">
             <router-link
               :to="{
-                path: `/store/products/${item.id}`
+                path: `/store/products/${item.id}`,
               }"
               tag="button"
               class="btn btn-primary w-100 rounded-0"
@@ -82,25 +90,26 @@ export default {
   props: {
     target: {
       type: Array,
-      default () {
+      default() {
         return [];
-      }
+      },
     },
     gridItemClass: {
       type: Array,
-      default () {
+      default() {
         return [];
-      }
-    }
+      },
+    },
   },
-  data () {
+  data() {
     return {
-      imgRefs: []
+      imgRefs: [],
     };
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
+@import "@/assets/scss/helpers/_myVariables.scss";
 .product .card {
   .img-container {
     &::before {

@@ -4,7 +4,7 @@
       <h1 id="about-us">/ 關於我們 /</h1>
       <p class="bg-text text-white eng">About Us</p>
 
-      <div class="content gray-box-shadow bg-primary lh-lg">
+      <div class="content bg-primary lh-lg">
         <p class="mb-3 eng">
           VNext 成立於 2017
           年，由一群熱愛越南旅遊文化的台灣人組成，為專辦越南旅遊的旅行社。
@@ -19,7 +19,7 @@
       <h2 id="service">/ 業務及服務 /</h2>
       <p class="bg-text text-white eng">Service</p>
 
-      <div class="content gray-box-shadow bg-primary lh-lg">
+      <div class="content bg-primary lh-lg">
         <p class="eng">
           VNext
           總部位於台北，目前在越南胡志明市、河內、峴港皆有駐點辦公室，並且分派台灣員工駐點服務。
@@ -47,7 +47,7 @@
     <section class="about-us-container position-relative">
       <h2>/ 聯絡我們 /</h2>
       <p class="bg-text text-white eng">Contact</p>
-      <div class="content eng gray-box-shadow map bg-primary lh-lg">
+      <div class="content eng map bg-primary lh-lg">
         <div class="container">
           <div>
             <div v-for="item in office" :key="item.ref" class="row">
@@ -145,7 +145,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .container {
-  padding-bottom: 100px;
   overflow: hidden;
   section {
     h1,
@@ -163,8 +162,8 @@ export default {
       text-shadow: 3px 3px 2px #ddd; //文字外框
     }
     .content {
-      margin: 30px auto 60px;
-      padding: 20px 20px 20px 150px;
+      margin: 30px auto 30px;
+      padding: 30px 60px;
     }
   }
 }
@@ -172,7 +171,7 @@ export default {
 @media (max-width: 576px) {
   .container section {
     .content {
-      padding-left: 20px;
+      padding: 30px;
     }
     p.bg-text {
       font-size: 80px;

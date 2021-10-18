@@ -9,4 +9,14 @@ $danger: #dc5151; // $red !default;
 
 $liked: rgb(240, 12, 8);
 
+.bg-primary-d-200 {
+  background-color: darken($primary, 20%);
+}
+.bg-primary-d-400 {
+  background-color: darken($primary, 40%);
+}
+.bg-primary-d-600 {
+  background-color: darken($primary, 60%);
+}
 
+$bg-primary-d-200: darken($primary, 20%);

@@ -4,20 +4,21 @@
       <BreadCrumb :area="product.area" :category="product.category" />
       <div class="row">
         <div class="col-12 col-md-6 mb-4">
-          <Images :imagesUrl="product.imagesUrl" />
+          <Images :title="product.title" :imagesUrl="product.imagesUrl" />
         </div>
         <div class="col-12 col-md-6">
           <!-- 標題 -->
           <h1 class="mb-3">{{ product.title }}</h1>
+          <!-- 標籤 -->
           <div class="tag mb-3">
-            <span class="badge bg-warning">{{ product.area }}</span> &nbsp;
-            <span class="badge bg-info">{{ product.tag }}</span>
+            <span class="badge bg-primary-d-400">{{ product.area }}</span>
+            &nbsp;
+            <span class="badge bg-primary-d-200">{{ product.tag }}</span>
           </div>
           <!-- 地點 -->
           <div class="mb-2">
             <i class="bi bi-geo-alt"></i> {{ product.location }}
           </div>
-          <!-- 標籤 -->
 
           <!-- 每週出團日 -->
           <div class="mb-3">
@@ -274,4 +275,6 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "@/assets/scss/helpers/_myVariables.scss";
+</style>
