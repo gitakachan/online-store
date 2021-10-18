@@ -1,9 +1,8 @@
 <template>
   <div>
-    <loading :active="isLoading"></loading>
-    <add-new @openModal="openModal">
+    <AddNew @openModal="openModal">
       <template v-slot:title>新增優惠券</template>
-    </add-new>
+    </AddNew>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -43,22 +42,22 @@
         </tr>
       </tbody>
     </table>
-
-    <coupon-modal
+    <CouponModal
       :coupon="tempCoupon"
       :status="isNew ? '新增' : '編輯'"
       @updateCoupon="updateCoupon"
       ref="couponModal"
-    ></coupon-modal>
-    <delete-modal
+    />
+    <DeleteModal
       @delete="deleteCoupon"
       :title="tempCoupon.title"
       :id="tempCoupon.id"
       :name="'優惠券'"
       ref="delModal"
-    ></delete-modal>
-    <toast-list></toast-list>
-    <pagination @updatePage="getCoupons" :page="pagination"></pagination>
+    />
+    <ToastList />
+    <Pagination @updatePage="getCoupons" :page="pagination" />
+    <Loading :active="isLoading" />
   </div>
 </template>
 <script>
@@ -74,23 +73,23 @@ export default {
   name: "Coupons",
   components: { Pagination, ToastList, AddNew, DeleteModal, CouponModal },
   inject: ["resMsg"],
-  data () {
+  data() {
     return {
       coupons: [],
       tempCoupon: {},
       pagination: {},
       isLoading: false,
-      isNew: false
+      isNew: false,
     };
   },
   methods: {
     getUnixDate,
     getFormDate,
-    openModal (isNew, item) {
+    openModal(isNew, item) {
       if (isNew) {
         this.tempCoupon = {
           percent: 100,
-          is_enabled: 0
+          is_enabled: 0,
         };
       } else {
         this.tempCoupon = { ...item };
@@ -98,11 +97,11 @@ export default {
       this.isNew = isNew;
       this.$refs.couponModal.showModal();
     },
-    openDelModal (item) {
+    openDelModal(item) {
       this.$refs.delModal.showModal();
       this.tempCoupon = JSON.parse(JSON.stringify(item));
     },
-    getCoupons (page = 1) {
+    getCoupons(page = 1) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupons?page=${page}`;
       this.isLoading = true;
       this.axios.get(api).then((response) => {
@@ -113,7 +112,7 @@ export default {
         }
       });
     },
-    updateCoupon (item) {
+    updateCoupon(item) {
       this.tempCoupon = item;
       this.isLoading = true;
 
@@ -140,7 +139,7 @@ export default {
         }
       );
     },
-    deleteCoupon (id) {
+    deleteCoupon(id) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/coupon/${id}`;
       this.isLoading = true;
       this.axios.delete(api).then((response) => {
@@ -151,11 +150,11 @@ export default {
         }
         this.resMsg(response, "刪除");
       });
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.getCoupons();
-  }
+  },
 };
 </script>
 <style lang="scss" scoped></style>

@@ -1,7 +1,7 @@
 <template>
   <div v-cloak>
     <div id="nav"></div>
-    <router-view />
+    <RouterView />
   </div>
 </template>
 

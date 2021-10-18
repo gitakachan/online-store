@@ -136,11 +136,8 @@
                         rules="email|required"
                         v-model="tempOrder.user.email"
                         :disabled="!allowEditInfo"
-                      ></Field>
-                      <error-message
-                        name="email"
-                        class="invalid-feedback"
-                      ></error-message>
+                      />
+                      <ErrorMessage name="email" class="invalid-feedback" />
                     </div>
                     <div class="mb-3">
                       <label for="name" class="form-label">姓名</label>
@@ -154,11 +151,8 @@
                         rules="required"
                         v-model="tempOrder.user.name"
                         :disabled="!allowEditInfo"
-                      ></Field>
-                      <error-message
-                        name="姓名"
-                        class="invalid-feedback"
-                      ></error-message>
+                      />
+                      <ErrorMessage name="姓名" class="invalid-feedback" />
                     </div>
 
                     <div class="mb-3">
@@ -171,16 +165,14 @@
                         placeholder="請輸入電話"
                         :class="{ 'is-invalid': errors['電話'] }"
                         :rules="{
-                          regex: /(\d{2,3}-?|\(\d{2,3}\))\d{3,4}-?\d{4}|09\d{2}(\d{6}|-\d{3}-\d{3})/,
+                          regex:
+                            /(\d{2,3}-?|\(\d{2,3}\))\d{3,4}-?\d{4}|09\d{2}(\d{6}|-\d{3}-\d{3})/,
                           required: true,
                         }"
                         v-model="tempOrder.user.tel"
                         :disabled="!allowEditInfo"
-                      ></Field>
-                      <error-message
-                        name="電話"
-                        class="invalid-feedback"
-                      ></error-message>
+                      />
+                      <ErrorMessage name="電話" class="invalid-feedback" />
                     </div>
 
                     <div class="mb-3">
@@ -195,11 +187,8 @@
                         :class="{ 'is-invalid': errors['地址'] }"
                         v-model="tempOrder.user.address"
                         :disabled="!allowEditInfo"
-                      ></Field>
-                      <error-message
-                        name="地址"
-                        class="invalid-feedback"
-                      ></error-message>
+                      />
+                      <ErrorMessage name="地址" class="invalid-feedback" />
                     </div>
                     <div class="mb-3">
                       <label for="payment" class="form-label">付款方式</label>
@@ -217,10 +206,7 @@
                         <option value="ATM轉帳">ATM轉帳</option>
                         <option value="信用卡">信用卡</option>
                       </Field>
-                      <error-message
-                        name="付款方式"
-                        class="invalid-feedback"
-                      ></error-message>
+                      <ErrorMessage name="付款方式" class="invalid-feedback" />
                     </div>
                     <button
                       class="btn btn-sm btn-success"
@@ -279,14 +265,14 @@ export default {
   props: {
     order: {
       type: Object,
-      required: true
+      required: true,
     },
     status: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  data () {
+  data() {
     return {
       tempOrder: {
         total: 0,
@@ -296,25 +282,25 @@ export default {
           email: "",
           tel: "",
           address: "",
-          payment_method: ""
-        }
+          payment_method: "",
+        },
       },
       infoStatus: "",
-      allowEditInfo: false
+      allowEditInfo: false,
     };
   },
   methods: {
     getFormDate,
-    checkInfo (e) {
+    checkInfo(e) {
       // console.log(Object.keys(e).length); //錯誤的物件長度
       if (Object.keys(e).length === 0) {
         this.allowEditInfo = false;
         this.infoStatus = "";
       }
-    }
+    },
   },
   watch: {
-    order () {
+    order() {
       this.tempOrder = JSON.parse(JSON.stringify(this.order));
       if (!this.tempOrder.total) {
         this.tempOrder.total = 0;
@@ -325,19 +311,19 @@ export default {
           email: "",
           tel: "",
           address: "",
-          payment_method: ""
+          payment_method: "",
         };
       }
     },
-    infoStatus () {
+    infoStatus() {
       if (this.infoStatus === "edit") {
         this.allowEditInfo = true;
       } else if (this.infoStatus === "reset") {
         this.allowEditInfo = false;
         this.tempOrder.user = JSON.parse(JSON.stringify(this.order.user));
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped></style>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <loading :active="isLoading"></loading>
     <table class="table table-hover">
       <thead>
         <tr>
@@ -18,7 +17,7 @@
           :class="[
             item.is_done
               ? 'bg-light text-secondary text-decoration-line-through'
-              : ''
+              : '',
           ]"
         >
           <td class="num">{{ getFormDate(item.create_at) }}</td>
@@ -55,21 +54,22 @@
         </tr>
       </tbody>
     </table>
-    <order-modal
+    <OrderModal
       :order="tempOrder"
       :status="'編輯'"
       @updateOrder="updateOrder"
       ref="orderModal"
-    ></order-modal>
-    <delete-modal
+    />
+    <DeleteModal
       @delete="deleteOrder"
       :title="tempOrder.id"
       :id="tempOrder.id"
       :name="'訂單'"
       ref="delModal"
-    ></delete-modal>
-    <toast-list></toast-list>
-    <pagination @updatePage="getOrders" :page="pagination"></pagination>
+    />
+    <ToastList />
+    <Pagination @updatePage="getOrders" :page="pagination" />
+    <Loading :active="isLoading" />
   </div>
 </template>
 <script>
@@ -85,28 +85,28 @@ export default {
   name: "Orders",
   components: { Pagination, ToastList, DeleteModal, OrderModal },
   inject: ["resMsg"],
-  data () {
+  data() {
     return {
       orders: [],
       tempOrder: {},
       pagination: {},
-      isLoading: false
+      isLoading: false,
     };
   },
   methods: {
     getFormDate,
-    openModal (item) {
+    openModal(item) {
       this.tempOrder = { ...item };
       this.$refs.orderModal.showModal();
     },
-    openDelModal (item) {
+    openDelModal(item) {
       this.$refs.delModal.showModal();
       this.tempOrder = JSON.parse(JSON.stringify(item));
     },
-    getOrders (page = 1) {
+    getOrders(page = 1) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/orders?page=${page}`;
       this.isLoading = true;
-      this.axios.get(api).then(response => {
+      this.axios.get(api).then((response) => {
         if (response.data.success) {
           this.isLoading = false;
           this.orders = response.data.orders;
@@ -114,12 +114,12 @@ export default {
         }
       });
     },
-    updateOrder (item) {
+    updateOrder(item) {
       this.tempOrder = item;
       this.isLoading = true;
 
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/${item.id}`;
-      this.axios.put(api, { data: this.tempOrder }).then(response => {
+      this.axios.put(api, { data: this.tempOrder }).then((response) => {
         if (response.data.success) {
           this.getOrders();
           this.tempOrder = {};
@@ -129,10 +129,10 @@ export default {
         this.resMsg(response);
       });
     },
-    deleteOrder (id) {
+    deleteOrder(id) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/order/${id}`;
       this.isLoading = true;
-      this.axios.delete(api).then(response => {
+      this.axios.delete(api).then((response) => {
         if (response.data.success) {
           this.$refs.delModal.hideModal();
           this.isLoading = false;
@@ -140,11 +140,11 @@ export default {
         }
         this.resMsg(response, "刪除");
       });
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.getOrders();
-  }
+  },
 };
 </script>
 <style lang="scss" scoped></style>

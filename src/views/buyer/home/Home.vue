@@ -2,23 +2,21 @@
   <div>
     <div class="position-relative">
       <div class="content position-absolute top-50 start-50 translate-middle">
-        <h1 class="eng fw-lighter text-white text-center">
+        <h1 class="eng fw-lighter text-white text-center pb-5">
           / Make your <span class="text-primary">next</span> trip awesome /
         </h1>
         <router-link
-          to="/store/about"
-          class="d-block text-white fw-lighter text-center text-decoration-none mt-4"
-          >關於我們</router-link
-        >
-        <router-link
-          to="/store/vnIntro"
-          class="d-block text-white fw-lighter text-center text-decoration-none mt-2"
-          >越南新手旅遊攻略</router-link
-        >
-        <router-link
-          to="/store/products"
-          class="d-block text-white fw-lighter text-center text-decoration-none mt-2"
-          >行程＆票券</router-link
+          v-for="item in navItem"
+          :key="item.path"
+          :to="`/store/${item.path}`"
+          class="
+            d-block
+            text-white
+            fw-lighter
+            text-center text-decoration-none
+            mt-2
+          "
+          >{{ item.title }}</router-link
         >
       </div>
       <div class="d-xl-none">
@@ -43,9 +41,15 @@
 <script>
 export default {
   name: "Home",
-  data () {
-    return {};
-  }
+  data() {
+    return {
+      navItem: [
+        { path: "about", title: "關於我們" },
+        { path: "vnIntro", title: "越南新手旅遊攻略" },
+        { path: "products", title: "行程＆票券" },
+      ],
+    };
+  },
 };
 </script>
 <style lang="scss" scoped>

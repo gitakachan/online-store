@@ -33,44 +33,19 @@
       ></button>
     </div>
     <div class="carousel-inner">
-      <div class="carousel-item active">
+      <div
+        v-for="(item, index) in carousel"
+        :key="item.title"
+        class="carousel-item"
+        :class="{ active: index === 0 }"
+      >
         <img
-          src="https://images.unsplash.com/photo-1563354860-799d15199ac3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+          :src="require('@/assets/imgs/productsCarousel/' + item.src + '.jpeg')"
           class="d-block w-100"
-          alt="惠安古城"
+          :alt="item.title"
         />
         <div class="carousel-caption d-none d-md-block">
-          <h5>惠安古城</h5>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://images.unsplash.com/photo-1587890799275-ba5614bf3d2b?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
-          class="d-block w-100"
-          alt="美奈沙丘"
-        />
-        <div class="carousel-caption d-none d-md-block">
-          <h5>美奈沙丘</h5>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://images.unsplash.com/photo-1602646993776-5dd8e166e6fd?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
-          class="d-block w-100"
-          alt="胡志明市咖啡公寓"
-        />
-        <div class="carousel-caption d-none d-md-block">
-          <h5>胡志明市咖啡公寓</h5>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img
-          src="https://images.unsplash.com/photo-1605645854141-9f81b7f47fbc?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2590&q=80"
-          class="d-block w-100"
-          alt="下龍灣"
-        />
-        <div class="carousel-caption d-none d-md-block">
-          <h5>下龍灣</h5>
+          <h5>{{ item.title }}</h5>
         </div>
       </div>
     </div>
@@ -96,10 +71,17 @@
 </template>
 <script>
 export default {
-  name: "",
-  data () {
-    return {};
-  }
+  name: "Carousel",
+  data() {
+    return {
+      carousel: [
+        { title: "惠安古城", src: "hoian" },
+        { title: "美奈沙丘", src: "muine" },
+        { title: "咖啡公寓", src: "coffeeApartment" },
+        { title: "下龍灣", src: "halongbay" },
+      ],
+    };
+  },
 };
 </script>
 <style lang="scss" scoped>

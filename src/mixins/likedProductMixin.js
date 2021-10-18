@@ -33,10 +33,5 @@ export default {
         }
       };
     }
-    // likedList() {
-    //   return this.products.filter((item) => {
-    //     return this.likedStorage.indexOf(item.id) > -1;
-    //   });
-    // },
   }
 };

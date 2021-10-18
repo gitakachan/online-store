@@ -1,6 +1,6 @@
 <template>
   <div class="toast-container position-fixed top-0 end-0">
-    <toast v-for="(item, index) in messages" :key="index" :msg="item"></toast>
+    <Toast v-for="(item, index) in messages" :key="index" :msg="item" />
   </div>
 </template>
 <script>
@@ -8,17 +8,17 @@ import Toast from "./Toast.vue";
 export default {
   components: { Toast },
   name: "ToastList",
-  data () {
+  data() {
     return {
-      messages: []
+      messages: [],
     };
   },
   inject: ["emitter"],
-  mounted () {
+  mounted() {
     this.emitter.on("pushMessage", (message) => {
       this.messages.push(message);
     });
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>

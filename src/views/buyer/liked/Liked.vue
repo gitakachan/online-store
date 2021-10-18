@@ -1,10 +1,7 @@
 <template>
   <div class="container">
-    <centered-header :title="'收藏列表'"></centered-header>
-    <product-list
-      :target="likedList"
-      :gridItemClass="['col-12', 'col-md-4']"
-    ></product-list>
+    <CenteredHeader :title="'收藏列表'" />
+    <ProductList :target="likedList" :gridItemClass="['col-12', 'col-md-4']" />
     <div v-show="this.likedList.length === 0" class="pt-5 pb-8 text-center">
       <h2 class="pb-4">目前尚無收藏的商品</h2>
       <h3>
@@ -13,29 +10,29 @@
         >
       </h3>
     </div>
-    <loading :active="isLoading"></loading>
-    <toast-list></toast-list>
+    <Loading :active="isLoading" />
+    <ToastList />
   </div>
 </template>
 <script>
 import ToastList from "@/components/responseMessages/ToastList.vue";
 import ProductList from "@/components/buyer/ProductList.vue";
-
+import CenteredHeader from "@/components/buyer/CenteredHeader.vue";
 import likedProductMixin from "@/mixins/likedProductMixin.js";
-import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue";
+
 export default {
   name: "Liked",
   mixins: [likedProductMixin], // likedList更新的依據
   inject: ["emitter"],
   components: { ToastList, ProductList, CenteredHeader },
-  data () {
+  data() {
     return {
       isLoading: false,
-      products: []
+      products: [],
     };
   },
   computed: {
-    likedList () {
+    likedList() {
       // 依照加入收藏列表的先後順序排列
       const arr = [];
       this.likedStorage.forEach((likedItem) => {
@@ -46,10 +43,10 @@ export default {
         });
       });
       return arr.reverse(); // (後加入在前)
-    }
+    },
   },
   methods: {
-    getProducts () {
+    getProducts() {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/products`;
       this.isLoading = true;
       this.axios.get(api).then((response) => {
@@ -65,11 +62,11 @@ export default {
           });
         }
       });
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.getProducts();
-  }
+  },
 };
 </script>
 <style lang="scss" scoped></style>

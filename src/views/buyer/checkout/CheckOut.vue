@@ -1,8 +1,8 @@
 <template>
   <div>
-    <loading :active="isLoading"></loading>
+    <Loading :active="isLoading" />
     <div class="container">
-      <centered-header :title="'填寫訂單資料'"></centered-header>
+      <CenteredHeader :title="'填寫訂單資料'" />
       <div class="row pb-7">
         <div class="col-lg-6">
           <h2 class="text-center">訂單內容</h2>
@@ -97,13 +97,9 @@
                   :class="{ 'is-invalid': errors['email'] }"
                   rules="email|required"
                   v-model="user.email"
-                ></Field>
-                <error-message
-                  name="email"
-                  class="invalid-feedback"
-                ></error-message>
+                />
+                <ErrorMessage name="email" class="invalid-feedback" />
               </div>
-
               <div class="mb-3">
                 <label for="name" class="form-label">姓名</label>
                 <Field
@@ -115,11 +111,8 @@
                   rules="required"
                   v-model="user.name"
                   :class="{ 'is-invalid': errors['姓名'] }"
-                ></Field>
-                <error-message
-                  name="姓名"
-                  class="invalid-feedback"
-                ></error-message>
+                />
+                <ErrorMessage name="姓名" class="invalid-feedback" />
               </div>
 
               <div class="mb-3">
@@ -127,22 +120,19 @@
                 <Field
                   id="tel"
                   name="電話"
-                  type="text"
+                  type="number"
                   class="form-control"
                   placeholder="請輸入電話"
-                  v-model="user.tel"
+                  v-model.number="user.tel"
                   :rules="{
-                    regex: /(\d{2,3}-?|\(\d{2,3}\))\d{3,4}-?\d{4}|09\d{2}(\d{6}|-\d{3}-\d{3})/,
+                    regex:
+                      /(\d{2,3}-?|\(\d{2,3}\))\d{3,4}-?\d{4}|09\d{2}(\d{6}|-\d{3}-\d{3})/,
                     required: true,
                   }"
                   :class="{ 'is-invalid': errors['電話'] }"
-                ></Field>
-                <error-message
-                  name="電話"
-                  class="invalid-feedback"
-                ></error-message>
+                />
+                <ErrorMessage name="電話" class="invalid-feedback" />
               </div>
-
               <div class="mb-3">
                 <label for="address" class="form-label">地址</label>
                 <Field
@@ -154,11 +144,8 @@
                   v-model="user.address"
                   rules="required"
                   :class="{ 'is-invalid': errors['地址'] }"
-                ></Field>
-                <error-message
-                  name="地址"
-                  class="invalid-feedback"
-                ></error-message>
+                />
+                <ErrorMessage name="地址" class="invalid-feedback" />
               </div>
               <div class="mb-3">
                 <label for="payment" class="form-label">付款方式</label>
@@ -175,10 +162,7 @@
                   <option value="ATM轉帳">ATM轉帳</option>
                   <option value="信用卡">信用卡</option>
                 </Field>
-                <error-message
-                  name="付款方式"
-                  class="invalid-feedback"
-                ></error-message>
+                <ErrorMessage name="付款方式" class="invalid-feedback" />
               </div>
               <div class="mb-3">
                 <label for="msg" class="form-label">留言</label>
@@ -190,7 +174,7 @@
                   class="form-control"
                   placeholder="請輸入留言"
                   v-model="message"
-                ></Field>
+                />
               </div>
 
               <div class="text-end">
@@ -200,7 +184,7 @@
                     submitOrder();
                     validate();
                   "
-                  class="btn btn-info"
+                  class="btn btn-primary"
                 >
                   <i class="bi bi-check"></i> 送出訂單
                 </button>
@@ -213,11 +197,11 @@
   </div>
 </template>
 <script>
-import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue";
+import CenteredHeader from "@/components/buyer/CenteredHeader.vue";
 export default {
   name: "CheckOut",
   components: { CenteredHeader },
-  data () {
+  data() {
     return {
       cartItems: [],
       total: 0,
@@ -232,13 +216,13 @@ export default {
         name: "",
         tel: "",
         address: "",
-        payment_method: ""
+        payment_method: "",
       },
-      message: ""
+      message: "",
     };
   },
   methods: {
-    getCart () {
+    getCart() {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       this.axios.get(api).then((response) => {
@@ -253,7 +237,7 @@ export default {
         }
       });
     },
-    updateCart (id, qty) {
+    updateCart(id, qty) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart/${id}`;
       this.axios
         .put(api, { data: { product_id: id, qty: qty } })
@@ -263,17 +247,17 @@ export default {
           }
         });
     },
-    backToProduct (id) {
+    backToProduct(id) {
       this.$router.push(`/store/products/${id}`);
     },
-    addCoupon () {
+    addCoupon() {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/coupon`;
       this.axios
         .post(api, {
           data: {
-            code: this.code
-          }
+            code: this.code,
+          },
         })
         .then((response) => {
           if (response.data.success) {
@@ -287,15 +271,15 @@ export default {
           this.codeMessage = response.data.message;
         });
     },
-    submitOrder () {
+    submitOrder() {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order`;
       this.axios
         .post(api, {
           data: {
             user: this.user,
-            message: this.message
-          }
+            message: this.message,
+          },
         })
         .then((response) => {
           if (response.data.success) {
@@ -303,11 +287,11 @@ export default {
           }
           this.isLoading = false;
         });
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.getCart();
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>

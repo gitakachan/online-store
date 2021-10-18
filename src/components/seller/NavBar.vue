@@ -20,25 +20,13 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav d-flex w-100">
             <router-link
-              to="/dashboard/products"
+              v-for="item in navItem"
+              :key="item.path"
+              :to="`/dashboard/${item.path}`"
               @click="collapse"
               class="nav-link"
               href="#"
-              >產品</router-link
-            >
-            <router-link
-              to="/dashboard/orders"
-              @click="collapse"
-              class="nav-link"
-              href="#"
-              >訂單</router-link
-            >
-            <router-link
-              to="/dashboard/coupons"
-              @click="collapse"
-              class="nav-link"
-              href="#"
-              >優惠券</router-link
+              >{{ item.title }}</router-link
             >
             <a class="nav-link ms-md-auto" href="#" @click.prevent="logOut"
               >登出</a
@@ -54,21 +42,34 @@ import navBarCollapse from "@/mixins/navBarCollapse.js";
 export default {
   name: "NavBar",
   mixins: [navBarCollapse],
+  data() {
+    return {
+      navItem: [
+        {
+          path: "products",
+          title: "產品",
+        },
+        {
+          path: "orders",
+          title: "訂單",
+        },
+        {
+          path: "coupons",
+          title: "優惠券",
+        },
+      ],
+    };
+  },
   methods: {
-    logOut () {
+    logOut() {
       const api = `${process.env.VUE_APP_API}logout`;
-      this.axios
-        .post(api)
-        .then((response) => {
-          if (response.data.success) {
-            this.$router.push("/login"); // 登出成功跳轉至登入頁面
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }
-  }
+      this.axios.post(api).then((response) => {
+        if (response.data.success) {
+          this.$router.push("/login"); // 登出成功跳轉至登入頁面
+        }
+      });
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

@@ -56,30 +56,30 @@ export default {
   props: {
     page: {
       required: true,
-      type: Object
-    }
+      type: Object,
+    },
   },
-  data () {
+  data() {
     return {
-      currentP: 1
+      currentP: 1,
     };
   },
   watch: {
-    page () {
+    page() {
       // 每次傳入新的props時，更新this.currentP
       this.currentP = this.page.current_page;
-    }
+    },
   },
   methods: {
-    nextP () {
+    nextP() {
       this.currentP++;
       this.$emit("updatePage", this.currentP);
     },
-    prevP () {
+    prevP() {
       this.currentP--;
       this.$emit("updatePage", this.currentP);
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

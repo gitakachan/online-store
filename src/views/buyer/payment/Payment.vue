@@ -1,8 +1,8 @@
 <template>
   <div>
-    <loading :active="isLoading"></loading>
+    <Loading :active="isLoading" />
     <div class="container">
-      <centered-header :title="'付款'"></centered-header>
+      <CenteredHeader :title="'付款'" />
       <div class="row pb-7">
         <div class="col-lg-6">
           <h2 class="text-center">訂單內容</h2>
@@ -77,7 +77,7 @@
                 <button
                   type="button"
                   @click="submitPayment()"
-                  class="btn btn-info"
+                  class="btn btn-primary"
                 >
                   <i class="bi bi-check"></i> 確認付款
                 </button>
@@ -91,13 +91,13 @@
 </template>
 <script>
 import { getFormDate } from "@/methods/date.js";
-import CenteredHeader from "../../../../components/buyer/CenteredHeader.vue";
+import CenteredHeader from "@/components/buyer/CenteredHeader.vue";
 
 export default {
   name: "Payment",
   components: { CenteredHeader },
 
-  data () {
+  data() {
     return {
       isLoading: false,
       orderId: "",
@@ -106,11 +106,11 @@ export default {
       total: 0,
       payment_method: "",
       is_paid: false,
-      paid_date: ""
+      paid_date: "",
     };
   },
   methods: {
-    getOrder () {
+    getOrder() {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/order/${this.orderId}`;
       this.axios.get(api).then((response) => {
@@ -129,7 +129,7 @@ export default {
         this.isLoading = false;
       });
     },
-    submitPayment () {
+    submitPayment() {
       this.isLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/pay/${this.orderId}`;
       this.axios.post(api).then((response) => {
@@ -139,12 +139,12 @@ export default {
         this.isLoading = false;
       });
     },
-    getFormDate
+    getFormDate,
   },
-  mounted () {
+  mounted() {
     this.orderId = this.$route.params.orderId;
     this.getOrder();
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>

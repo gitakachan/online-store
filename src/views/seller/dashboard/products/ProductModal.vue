@@ -39,11 +39,8 @@
                       rules="required"
                       :class="{ 'is-invalid': errors['標題'] }"
                       v-model="tempProduct.title"
-                    ></Field>
-                    <error-message
-                      name="標題"
-                      class="invalid-feedback"
-                    ></error-message>
+                    />
+                    <ErrorMessage name="標題" class="invalid-feedback" />
                   </div>
                   <div class="row gx-2">
                     <!-- category -->
@@ -65,13 +62,11 @@
                           v-for="item in categoryOptionList"
                           :key="item"
                           :value="item"
-                          >{{ item }}</option
                         >
+                          {{ item }}
+                        </option>
                       </Field>
-                      <error-message
-                        name="分類"
-                        class="invalid-feedback"
-                      ></error-message>
+                      <ErrorMessage name="分類" class="invalid-feedback" />
                     </div>
                   </div>
                   <div class="row gx-2">
@@ -130,11 +125,8 @@
                         rules="required"
                         :class="{ 'is-invalid': errors['單位'] }"
                         v-model="tempProduct.unit"
-                      ></Field>
-                      <error-message
-                        name="單位"
-                        class="invalid-feedback"
-                      ></error-message>
+                      />
+                      <ErrorMessage name="單位" class="invalid-feedback" />
                     </div>
                   </div>
                   <!-- 價格 -->
@@ -152,11 +144,8 @@
                         rules="required"
                         :class="{ 'is-invalid': errors['原價'] }"
                         v-model.number="tempProduct.origin_price"
-                      ></Field>
-                      <error-message
-                        name="原價"
-                        class="invalid-feedback"
-                      ></error-message>
+                      />
+                      <ErrorMessage name="原價" class="invalid-feedback" />
                     </div>
 
                     <div class="mb-3 col-md-6">
@@ -172,11 +161,8 @@
                         rules="required"
                         :class="{ 'is-invalid': errors['售價'] }"
                         v-model.number="tempProduct.price"
-                      ></Field>
-                      <error-message
-                        name="售價"
-                        class="invalid-feedback"
-                      ></error-message>
+                      />
+                      <ErrorMessage name="售價" class="invalid-feedback" />
                     </div>
                   </div>
                   <!-- 日期 -->
@@ -200,16 +186,13 @@
                             v-model="tempProduct.weekdays"
                             rules="required"
                             :class="{ 'is-invalid': errors['weekdays'] }"
-                          ></Field>
+                          />
                           <label class="form-check-label" :for="item.id">{{
                             item.title
                           }}</label>
                         </div>
                         <br />
-                        <error-message
-                          class="text-danger"
-                          name="weekdays"
-                        ></error-message>
+                        <ErrorMessage class="text-danger" name="weekdays" />
                       </section>
                     </div>
                   </div>
@@ -224,9 +207,7 @@
                         v-model="startDate"
                         value="default"
                       />
-                      <label class="form-check-label" for="today">
-                        今天
-                      </label>
+                      <label class="form-check-label" for="today"> 今天 </label>
                     </div>
                     <div class="form-check">
                       <input
@@ -461,19 +442,19 @@ export default {
   props: {
     product: {
       type: Object,
-      default () {
+      default() {
         return {};
-      }
+      },
     },
     status: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  data () {
+  data() {
     return {
       tempProduct: {
-        imagesUrl: [] // 讓input的:disabled可以有讀取依據
+        imagesUrl: [], // 讓input的:disabled可以有讀取依據
       },
       categoryOptionList: [
         "交通",
@@ -481,7 +462,7 @@ export default {
         "一日遊、多日遊",
         "門票",
         "戶外活動",
-        "特殊體驗"
+        "特殊體驗",
       ],
       weekdays: [
         { id: 1, title: "一" },
@@ -490,14 +471,14 @@ export default {
         { id: 4, title: "四" },
         { id: 5, title: "五" },
         { id: 6, title: "六" },
-        { id: 7, title: "日" }
+        { id: 7, title: "日" },
       ],
       startDate: "default",
-      endDate: "default"
+      endDate: "default",
     };
   },
   computed: {
-    submitBtn () {
+    submitBtn() {
       // 必填項目若未填寫則無法送出建立產品請求
       const {
         title,
@@ -505,7 +486,7 @@ export default {
         unit,
         price,
         origin_price,
-        weekdays // type:Array
+        weekdays, // type:Array
       } = this.tempProduct;
       const arr = [title, category, unit, price, origin_price, weekdays];
       const num = arr.findIndex((item) => !item || item.length === 0);
@@ -514,11 +495,11 @@ export default {
       } else {
         return true;
       }
-    }
+    },
   },
   methods: {
     // 上傳圖片
-    uploadFile () {
+    uploadFile() {
       if (
         this.$refs.fileInput.files.length + this.tempProduct.imagesUrl.length >
         5
@@ -538,28 +519,27 @@ export default {
         });
       }
     },
-    addUrl (e) {
+    addUrl(e) {
       const input = e.target.value;
       this.tempProduct.imagesUrl.push(input);
       e.target.value = "";
     },
-    removeImage (item) {
+    removeImage(item) {
       const index = this.tempProduct.imagesUrl.indexOf(item);
       this.tempProduct.imagesUrl.splice(index, 1);
     },
     reverseWeekdayNumber,
-    setDefaultStart () {
+    setDefaultStart() {
       this.tempProduct.min_date = new Date();
     },
-    setDefaultEnd () {
+    setDefaultEnd() {
       this.tempProduct.max_date = new Date();
-    }
+    },
   },
   watch: {
-    product () {
-      this.tempProduct = this.product; // 每次傳新的prop的product進來後，就將要撰寫資料的tempProduct指向空的prop的product
+    product() {
+      this.tempProduct = this.product;
       if (!this.tempProduct.imagesUrl) {
-        // 新產品先初始化，以免填圖片時imagesUrl為undefined；舊產品則是避免之前沒有填過圖片，imagesUrl會為undefined
         this.tempProduct.imagesUrl = [];
       }
       if (!this.tempProduct.weekdays) {
@@ -576,23 +556,23 @@ export default {
         this.endDate = "default";
       }
     },
-    "tempProduct.weekdays" () {
+    "tempProduct.weekdays"() {
       // 找出not avilable 的日子
       this.tempProduct.notAvalibleWeekday = this.reverseWeekdayNumber(
         this.tempProduct.weekdays
       );
     },
-    startDate () {
+    startDate() {
       if (this.startDate === "default") {
         this.tempProduct.min_date = null;
       }
     },
-    endDate () {
+    endDate() {
       if (this.endDate === "default") {
         this.tempProduct.max_date = null;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

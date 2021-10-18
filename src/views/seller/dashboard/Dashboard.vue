@@ -1,35 +1,33 @@
 <template>
   <div>
-    <nav-bar></nav-bar>
+    <NavBar />
     <div class="container-fluid">
-      <router-view></router-view>
+      <RouterView />
     </div>
   </div>
 </template>
 <script>
-import mitt from "mitt";
-
 import NavBar from "@/components/seller/NavBar.vue";
+import mitt from "mitt";
 const emitter = mitt();
 
 export default {
   name: "Dashboard",
   components: {
-    NavBar
+    NavBar,
   },
-  provide () {
-    // 讓內部子組件都可使用emitter，避免重複引入
+  provide() {
     return {
       emitter,
-      resMsg: this.resMsg
+      resMsg: this.resMsg,
     };
   },
   methods: {
-    resMsg (response, title = "更新") {
+    resMsg(response, title = "更新") {
       if (response.data.success) {
         emitter.emit("pushMessage", {
           style: "success",
-          title: `${title}成功`
+          title: `${title}成功`,
         });
       } else {
         let msg = response.data.message;
@@ -39,25 +37,25 @@ export default {
         emitter.emit("pushMessage", {
           style: "danger",
           title: `${title}失敗`,
-          content: msg.join("、")
+          content: msg.join("、"),
         });
       }
-    }
+    },
   },
-  created () {
-    // 得到名为hexToken的cookie
+  created() {
     const token = document.cookie.replace(
-      /(?:(?:^|.*;\s*)hexToken\s*\s*([^;]*).*$)|^.*$/,
+      // eslint-disable-next-line
+      /(?:(?:^|.*;\s*)hexToken\s*\=\s*([^;]*).*$)|^.*$/,
       "$1"
     );
     this.axios.defaults.headers.common.Authorization = token;
     const api = `${process.env.VUE_APP_API}api/user/check`; // 檢查用戶是否仍持續登入
-    this.axios.post(api).then(response => {
+    this.axios.post(api).then((response) => {
       if (!response.data.success) {
         this.$router.push("/login");
       }
     });
-  }
+  },
 };
 </script>
 <style lang="scss" scoped></style>

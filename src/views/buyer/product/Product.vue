@@ -1,13 +1,10 @@
 <template>
   <div>
     <div class="container p-5">
-      <bread-crumb
-        :area="product.area"
-        :category="product.category"
-      ></bread-crumb>
+      <BreadCrumb :area="product.area" :category="product.category" />
       <div class="row">
         <div class="col-12 col-md-6 mb-4">
-          <images :imagesUrl="product.imagesUrl"></images>
+          <Images :imagesUrl="product.imagesUrl" />
         </div>
         <div class="col-12 col-md-6">
           <!-- 標題 -->
@@ -55,18 +52,16 @@
               </button>
             </div>
             <div class="ms-2">{{ product.unit }}</div>
-            <div class="text-danger ms-2" v-show="tooLess">
-              不得小於1
-            </div>
+            <div class="text-danger ms-2" v-show="tooLess">不得小於1</div>
           </div>
           <!-- 日期選擇 -->
-          <calender
+          <Calender
             @selectDate="selectDate"
             :notAvalible="product.notAvalibleWeekday"
             :min_date="min_date"
             :max_date="max_date"
             class="mb-4"
-          ></calender>
+          />
           <!-- 價格 -->
           <div class="price d-flex justify-content-end align-items-end mb-3">
             <h6
@@ -124,18 +119,19 @@
         </div>
       </div>
     </div>
-    <loading :active="isLoading"></loading>
-    <toast-list></toast-list>
+    <Loading :active="isLoading" />
+    <ToastList />
   </div>
 </template>
 <script>
 import Images from "./Images.vue";
 import BreadCrumb from "./BreadCrumb.vue";
 import Calender from "./Calender.vue";
+import ToastList from "@/components/responseMessages/ToastList.vue";
+
 import { getWeekdayText } from "@/methods/weekday.js";
 import priceStyleMixin from "@/mixins/priceStyleMixin.js";
 import likedProductMixin from "@/mixins/likedProductMixin.js";
-import ToastList from "@/components/responseMessages/ToastList.vue";
 
 export default {
   name: "Product",
@@ -144,20 +140,20 @@ export default {
   inject: ["emitter", "resMsg"],
   props: {
     id: {
-      required: true
-    }
+      required: true,
+    },
   },
-  data () {
+  data() {
     return {
       product: {
         ImagesUrl: [],
         price: 0,
-        origin_price: 0
+        origin_price: 0,
       },
       isLoading: false,
       order: {
         quantity: 1,
-        date: new Date()
+        date: new Date(),
       },
       tooLess: false,
       content: "",
@@ -165,12 +161,12 @@ export default {
       weekdays: "",
       min_date: "",
       max_date: "",
-      addCartLoading: false
+      addCartLoading: false,
     };
   },
 
   methods: {
-    getProduct () {
+    getProduct() {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.id}`;
       this.isLoading = true;
       this.axios.get(api).then((response) => {
@@ -213,25 +209,25 @@ export default {
         }
       });
     },
-    addQuantity () {
+    addQuantity() {
       this.tooLess = false;
       this.order.quantity++;
     },
-    deductQunatity () {
+    deductQunatity() {
       if (this.order.quantity > 1) {
         this.order.quantity--;
       } else if (this.order.quantity <= 1) {
         this.tooLess = true;
       }
     },
-    fixTextArea (str) {
+    fixTextArea(str) {
       str = str.replace(/\n/g, "<br />");
       return str;
     },
-    selectDate (date) {
+    selectDate(date) {
       this.order.date = date;
     },
-    getWeekdays (arr) {
+    getWeekdays(arr) {
       let str = "";
       if (arr.length === 7) {
         str = "每天 ";
@@ -249,7 +245,7 @@ export default {
       }
     },
     getWeekdayText,
-    addCart (id, qty) {
+    addCart(id, qty) {
       this.addCartLoading = true;
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       this.axios
@@ -262,7 +258,7 @@ export default {
           }
         });
     },
-    getCart () {
+    getCart() {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
       this.axios.get(api).then((response) => {
         if (response.data.success) {
@@ -271,11 +267,11 @@ export default {
           this.emitter.emit("cartLength", cartItems.length);
         }
       });
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.getProduct();
-  }
+  },
 };
 </script>
 <style lang="scss" scoped></style>

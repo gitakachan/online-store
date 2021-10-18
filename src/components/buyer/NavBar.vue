@@ -12,7 +12,17 @@
             href="#"
             ><i class="bi bi-cart3 text fs-5"></i>
             <span
-              class="cart-qty num rounded-circle bg-danger text-white position-absolute top-0 start-100 translate-middle"
+              class="
+                cart-qty
+                num
+                rounded-circle
+                bg-danger
+                text-white
+                position-absolute
+                top-0
+                start-100
+                translate-middle
+              "
               >{{ cartQty }}</span
             >
           </router-link>
@@ -36,32 +46,13 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav d-flex justify-content-end w-100">
             <router-link
-              to="/store/home"
+              v-for="item in navItem"
+              :key="item.path"
+              :to="`/store/${item.path}`"
               @click="collapse"
               class="nav-link px-3 fs-5"
               href="#"
-              >首頁</router-link
-            >
-            <router-link
-              to="/store/products"
-              @click="collapse"
-              class="nav-link px-3 fs-5"
-              href="#"
-              >行程＆票券</router-link
-            >
-            <router-link
-              to="/store/vnIntro"
-              @click="collapse"
-              class="nav-link px-3 fs-5"
-              href="#"
-              >越南新手旅遊攻略</router-link
-            >
-            <router-link
-              to="/store/about"
-              @click="collapse"
-              class="nav-link px-3 fs-5"
-              href="#"
-              >關於我們</router-link
+              >{{ item.title }}</router-link
             >
             <router-link
               to="/store/cart"
@@ -71,7 +62,17 @@
               ><span class="position-relative"
                 ><i class="bi bi-cart3 text-dark fs-5"></i>
                 <span
-                  class="cart-qty num rounded-circle bg-danger text-white position-absolute top-0 start-100 translate-middle"
+                  class="
+                    cart-qty
+                    num
+                    rounded-circle
+                    bg-danger
+                    text-white
+                    position-absolute
+                    top-0
+                    start-100
+                    translate-middle
+                  "
                   >{{ cartQty }}</span
                 >
               </span>
@@ -95,29 +96,35 @@ export default {
   name: "NavBar",
   mixins: [navBarCollapse],
   inject: ["emitter"],
-  data () {
+  data() {
     return {
-      itemLength: 0
+      itemLength: 0,
+      navItem: [
+        { path: "home", title: "首頁" },
+        { path: "products", title: "行程＆票券" },
+        { path: "vnIntro", title: "越南新手旅遊攻略" },
+        { path: "about", title: "關於我們" },
+      ],
     };
   },
   computed: {
-    cartQty () {
-      this.emitter.on("cartLength", length => {
+    cartQty() {
+      this.emitter.on("cartLength", (length) => {
         this.itemLength = length;
       });
       return this.itemLength;
-    }
+    },
   },
-  mounted () {
+  mounted() {
     const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`;
-    this.axios.get(api).then(response => {
+    this.axios.get(api).then((response) => {
       if (response.data.success) {
         const cartItems = response.data.data.carts;
         // 傳送給navbar icon
         this.emitter.emit("cartLength", cartItems.length);
       }
     });
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>

@@ -70,7 +70,7 @@
                     to="/store/checkout"
                     tag="button"
                     type="button"
-                    class="btn btn-info"
+                    class="btn btn-primary"
                   >
                     <i class="bi bi-cart-check"></i> 去結帳
                   </router-link>

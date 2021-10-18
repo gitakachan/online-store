@@ -1,10 +1,9 @@
 <template>
   <div>
-    <loading :active="isLoading"></loading>
     <div>
-      <add-new @openModal="openModal">
+      <AddNew @openModal="openModal">
         <template v-slot:title>新增產品</template>
-      </add-new>
+      </AddNew>
 
       <table class="table table-hover">
         <thead>
@@ -45,21 +44,22 @@
           </tr>
         </tbody>
       </table>
-      <product-modal
+      <ProductModal
         :product="tempProduct"
         :status="isNew ? '新增' : '編輯'"
         @updateProduct="updateProduct"
         ref="productModal"
-      ></product-modal>
-      <delete-modal
+      />
+      <DeleteModal
         @delete="deleteProduct"
         :title="tempProduct.title"
         :id="tempProduct.id"
         :name="'商品'"
         ref="delModal"
-      ></delete-modal>
-      <toast-list></toast-list>
-      <pagination @updatePage="getProducts" :page="pagination"></pagination>
+      />
+      <ToastList />
+      <Pagination @updatePage="getProducts" :page="pagination" />
+      <Loading :active="isLoading" />
     </div>
   </div>
 </template>
@@ -73,18 +73,18 @@ import AddNew from "@/components/seller/AddNew.vue";
 export default {
   components: { ProductModal, DeleteModal, ToastList, Pagination, AddNew },
   name: "Products",
-  data () {
+  data() {
     return {
       products: [],
       pagination: {},
       tempProduct: {},
       isNew: false, // 判斷是否為新增產品
-      isLoading: false
+      isLoading: false,
     };
   },
   inject: ["resMsg"],
   methods: {
-    openModal (isNew, item) {
+    openModal(isNew, item) {
       if (isNew) {
         // 若為新增
         this.tempProduct = { imagesUrl: [] };
@@ -95,11 +95,11 @@ export default {
       this.isNew = isNew;
       this.$refs.productModal.showModal();
     },
-    openDelModal (item) {
+    openDelModal(item) {
       this.$refs.delModal.showModal();
       this.tempProduct = JSON.parse(JSON.stringify(item));
     },
-    getProducts (page = 1) {
+    getProducts(page = 1) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`;
       this.isLoading = true;
       this.axios.get(api).then((response) => {
@@ -112,7 +112,7 @@ export default {
         }
       });
     },
-    updateProduct (item) {
+    updateProduct(item) {
       this.tempProduct = item; // 將內部傳來的參數存為tempProduct
       this.isLoading = true;
 
@@ -137,7 +137,7 @@ export default {
         }
       );
     },
-    deleteProduct (id) {
+    deleteProduct(id) {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/product/${id}`;
       this.isLoading = true;
       this.axios.delete(api).then((response) => {
@@ -148,11 +148,11 @@ export default {
         }
         this.resMsg(response, "刪除");
       });
-    }
+    },
   },
-  mounted () {
+  mounted() {
     this.getProducts();
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>

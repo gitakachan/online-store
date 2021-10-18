@@ -2,11 +2,10 @@
   <div
     class="vh-100 d-flex align-items-center"
     :style="{
-      backgroundImage: 'url(' + require('@/assets/imgs/login/bg.jpeg') + ')'
+      backgroundImage: 'url(' + require('@/assets/imgs/login/bg.jpeg') + ')',
     }"
   >
-    <div class="container py-6 ">
-      <loading :active="isLoading"></loading>
+    <div class="container py-6">
       <div class="row">
         <div class="col col-md-10 col-xl-8 mx-auto">
           <div class="content px-3 py-5 rounded-3">
@@ -23,24 +22,34 @@
             </h2>
             <form @submit.prevent="login">
               <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email</label>
+                <label
+                  for="exampleInputEmail1"
+                  class="form-label"
+                  :class="{ 'text-danger': error }"
+                  >Email<span v-show="error">有誤，請再試一次</span></label
+                >
                 <input
                   type="email"
                   class="form-control"
                   id="exampleInputEmail1"
                   aria-describedby="emailHelp"
+                  :class="{ 'border-danger': error }"
                   v-model="user.username"
                 />
               </div>
               <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label"
-                  >密碼</label
-                >
+                <label
+                  for="exampleInputPassword1"
+                  class="form-label"
+                  :class="{ 'text-danger': error }"
+                  >密碼<span v-show="error">有誤，請再試一次</span>
+                </label>
                 <input
                   type="password"
                   class="form-control"
                   id="exampleInputPassword1"
                   v-model="user.password"
+                  :class="{ 'border-danger': error }"
                 />
               </div>
               <div class="text-end">
@@ -51,36 +60,38 @@
         </div>
       </div>
     </div>
+    <Loading :active="isLoading" />
   </div>
 </template>
 <script>
 export default {
   name: "Login",
-  data () {
+  data() {
     return {
       user: {
         username: "",
-        password: ""
+        password: "",
       },
-      isLoading: false
+      isLoading: false,
+      error: false,
     };
   },
   methods: {
-    login () {
-      const api = `${process.env.VUE_APP_API}admin/signin`; // https://vue3-course-api.hexschool.io/admin/signin
+    login() {
+      const api = `${process.env.VUE_APP_API}admin/signin`;
       this.isLoading = true;
-      this.axios.post(api, this.user).then(response => {
+      this.axios.post(api, this.user).then((response) => {
         this.isLoading = false;
         if (response.data.success) {
           const { token, expired } = response.data;
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}`;
-          this.$router.push("/dashboard/products"); // 登入成功就跳轉到dashboard
+          this.$router.push("/dashboard/products");
         } else {
-          alert(response.data.message + "，請再試一次");
+          this.error = true;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
